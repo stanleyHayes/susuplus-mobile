@@ -36,7 +36,6 @@ const getGroupPaymentMethods = (token, groupID) => {
 
       const { data } = response.data;
       dispatch(getGroupPaymentMethodsSuccess(data));
-      console.log(data, 'group payment methods')
     } catch (e) {
       const { message } = e.response.data;
       dispatch(getGroupPaymentMethodsFailure(message));

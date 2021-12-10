@@ -1,18 +1,44 @@
 import React from "react";
-import { Button, Center, Flex, Text } from "native-base";
+import { Button, Center, Flex, Image, Text } from "native-base";
 import { SCREEN_NAME_CONSTANTS } from "../../constants/constants";
+import susuplusIcon from "../../assets/images/plus.png";
 
 const ForgotPasswordSuccessScreen = ({ navigation }) => {
-
-  console.log('forgot password success screen')
+  
   return (
-    <Flex flex={1} backgroundColor="white" alignItems="center" justifyItems="center">
-      <Center>
-        <Text mb={3} fontSize="md" textAlign="center" color="gray.700">
+    <Flex p={5} flex={1} backgroundColor="white">
+      <Center flex={1}>
+        <Center width="100%">
+          <Image
+              borderRadius={100}
+              height={100}
+              width={100}
+              objectFit="cover"
+              objectPosition="center"
+              alt="susu plus icon"
+              source={susuplusIcon} />
+        </Center>
+        <Text
+            fontSize="5xl"
+            mb={2}
+            color="darkText"
+            width="100%"
+            fontFamily="body"
+            textAlign="center"
+            textTransform="capitalize">
+          Susu Plus
+        </Text>
+        
+        <Text mb={6} fontSize="md" textAlign="center" color="darkText">
           A resent link has been sent to the email you provided together with an OTP
         </Text>
-        <Button onPress={() => navigation.navigate(SCREEN_NAME_CONSTANTS.RESET_PASSWORD_SCREEN)}>
-          <Text textColor="white" fontSize="md">Go to Password Reset</Text>
+        <Button
+            width="100%"
+            backgroundColor="primary.800"
+            py={3}
+            borderRadius={32}
+            onPress={() => navigation.navigate(SCREEN_NAME_CONSTANTS.RESET_PASSWORD_SCREEN)}>
+          <Text color="white" fontSize="md">Go to Password Reset</Text>
         </Button>
       </Center>
     </Flex>

@@ -10,28 +10,28 @@ import AddSusuMembersForm from "../../components/susu-member-add-form";
 import SusuRegulationsForm from "../../components/susu-regulations-form";
 import CreateSusuSummary from "../../components/create-susu-summary";
 
-const CreateGroupSusuScreen = ({navigation, route}) => {
+const CreateGroupSusuScreen = ({ navigation, route }) => {
     
-    const {groupID} = route.params;
+    const { groupID } = route.params;
     
     const { createSusuPage, susuLoading } = useSelector(selectSusu);
     const { groupDetail, groupLoading } = useSelector(selectGroups);
-    const {authToken} = useSelector(selectAuth);
+    const { authToken } = useSelector(selectAuth);
     
     const renderPage = page => {
         switch (page) {
             case 0:
                 return <GroupSusuBasicInfoForm groupDetail={groupDetail} />;
-    
+            
             case 1:
                 return <SusuRegulationsForm />;
-                
+            
             case 2:
                 return <AddSusuMembersForm groupDetail={groupDetail} />;
-                
-                  case 3:
+            
+            case 3:
                 return <CreateSusuSummary navigation={navigation} groupDetail={groupDetail} />;
-                
+            
             default:
                 return <GroupSusuBasicInfoForm groupDetail={groupDetail} />;
         }
@@ -42,6 +42,7 @@ const CreateGroupSusuScreen = ({navigation, route}) => {
     useEffect(() => {
         dispatch(GROUP_ACTION_CREATORS.getGroup(authToken, groupID));
     }, []);
+    
     return (
         <Flex position="relative" flex={1} py={2} minHeight="100%">
             {susuLoading || groupLoading && (
@@ -52,7 +53,7 @@ const CreateGroupSusuScreen = ({navigation, route}) => {
                     />
                 </Center>
             )}
-           
+            
             {groupDetail && renderPage(createSusuPage)}
         </Flex>
     );

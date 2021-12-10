@@ -7,9 +7,11 @@ const PaymentOrder = ({ order }) => {
 
   return (
     <Box
-      borderRadius={0}
+      borderRadius={32}
       backgroundColor="white"
       p={2}
+      mx={2}
+      my={0.5}
       shadow={0}>
       <HStack>
         <Box>

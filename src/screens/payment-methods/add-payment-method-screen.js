@@ -227,9 +227,9 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                 placeholder="Select Provider"
                 selectedValue={provider}>
                 <Select.Item label="Select Provider" value="" />
-                <Select.Item label="MTN Mobile Money" value="MTN" />
-                <Select.Item label="Vodafone Cash" value="Vodafone" />
-                <Select.Item label="Airtel Tigo Cash" value="AirtelTigo" />
+                <Select.Item label="MTN Mobile Money" value="mtn" />
+                <Select.Item label="Vodafone Cash" value="vod" />
+                <Select.Item label="Airtel Tigo Cash" value="tgo" />
               </Select>
 
               <Box mb={1}>
@@ -243,7 +243,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                   isInvalid={Boolean(error.name)}
                   width="100%"
                   value={name}
-                  type="name"
+                  autoComplete="name"
                   name="name"
                   placeholder="E.g. Stanley Hayford"
                   variant="filled"
@@ -269,6 +269,8 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                   name="mobileMoneyNumber"
                   placeholder="E.g. +233270048319"
                   variant="filled"
+                  keyboardType="phone-pad"
+                  textContentType="telephoneNumber"
                   size="lg"
                   type="tel"
                   borderRadius={32}

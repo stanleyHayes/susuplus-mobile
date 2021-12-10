@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import { Box, Button, Center, Divider, Flex, Input, ScrollView, Spinner, Text } from "native-base";
+import { Box, Button, Divider, Flex, Input, ScrollView, Spinner, Text } from "native-base";
 import validator from "validator";
 import { useDispatch, useSelector } from "react-redux";
 import SingleInvitationListItem from "../../components/single-invitation-item";
 import Empty from "../../components/empty";
 import { INVITATION_ACTION_CREATORS } from "../../redux/invites/group-invites-action-creators";
 import { selectAuth } from "../../redux/auth/auth-reducer";
-import { selectInvites } from "../../redux/invites/group-invites-reducers";
 
 const InviteGroupUsersScreen = ({ navigation, route }) => {
     
     const { authToken } = useSelector(selectAuth);
-    const { inviteLoading } = useSelector(selectInvites);
     const { groupID } = route.params;
     
     const [email, setEmail] = useState("");
@@ -57,13 +55,13 @@ const InviteGroupUsersScreen = ({ navigation, route }) => {
         }
         dispatch(INVITATION_ACTION_CREATORS.createInvitation(
             { group: groupID, invitations },
-            authToken), navigation);
+            authToken, navigation));
     };
     
     return (
         <ScrollView backgroundColor="gray.100">
             <Flex flex={1} position="relative" minHeight="100%">
-                <Box position="absolute" flex={1} width="100%" >
+                <Box position="absolute" flex={1} width="100%">
                     <Spinner position="absolute" zIndex={10000} size={50} />
                 </Box>
                 <Box borderRadius={32} p={5} shadow={0} backgroundColor="white" m={2}>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Center, Divider, Flex, Image, Pressable, Text } from "native-base";
+import { Box,  Center, Divider, Flex, Image, Pressable, Text } from "native-base";
 import { SCREEN_NAME_CONSTANTS } from "../constants/constants";
 import defaultImage from "./../assets/images/group-colored.png";
 

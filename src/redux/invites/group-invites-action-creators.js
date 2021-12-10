@@ -71,7 +71,6 @@ const createInvitationFailure = message => {
 }
 
 const createInvitation = (invitations, token, navigation) => {
-  console.log(invitations, 'invitations')
   return async dispatch => {
     dispatch(createInvitationRequest());
     try {
@@ -85,10 +84,8 @@ const createInvitation = (invitations, token, navigation) => {
       });
       const {data} = response.data;
       dispatch(createInvitationSuccess(data));
-      navigation.push(SCREEN_NAME_CONSTANTS.GROUPS_SCREEN);
-      console.log(data, 'data')
+      navigation.push(SCREEN_NAME_CONSTANTS.GROUP_INVITATIONS_SCREEN, {groupID: invitations.group});
     }catch (e) {
-      console.log(e.message)
       const {message} = e.response.data;
       if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);

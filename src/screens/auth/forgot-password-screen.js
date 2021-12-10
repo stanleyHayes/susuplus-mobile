@@ -1,131 +1,164 @@
 import React, { useState } from "react";
-import { Alert, Button, Flex, Icon, Input, Text, VStack } from "native-base";
-import { useDispatch, useSelector } from "react-redux";
+import { Alert, Button, Center, Flex, Icon, Image, Input, Text, VStack, Box } from "native-base";
+import { useDispatch } from "react-redux";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { SCREEN_NAME_CONSTANTS } from "../../constants/constants";
 import validator from "validator";
-import { selectAuth } from "../../redux/auth/auth-reducer";
 import { AUTH_ACTION_CREATORS } from "../../redux/auth/auth-action-creators";
+import susuplusIcon from "../../assets/images/plus.png";
 
 const ForgotPasswordScreen = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState({});
-
-  const { authLoading, authError } = useSelector(selectAuth);
-
-  const dispatch = useDispatch();
-
-  const handleClick = () => {
-    if (!email) {
-      setError({ error, email: "Field required" });
-      return;
-    } else {
-      setError({ email: null });
-    }
-
-    if (!validator.isEmail(email)) {
-      setError({ error, email: "Invalid Email" });
-      return;
-    } else {
-      setError({ email: null });
-    }
-    dispatch(AUTH_ACTION_CREATORS.forgotPassword(email, navigation));
-  };
-
-  return (
-    <Flex
-      backgroundColor="white"
-      height="100%"
-      width="100%"
-      alignItems="center"
-      p={4}
-      justifyContent="center">
-      <Button
-        onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.SIGN_IN_SCREEN)}
-        pt={3}
-        mb={4}
-        pb={3}
-        borderRadius={32}
-        alignSelf="flex-start"
-        size="lg"
-        startIcon={<Icon as={MaterialIcons} size="md" name="chevron-left" />}
-        _text={{ textTransform: "uppercase", color: "gray.700" }}
-        variant="link">
-        <Text fontSize="lg">
-          Back
-        </Text>
-      </Button>
-
-      <Text
-        mb={8}
-        width="100%"
-        fontSize="2xl"
-        textTransform="uppercase"
-        color="gray.700"
-        textAlign="center">
-        Forgot Password
-      </Text>
-
-      {authError && (
-        <Alert p={3} width="100%" status="error" borderRadius={32} variant="left-accent">
-          <VStack alignItems="center" width="100%" space={2}>
-            <Alert.Icon size="lg" />
-            <Text color="red.600" textAlign="center" fontSize="lg">Error</Text>
-            <Text textAlign="center" fontSize="md" color="red.600">{authError}</Text>
-          </VStack>
-        </Alert>
-      )}
-
-      <Text
-        mb={8}
-        width="100%"
-        color="gray.700"
-        fontSize="md"
-        fontFamily="body"
-        textAlign="center">
-        Please enter the email associated with your account to receive a reset link
-      </Text>
-
-      <Input
-        mb={1}
-        isFullWidth={true}
-        size="lg"
-        borderRadius={32}
-        value={email}
-        placeholder="Enter Email"
-        variant="filled"
-        alignSelf="stretch"
-        isRequired={true}
-        pt={3}
-        pb={3}
-        type="email"
-        name="email"
-        backgroundColor="gray.50"
-        onChangeText={email => setEmail(email)}
-      />
-      {error.email && <Text color="red.400">{error.email}</Text>}
-
-      <Button
-        onPress={handleClick}
-        pt={4}
-        borderRadius={32}
-        pb={4}
-        mt={8}
-        _loading={{ backgroundColor: "primary.200" }}
-        isLoading={authLoading}
-        isLoadingText="Sending Reset Link"
-        backgroundColor="primary.800"
-        _text={{ textTransform: "uppercase" }}
-        mb={4}
-        alignSelf="stretch"
-        size="lg"
-        variant="solid">
-        <Text color="white" fontSize="md">
-          Get Reset Link
-        </Text>
-      </Button>
-    </Flex>
-  );
+    const [email, setEmail] = useState("");
+    const [error, setError] = useState({});
+    
+    const dispatch = useDispatch();
+    
+    const handleClick = () => {
+        if (!email) {
+            setError({ error, email: "Field required" });
+            return;
+        } else {
+            setError({ email: null });
+        }
+        
+        if (!validator.isEmail(email)) {
+            setError({ error, email: "Invalid Email" });
+            return;
+        } else {
+            setError({ email: null });
+        }
+        dispatch(AUTH_ACTION_CREATORS.forgotPassword(email, navigation));
+    };
+    
+    return (
+        <Flex
+            width="100%"
+            flex={1}
+            backgroundColor="primary.800"
+            justifyContent="center">
+    
+            <Center
+                m={10}
+                p={5}
+                justifySelf="flex-start"
+                alignSelf="flex-start"
+                borderRadius={100} size={10}
+                backgroundColor="primary.600">
+                <Icon
+                    onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.SIGN_IN_SCREEN)}
+                    color="white"
+                    as={<MaterialIcons name="keyboard-arrow-left" />} size="md"
+                />
+            </Center>
+            
+            <Center px={5} flex={1}>
+                <Center width="100%">
+                    <Image
+                        borderRadius={100}
+                        height={100}
+                        width={100}
+                        objectFit="cover"
+                        objectPosition="center"
+                        alt="susu plus icon"
+                        source={susuplusIcon} />
+                </Center>
+                
+                <Text
+                    fontSize="5xl"
+                    color="white"
+                    width="100%"
+                    textAlign="center"
+                    textTransform="capitalize">
+                    Susu Plus
+                </Text>
+                
+                <Text
+                    fontSize="2xl"
+                    color="white"
+                    width="100%"
+                    textAlign="center"
+                    textTransform="capitalize">
+                    Forgot Password
+                </Text>
+            </Center>
+            
+            <Box
+                backgroundColor="white"
+                shadow={0}
+                p={5}
+                borderTopLeftRadius={32}
+                borderTopRightRadius={32}>
+                <Text
+                    mb={8}
+                    width="100%"
+                    color="darkText"
+                    fontSize="md"
+                    fontFamily="body"
+                    textAlign="center">
+                    Please enter the email associated with your account to receive a reset link
+                </Text>
+    
+                <Text
+                    mb={1}
+                    width="100%"
+                    color="darkText"
+                    fontSize="sm"
+                    fontFamily="body">
+                    Email
+                </Text>
+                <Input
+                    mb={1}
+                    borderWidth={1}
+                    borderColor="primary.100"
+                    p={4}
+                    borderRadius={32}
+                    isFullWidth={true}
+                    size="lg"
+                    value={email}
+                    InputLeftElement={
+                        <Icon
+                            size={6}
+                            ml={2}
+                            color="primary.400"
+                            as={<MaterialIcons name="mail-outline" />}
+                        />
+                    }
+                    isInvalid={Boolean(error.email)}
+                    placeholder="e.g. user@server.com"
+                    variant="rounded"
+                    width="100%"
+                    isRequired={true}
+                    returnKeyType="next"
+                    autoComplete="email"
+                    textContentType="emailAddress"
+                    name="email"
+                    placeholderTextColor="primary.600"
+                    keyboardType="email-address"
+                    onChangeText={email => setEmail(email)}
+                    color="gray.800"
+                />
+                {error.email && <Text color="red.600">{error.email}</Text>}
+    
+    
+                <Button
+                    onPress={handleClick}
+                    pt={4}
+                    borderRadius={32}
+                    pb={4}
+                    mt={8}
+                    backgroundColor="primary.800"
+                    _text={{ textTransform: "uppercase" }}
+                    mb={4}
+                    alignSelf="stretch"
+                    size="lg"
+                    variant="solid">
+                    <Text color="white" fontSize="md">
+                        Get Reset Link
+                    </Text>
+                </Button>
+            </Box>
+        </Flex>
+    );
 };
 
 export default ForgotPasswordScreen;

@@ -17,7 +17,7 @@ const SusuScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <Flex position="relative" height="100%" width="100%" backgroundColor="gray.100">
+    <Flex position="relative" height="100%" width="100%" py={2} backgroundColor="gray.100">
       {susuMemberLoading &&
       <Center position="absolute" right="50%" top="50%">
         <Spinner

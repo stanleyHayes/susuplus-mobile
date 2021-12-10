@@ -12,7 +12,7 @@ const CreateSusuSummary = ({ navigation, groupDetail }) => {
     
     const { createSusuBasicInfo, createSusuMembers, createSusuRegulations } = useSelector(selectSusu);
     
-    const { authToken } = useSelector(selectAuth);
+    const { authToken, userData } = useSelector(selectAuth);
     
     const dispatch = useDispatch();
     
@@ -25,6 +25,7 @@ const CreateSusuSummary = ({ navigation, groupDetail }) => {
                 members: [...createSusuMembers.map(member => member.user._id)],
                 group: groupDetail._id,
             },
+            userData._id,
             navigation));
     };
     

@@ -16,7 +16,7 @@ const susuMembersReducer = (state = INITIAL_STATE, action) => {
         susuMemberError: null,
         susuMemberLoading: true,
       };
-
+      
     case SUSU_MEMBER_ACTION_TYPES.GET_SUSU_GROUPS_OF_USER_SUCCESS:
       return {
         ...state,
@@ -32,7 +32,30 @@ const susuMembersReducer = (state = INITIAL_STATE, action) => {
         susuMemberLoading: false,
         susuGroupsOfUser: [],
       };
-
+  
+  
+    case SUSU_MEMBER_ACTION_TYPES.ADD_SUSU_MEMBERS_REQUEST:
+      return {
+        ...state,
+        susuMemberError: null,
+        susuMemberLoading: true,
+      };
+  
+    case SUSU_MEMBER_ACTION_TYPES.ADD_SUSU_MEMBERS_SUCCESS:
+      return {
+        ...state,
+        susuMemberError: null,
+        susuMemberLoading: false,
+        susuMembers: action.payload,
+      };
+  
+    case SUSU_MEMBER_ACTION_TYPES.ADD_SUSU_MEMBERS_FAILURE:
+      return {
+        ...state,
+        susuMemberError: action.payload,
+        susuMemberLoading: false
+      };
+      
     case SUSU_MEMBER_ACTION_TYPES.GET_SUSU_MEMBERS_REQUEST:
       return {
         ...state,
@@ -41,7 +64,6 @@ const susuMembersReducer = (state = INITIAL_STATE, action) => {
       };
 
     case SUSU_MEMBER_ACTION_TYPES.GET_SUSU_MEMBERS_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         susuMemberError: null,

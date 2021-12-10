@@ -142,9 +142,9 @@ const GroupSusuBasicInfoForm = ({ groupDetail }) => {
                 <Divider width="100%" my={2} />
                 
                 <Box mb={2}>
-                    <Text mb={1}>Amount</Text>
+                    <Text mb={1}>Interval</Text>
                     <Input
-                        placeholder="Contribution amount"
+                        placeholder="Contribution interval"
                         variant="rounded"
                         borderWidth={1}
                         borderRadius={32}

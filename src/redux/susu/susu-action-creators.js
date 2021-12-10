@@ -1,6 +1,7 @@
 import { SUSU_ACTION_TYPES } from "./susu-action-types";
 import axios from "axios";
 import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS } from "../../constants/constants";
+import { SUSU_MEMBERS_ACTION_CREATORS } from "../susu-members/susu-members-action-creators";
 
 const getSusuGroupRequest = () => {
     return {
@@ -86,7 +87,7 @@ const createSusuRequest = () => {
 };
 
 
-const createSusuSuccess = () => {
+const createSusuSuccess = susu => {
     return {
         type: SUSU_ACTION_TYPES.CREATE_SUSU_SUCCESS,
         payload: susu
@@ -102,7 +103,7 @@ const createSusuFailure = message => {
 };
 
 
-const createSusu = (token, susu, navigation) => {
+const createSusu = (token, susu, userID, navigation) => {
     return async dispatch => {
         dispatch(createSusuRequest());
         try {
@@ -116,9 +117,9 @@ const createSusu = (token, susu, navigation) => {
             });
             const { data } = response.data;
             dispatch(createSusuSuccess(data));
-            navigation.push(SCREEN_NAME_CONSTANTS.GROUPS_SCREEN);
+            dispatch(SUSU_MEMBERS_ACTION_CREATORS.getGroupsOfUser(token, userID));
+            navigation.push(SCREEN_NAME_CONSTANTS.GROUP_DETAIL_SCREEN, {groupID: susu.group});
         } catch (e) {
-            console.log(e.message)
             const { message } = e.response.data;
             dispatch(createSusuFailure(message));
         }

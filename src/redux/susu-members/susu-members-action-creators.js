@@ -1,6 +1,6 @@
 import { SUSU_MEMBER_ACTION_TYPES } from "./susu-members-action-types";
 import axios from "axios";
-import { API_URL_CONSTANTS } from "../../constants/constants";
+import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS } from "../../constants/constants";
 
 const getSusuGroupsOfUserRequest = () => {
   return {
@@ -41,6 +41,50 @@ const getGroupsOfUser = (token, userID) => {
     }
   }
 }
+
+
+const addSusuMembersRequest = () => {
+  return {
+    type: SUSU_MEMBER_ACTION_TYPES.ADD_SUSU_MEMBERS_REQUEST
+  }
+}
+
+const addSusuMembersSuccess = members => {
+  return {
+    type: SUSU_MEMBER_ACTION_TYPES.ADD_SUSU_MEMBERS_SUCCESS,
+    payload: members
+  }
+}
+
+const addSusuMembersFailure = message => {
+  return {
+    type: SUSU_MEMBER_ACTION_TYPES.ADD_SUSU_MEMBERS_FAILURE,
+    payload: message
+  }
+}
+
+const addSusuMembers = (token, members, navigation) => {
+  return async dispatch => {
+    dispatch(addSusuMembersRequest());
+    try {
+      const response = await axios({
+        url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/susu-members`,
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        data: members
+      });
+      const {data} = response.data;
+      dispatch(addSusuMembersSuccess(data))
+      navigation.navigate(SCREEN_NAME_CONSTANTS.SUSU_MEMBERS_SCREEN, {susuID: members.susuID})
+    }catch (e) {
+      const {message} = e.response.data;
+      dispatch(addSusuMembersFailure(message));
+    }
+  }
+}
+
 
 
 const getSusuGroupMembersRequest = () => {
@@ -84,4 +128,4 @@ const getSusuGroupMembers = (token, susuID) => {
 }
 
 
-export const SUSU_MEMBERS_ACTION_CREATORS = {getGroupsOfUser, getSusuGroupMembers};
+export const SUSU_MEMBERS_ACTION_CREATORS = {getGroupsOfUser, getSusuGroupMembers, addSusuMembers};

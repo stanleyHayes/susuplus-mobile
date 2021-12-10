@@ -2,6 +2,7 @@ import { AUTH_ACTION_TYPES } from "./auth-action-types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS, SECURE_STORAGE_CONSTANTS } from "../../constants/constants";
 import axios from "axios";
+import { UTILS } from "../../utils/utils";
 
 const restoreTokenRequest = () => {
   return {
@@ -33,6 +34,7 @@ export const restoreToken = () => {
         dispatch(restoreTokenSuccess(token, JSON.parse(userData)));
       } else {
         dispatch(restoreTokenFailure());
+        
       }
     } catch (e) {
       dispatch(restoreTokenFailure(e.message));
@@ -73,9 +75,11 @@ export const signIn = (user) => {
       const { token, data } = response.data;
       await AsyncStorage.setItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY, token);
       await AsyncStorage.setItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY, JSON.stringify(data));
+      UTILS.showToast('Sign In successful', 'Welcome back to susu plus. Enjoy', 'success', 5000);
       dispatch(signInSuccess(token, data));
     } catch (e) {
       const { message } = e.response.data;
+      UTILS.showToast('Sign up failed', message, 'error', 5000);
       dispatch(signInFailure(message));
     }
   };
@@ -113,10 +117,12 @@ export const signUp = (user, navigator) => {
       });
       const { token } = response.data;
       dispatch(signUpSuccess(token));
+      UTILS.showToast('Account Created', 'Verify your account to continue', 'success', 5000);
       await AsyncStorage.setItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_SIGN_UP_TOKEN_KEY, token);
       navigator.navigate(SCREEN_NAME_CONSTANTS.VERIFY_ACCOUNT_SCREEN);
     } catch (e) {
       const { message } = e.response.data;
+      UTILS.showToast('Account Created Failed', message, 'error', 5000);
       dispatch(signUpFailure(message));
     }
   };
@@ -154,10 +160,20 @@ export const forgotPassword = (email, navigation) => {
       });
       const { token } = response.data;
       await AsyncStorage.setItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_FORGOT_PASSWORD_TOKEN_KEY, token);
+      UTILS.showToast(
+          'Reset Password Link Sent',
+          'Follow the link to reset your password',
+          'success',
+          5000);
       dispatch(forgotPasswordSuccess(token));
-      navigation.navigate(SCREEN_NAME_CONSTANTS.FORGOT_PASSWORD_SUCCESS_SCREEN);
+      navigation.push(SCREEN_NAME_CONSTANTS.FORGOT_PASSWORD_SUCCESS_SCREEN);
     } catch (e) {
       const { message } = e.response.data;
+      UTILS.showToast(
+          'Reset Password Link not sent',
+          message,
+          'error',
+          5000);
       dispatch(forgotPasswordFailure(message));
     }
   };
@@ -193,9 +209,15 @@ export const resetPassword = (user, token, navigator) => {
         url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/auth/reset-password/${token}`,
       });
       dispatch(resetPasswordSuccess());
+      UTILS.showToast(
+          'Password Reset Successful',
+          'Account successfully reset. Login to continue',
+          'success',
+          5000);
       navigator.push(SCREEN_NAME_CONSTANTS.SIGN_IN_SCREEN);
     } catch (e) {
       const { message } = e.response.data;
+      UTILS.showToast('Reset Password failed', message, 'error', 5000);
       dispatch(resetPasswordFailure(message));
     }
   };
@@ -235,8 +257,15 @@ export const verifyAccount = (otp, token, navigation) => {
       });
       dispatch(verifyAccountSuccess());
       navigation.push(SCREEN_NAME_CONSTANTS.SIGN_IN_SCREEN);
+      UTILS.showToast(
+          'Account verified',
+          'Account successfully verified. Login to continue',
+          'success',
+          5000);
+  
     } catch (e) {
       const { message } = e.response.data;
+      UTILS.showToast('Account Verification Failed', message, 'error', 5000);
       dispatch(verifyAccountFailure(message));
     }
   };
@@ -279,6 +308,11 @@ export const updateProfile = (user, token, navigation) => {
       const { data } = response.data;
       dispatch(updateProfileSuccess(data));
       navigation.push(SCREEN_NAME_CONSTANTS.MORE_SCREEN);
+      UTILS.showToast(
+          'Profile Updated',
+          'Profile updated successfully.',
+          'success',
+          5000);
     } catch (e) {
       const { message } = e.response.data;
       if(e.response.message === 'jwt expired'){
@@ -286,6 +320,7 @@ export const updateProfile = (user, token, navigation) => {
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
         dispatch(restoreToken());
       }
+      UTILS.showToast('Update profile failed', message, 'error', 5000);
       dispatch(updateProfileFailure(message));
     }
   };
@@ -325,6 +360,11 @@ export const changePassword = (passwords, token, navigation) => {
       });
       dispatch(changePasswordSuccess());
       navigation.push(SCREEN_NAME_CONSTANTS.MORE_SCREEN);
+      UTILS.showToast(
+          'Password Changed',
+          'Password changed successfully',
+          'success',
+          5000);
     } catch (e) {
       const { message } = e.response.data;
       if(e.response.message === 'jwt expired'){
@@ -332,6 +372,7 @@ export const changePassword = (passwords, token, navigation) => {
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
         dispatch(restoreToken());
       }
+      UTILS.showToast('Update password failed', message, 'error', 5000);
       dispatch(changePasswordFailure(message));
     }
   };
@@ -405,8 +446,14 @@ export const disableAccount = (token, navigator) => {
       });
       dispatch(disableAccountSuccess());
       navigator.push(SCREEN_NAME_CONSTANTS.SIGN_IN_SCREEN);
+      UTILS.showToast(
+          'Account Disabled',
+          'Account disabled successfully verified. We are sorry to see you leave. We hope you come back',
+          'success',
+          5000);
     } catch (e) {
       const { message } = e.response.data;
+      UTILS.showToast('Could not disable profile', message, 'error', 5000);
       dispatch(disableAccountFailure(message));
     }
   };

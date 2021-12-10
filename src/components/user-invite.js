@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Divider, HStack, Image, Text, Badge, Avatar } from "native-base";
 import moment from "moment/moment";
-import defaultImage from "./../assets/images/user.png";
 import { UTILS } from "../utils/utils";
 
 const UserInvitation = ({ userInvite }) => {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, Flex, Text, Divider, Box, Input, Button, FlatList } from "native-base";
+import { Box, Button, Divider, Input, ScrollView, Text } from "native-base";
 import { selectGroups } from "../redux/groups/group-reducers";
 import { useDispatch, useSelector } from "react-redux";
 import { GROUP_ACTION_CREATORS } from "../redux/groups/group-action-creators";
@@ -8,43 +8,43 @@ import validator from "validator";
 import Empty from "./empty";
 
 const GroupInvitesForm = () => {
-
+    
     const { createGroupInvitations } = useSelector(selectGroups);
-
+    
     const [email, setEmail] = useState("");
     const [error, setError] = useState({});
-
+    
     const [invitations, setInvitations] = useState([...createGroupInvitations]);
-
+    
     const addInvitation = () => {
         if (!email) {
-            setError({error, email: 'Field required'});
+            setError({ error, email: "Field required" });
             return;
         } else {
-            setError({error, email: null});
+            setError({ error, email: null });
         }
-
+        
         if (!validator.isEmail(email)) {
-            setError({error, email: 'Invalid email'});
+            setError({ error, email: "Invalid email" });
             return;
         } else {
-            setError({error, email: null});
+            setError({ error, email: null });
         }
-
+        
         if (invitations.findIndex(invitation => invitation.toLowerCase() === email.toLowerCase()) !== -1) {
-            setError({error, email: 'Email already added'});
+            setError({ error, email: "Email already added" });
             return;
         }
         setInvitations([...invitations, email.toLowerCase()]);
         setEmail("");
     };
-
+    
     const removeInvitation = i => {
         setInvitations(invitations.filter((invitation, index) => i !== index));
     };
-
+    
     const dispatch = useDispatch();
-
+    
     const handleGroupInvitationsSubmit = () => {
         if (invitations.length <= 0) {
             setError({ error, invitations: "Invite at least one user" });
@@ -55,14 +55,14 @@ const GroupInvitesForm = () => {
         dispatch(GROUP_ACTION_CREATORS.saveGroupInvites(invitations));
         dispatch(GROUP_ACTION_CREATORS.groupGoToNextPage());
     };
-
+    
     return (
         <ScrollView flex={1} minHeight="100%">
             <Box borderRadius={32} p={5} shadow={0} backgroundColor="white" m={2}>
                 <Text textAlign="center" fontSize="lg">Group Invitations</Text>
-
+                
                 <Divider width="100%" my={2} />
-
+                
                 <Box mb={2}>
                     <Input
                         placeholder="Type email"
@@ -84,7 +84,7 @@ const GroupInvitesForm = () => {
                         isRequired={true}
                     />
                     {error.email && <Text color="error.400">{error.email}</Text>}
-
+                    
                     <Button
                         mt={2}
                         backgroundColor="primary.600"
@@ -95,18 +95,18 @@ const GroupInvitesForm = () => {
                     </Button>
                 </Box>
             </Box>
-
+            
             <Box borderRadius={32} p={4} shadow={0} backgroundColor="white" m={2}>
                 <Text textAlign="center" fontSize="lg">Group Invitations ({invitations.length})</Text>
-
+                
                 <Divider width="100%" my={2} />
-    
+                
                 <Box>
                     {invitations.length === 0 ? (
                         <Box>
                             <Empty title="Invitations" description="Invite at least one user" />
                         </Box>
-                    ): (
+                    ) : (
                         invitations.map((email, index) => {
                             return (
                                 <SingleInvitationListItem
@@ -116,11 +116,11 @@ const GroupInvitesForm = () => {
                                     showDelete={true}
                                     removeInvitation={removeInvitation}
                                 />
-                            )
+                            );
                         })
                     )}
                 </Box>
-
+                
                 <Button
                     mt={2}
                     backgroundColor="primary.600"
@@ -130,7 +130,7 @@ const GroupInvitesForm = () => {
                     variant="subtle">
                     <Text color="white" fontSize="md">Previous</Text>
                 </Button>
-
+                
                 {invitations.length > 0 && (
                     <Button
                         mt={2}
@@ -142,8 +142,8 @@ const GroupInvitesForm = () => {
                         <Text color="white" fontSize="md">Save Invitees</Text>
                     </Button>
                 )}
-
-
+            
+            
             </Box>
         </ScrollView>
     );

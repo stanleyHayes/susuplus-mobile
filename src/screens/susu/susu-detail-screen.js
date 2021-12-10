@@ -30,6 +30,7 @@ import contributionIcon from "./../../assets/images/donation.png";
 import susuMembersIcon from "./../../assets/images/team.png";
 import { SUSU_MEMBERS_ACTION_CREATORS } from "../../redux/susu-members/susu-members-action-creators";
 import { selectSusuGroupMembers } from "../../redux/susu-members/susu-members-reducers";
+import SingleRegulationListItem from "../../components/single-regulation-list-item";
 
 const SusuDetailScreen = ({ navigation, route }) => {
   const { susuDetail, susuLoading, susuError } = useSelector(selectSusu);
@@ -207,7 +208,7 @@ const SusuDetailScreen = ({ navigation, route }) => {
                       mb={1}
                       fontSize="xl"
                       noOfLines={4}>{susuDetail.nextRecipient.member.user.name}</Text>
-                    <Text>{moment(susuDetail.nextRecipient.date).format("DD MMM, YYYY")}</Text>
+                    <Text>{moment(susuDetail.nextRecipient.date).format("Do MMM, YYYY")}</Text>
                   </Box>
                 </HStack>
               </Box>
@@ -245,7 +246,7 @@ const SusuDetailScreen = ({ navigation, route }) => {
                       mb={1}
                       fontSize="xl"
                       noOfLines={4}>{susuDetail.previousRecipient.member.user.name}</Text>
-                    <Text>{moment(susuDetail.previousRecipient.date).format("DD MMM, YYYY")}</Text>
+                    <Text>{moment(susuDetail.previousRecipient.date).format("Do MMM, YYYY")}</Text>
                   </Box>
                 </HStack>
               </Box>
@@ -291,7 +292,33 @@ const SusuDetailScreen = ({ navigation, route }) => {
                 {`${susuDetail.contributionPlan.interval} ${susuDetail.contributionPlan.unit}`}
               </Text>
             </Box>
-
+  
+            <Box mb={2} shadow={0} borderRadius={32} backgroundColor="white" p={4}>
+              <Text fontFamily="body" fontSize="md">
+                Group Regulations
+              </Text>
+              <Divider
+                  alignSelf="center"
+                  width="100%"
+                  mt={1}
+                  mb={1}
+                  backgroundColor="muted.200"
+                  orientation="horizontal"
+                  thickness={1} />
+              {
+                susuDetail.regulations.map((regulation, index) => {
+                  return (
+                      <SingleRegulationListItem
+                          key={index}
+                          regulation={regulation}
+                          index={index}
+                          showDelete={false}
+                      />
+                  );
+                })
+              }
+            </Box>
+            
             <Box
               borderRadius={32}
               backgroundColor="white"
@@ -322,7 +349,7 @@ const SusuDetailScreen = ({ navigation, route }) => {
                     fontSize="lg">
                     {susuDetail.creator.user.name}
                   </Text>
-                  <Text fontSize="md" fontFamily="body">{susuDetail.creator.role}</Text>
+                  <Text fontSize="sm" fontFamily="body">{susuDetail.creator.role}</Text>
                 </Box>
               </HStack>
             </Box>
@@ -335,47 +362,38 @@ const SusuDetailScreen = ({ navigation, route }) => {
               p={4}
               m={2}
               shadow={0}>
-              <Text>Start Date</Text>
-              <Divider
-                alignSelf="center"
-                width="100%"
-                mt={1}
-                mb={1}
-                backgroundColor="muted.200"
-                orientation="horizontal"
-                thickness={1} />
-              <Text fontSize="lg" fontFamily="body">
-                {moment(susuDetail.startDate).format("DD MMM, YYYY")}
+              <Text mt={1} mb={1}>Start Date</Text>
+              <Text mt={1} mb={1} fontSize="md" fontFamily="body">
+                {moment(susuDetail.startDate).format("Do MMM, YYYY")}
               </Text>
+              <Divider
+                  mt={1} mb={1}
+                  alignSelf="center"
+                  width="100%"
+                  backgroundColor="muted.200"
+                  orientation="horizontal"
+                  thickness={1} />
               <Text>End Date</Text>
-              <Divider
-                alignSelf="center"
-                width="100%"
-                mt={1}
-                mb={1}
-                backgroundColor="muted.200"
-                orientation="horizontal"
-                thickness={1} />
-              <Text fontSize="lg" fontFamily="body">
-                {moment(susuDetail.endDate).format("DD MMM, YYYY")}
+              <Text mt={1} mb={1} fontSize="md" fontFamily="body">
+                {moment(susuDetail.endDate).format("Do MMM, YYYY")}
               </Text>
-              <Text>Status</Text>
               <Divider
-                alignSelf="center"
-                width="100%"
-                mt={1}
-                mb={1}
-                backgroundColor="muted.200"
-                orientation="horizontal"
-                thickness={1} />
-              <Text fontSize="lg" fontFamily="body">
+                  alignSelf="center"
+                  width="100%"
+                  mt={1}
+                  mb={1}
+                  backgroundColor="muted.200"
+                  orientation="horizontal"
+                  thickness={1} />
+              <Text mt={1} mb={1}>Status</Text>
+              <Text fontSize="md" fontFamily="body">
                 {susuDetail.status}
               </Text>
             </Box>
 
             <Pressable
               onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.SUSU_PAYMENT_ORDER_SCREEN, { paymentOrder: susuDetail.paymentOrder })}>
-              <Box mt={2} mb={2} m={2} shadow={0} borderRadius={32} p={4} backgroundColor="primary.50">
+              <Box mt={2} mb={2} m={2} shadow={0} borderRadius={32} p={2} backgroundColor="primary.50">
                 <HStack>
                   <Center
                     backgroundColor="primary.100"
@@ -403,7 +421,7 @@ const SusuDetailScreen = ({ navigation, route }) => {
 
             <Pressable
               onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.SUSU_MEMBERS_SCREEN, { susuID: susuDetail._id })}>
-              <Box mt={2} mb={2} m={2} shadow={0} borderRadius={32} p={4} backgroundColor="primary.50">
+              <Box mt={2} mb={2} m={2} shadow={0} borderRadius={32} p={2} backgroundColor="primary.50">
                 <HStack>
                   <Center
                     backgroundColor="primary.100"
@@ -431,7 +449,7 @@ const SusuDetailScreen = ({ navigation, route }) => {
 
             <Pressable
               onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.SUSU_DISBURSEMENTS_SCREEN, { susuID: susuDetail._id })}>
-              <Box mt={2} mb={2} m={2} shadow={0} borderRadius={32} p={4} backgroundColor="primary.50">
+              <Box mt={2} mb={2} m={2} shadow={0} borderRadius={32} p={2} backgroundColor="primary.50">
                 <HStack>
                   <Center
                     backgroundColor="primary.100"
@@ -459,7 +477,7 @@ const SusuDetailScreen = ({ navigation, route }) => {
 
             <Pressable
               onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.SUSU_CONTRIBUTIONS_SCREEN, { susuID: susuDetail._id })}>
-              <Box mt={2} mb={2} m={2} shadow={0} borderRadius={32} p={4} backgroundColor="primary.50">
+              <Box mt={2} mb={2} m={2} shadow={0} borderRadius={32} p={2} backgroundColor="primary.50">
                 <HStack>
                   <Center
                     backgroundColor="primary.100"

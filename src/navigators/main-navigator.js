@@ -44,6 +44,7 @@ import CreateSusuScreen from "../screens/groups/create-susu-screen";
 import CreateGroupSusuScreen from "../screens/groups/create-susu-screen";
 import GroupInvitationsScreen from "../screens/groups/group-invitations-screen";
 import InviteGroupUsersScreen from "../screens/groups/invite-group-users-screen";
+import AddSusuMembersScreen from "../screens/susu/add-susu-members-screen";
 
 const BottomTabsNavigator = createMaterialBottomTabNavigator();
 const StackNavigator = createNativeStackNavigator();
@@ -107,9 +108,22 @@ const SusuStackNavigator = () => {
             />
             
             <StackNavigator.Screen
-                options={{
-                    headerShown: true,
-                    headerTitle: ({ props }) => <Text fontSize="lg" {...props}>Members</Text>,
+                options={({ navigation, route }) => {
+                    return {
+                        headerShown: true,
+                        headerTitle: ({ props }) => <Text fontSize="lg" {...props}>Members</Text>,
+                        headerRight: () => {
+                            return (
+                                <Icon
+                                    onPress={
+                                        () => navigation.push(SCREEN_NAME_CONSTANTS.ADD_PAYMENT_METHOD_SCREEN,
+                                            { susuID: route.params.susuID })}
+                                    size={8}
+                                    as={<MaterialIcons name="group-add" />}
+                                />
+                            );
+                        },
+                    };
                 }}
                 name={SCREEN_NAME_CONSTANTS.SUSU_MEMBERS_SCREEN}
                 component={SusuMembersScreen}
@@ -122,6 +136,15 @@ const SusuStackNavigator = () => {
                 }}
                 name={SCREEN_NAME_CONSTANTS.SUSU_PAYMENT_ORDER_SCREEN}
                 component={SusuPaymentOrderScreen}
+            />
+            
+            <StackNavigator.Screen
+                options={{
+                    headerShown: true,
+                    headerTitle: ({ props }) => <Text fontSize="lg" {...props}>Invite Members</Text>,
+                }}
+                name={SCREEN_NAME_CONSTANTS.ADD_PAYMENT_METHOD_SCREEN}
+                component={AddSusuMembersScreen}
             />
             
             <StackNavigator.Screen
@@ -217,7 +240,7 @@ const GroupsStackNavigator = () => {
             
             <StackNavigator.Screen
                 options={({ navigation, route }) => {
-                    console.log(route.params, 'params');
+                    console.log(route.params, "params");
                     return {
                         headerShown: true,
                         headerTitle: ({ props }) => <Text fontSize="lg" {...props}>Group Members</Text>,

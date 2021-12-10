@@ -27,12 +27,10 @@ const SusuContributionDetailScreen = () => {
 
         <Box
           borderRadius={32}
-          borderWidth={1}
-          borderColor="gray.100"
           backgroundColor="white"
           p={4}
           m={2}
-          shadow={1}>
+          shadow={0}>
           <Text>Contributor</Text>
           <Divider
             alignSelf="center"
@@ -63,12 +61,10 @@ const SusuContributionDetailScreen = () => {
 
         <Box
           borderRadius={32}
-          borderWidth={1}
-          borderColor="gray.100"
           backgroundColor="white"
           p={4}
           m={2}
-          shadow={1}>
+          shadow={0}>
           <Box ml={2}>
             <Text>Payment Details</Text>
             <Divider
@@ -116,12 +112,10 @@ const SusuContributionDetailScreen = () => {
 
         <Box
           borderRadius={32}
-          borderWidth={1}
-          borderColor="gray.100"
           backgroundColor="white"
           p={5}
           m={2}
-          shadow={1}>
+          shadow={0}>
           {susuContributionDetail.payment.method === "BANK" ? (
             <Box>
               <Text>Payment Method Type</Text>

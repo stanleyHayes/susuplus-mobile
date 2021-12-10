@@ -80,7 +80,13 @@ const susuReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 susuLoading: false,
-                susuError: null
+                susuError: null,
+                createSusuPage: 0,
+                createSusuBasicInfo: {
+                    startDate: new Date()
+                },
+                createSusuMembers: [],
+                createSusuRegulations: [],
             }
     
     
