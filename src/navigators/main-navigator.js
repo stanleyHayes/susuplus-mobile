@@ -45,6 +45,11 @@ import CreateGroupSusuScreen from "../screens/groups/create-susu-screen";
 import GroupInvitationsScreen from "../screens/groups/group-invitations-screen";
 import InviteGroupUsersScreen from "../screens/groups/invite-group-users-screen";
 import AddSusuMembersScreen from "../screens/susu/add-susu-members-screen";
+import GroupPaymentMethodsScreen from "../screens/groups/group-payment-methods-screen";
+import UpdateGroupDetailScreen from "../screens/groups/update-group-detail-screen";
+import GroupSusuHistoryScreen from "../screens/groups/group-susu-history-screen";
+import GroupSusuDetailScreen from "../screens/groups/group-susu-detail-screen";
+import AddGroupPaymentMethodScreen from "../screens/groups/add-group-payment-method-screen";
 
 const BottomTabsNavigator = createMaterialBottomTabNavigator();
 const StackNavigator = createNativeStackNavigator();
@@ -167,9 +172,20 @@ const GroupsStackNavigator = () => {
                 name={SCREEN_NAME_CONSTANTS.GROUPS_SCREEN}
                 component={GroupsScreen} />
             <StackNavigator.Screen
-                options={{
-                    headerShown: true,
-                    headerTitle: ({ props }) => <Text fontSize="lg" {...props}>Group Detail</Text>,
+                options={({ navigation, route }) => {
+                    return {
+                        headerShown: true,
+                        headerTitle: ({ props }) => <Text fontSize="lg" {...props}>Group Detail</Text>,
+                        headerRight: () => {
+                            return (
+                                <Icon
+                                    color="muted.500"
+                                    size="sm"
+                                    as={<MaterialIcons name="edit" size={8} />}
+                                    onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.UPDATE_GROUP_DETAILS_SCREEN, { groupID: route.params.groupID })} />
+                            );
+                        },
+                    };
                 }}
                 name={SCREEN_NAME_CONSTANTS.GROUP_DETAIL_SCREEN}
                 component={GroupDetailScreen}
@@ -239,8 +255,16 @@ const GroupsStackNavigator = () => {
             />
             
             <StackNavigator.Screen
+                options={{
+                    headerShown: true,
+                    headerTitle: ({ props }) => <Text fontSize="lg" {...props}>Add Payment Method</Text>,
+                }}
+                name={SCREEN_NAME_CONSTANTS.GROUP_ADD_PAYMENT_METHOD_SCREEN}
+                component={AddGroupPaymentMethodScreen}
+            />
+            
+            <StackNavigator.Screen
                 options={({ navigation, route }) => {
-                    console.log(route.params, "params");
                     return {
                         headerShown: true,
                         headerTitle: ({ props }) => <Text fontSize="lg" {...props}>Group Members</Text>,
@@ -275,6 +299,53 @@ const GroupsStackNavigator = () => {
                 }}
                 name={SCREEN_NAME_CONSTANTS.CREATE_GROUP_SUSU_SCREEN}
                 component={CreateGroupSusuScreen}
+            />
+            
+            <StackNavigator.Screen
+                options={({ navigation, route }) => {
+                    return {
+                        headerShown: true,
+                        headerTitle: ({ props }) => <Text fontSize="lg" {...props}>Payment Methods</Text>,
+                        headerRight: () => {
+                            return (
+                                <Icon
+                                    onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.GROUP_ADD_PAYMENT_METHOD_SCREEN, { groupID: route.params.groupID })}
+                                    size="sm"
+                                    as={<MaterialIcons name="add" />} />
+                            );
+                        },
+                    };
+                    
+                }}
+                name={SCREEN_NAME_CONSTANTS.GROUP_PAYMENT_METHODS}
+                component={GroupPaymentMethodsScreen}
+            />
+            
+            <StackNavigator.Screen
+                options={{
+                    headerShown: true,
+                    headerTitle: ({ props }) => <Text fontSize="lg" {...props}>Update Group Details</Text>,
+                }}
+                name={SCREEN_NAME_CONSTANTS.UPDATE_GROUP_DETAILS_SCREEN}
+                component={UpdateGroupDetailScreen}
+            />
+            
+            <StackNavigator.Screen
+                options={{
+                    headerShown: true,
+                    headerTitle: ({ props }) => <Text fontSize="lg" {...props}>Susu History</Text>,
+                }}
+                name={SCREEN_NAME_CONSTANTS.GROUP_SUSU_HISTORY_SCREEN}
+                component={GroupSusuHistoryScreen}
+            />
+            
+            <StackNavigator.Screen
+                options={{
+                    headerShown: true,
+                    headerTitle: ({ props }) => <Text fontSize="lg" {...props}>Susu Detail</Text>,
+                }}
+                name={SCREEN_NAME_CONSTANTS.GROUP_SUSU_DETAIL_SCREEN}
+                component={GroupSusuDetailScreen}
             />
         </StackNavigator.Navigator>
     );

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import {
-  Alert,
+  
   Box,
   Button,
-  Center, Collapse,
+  Center,
   Flex,
   Input,
   ScrollView,
   Select,
   Spinner,
   Text,
-  VStack,
+  
 } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { PAYMENT_METHOD_ACTION_CREATORS } from "../../redux/payment-methods/payment-method-action-creators";
@@ -189,9 +189,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
             px={2}
             py={4}
             mb={3}
-            backgroundColor="gray.50"
-            variant="rounded"
-            borderWidth={0}
+            variant="outline"
             accessibilityLabel="Select Payment Method"
             onValueChange={method => setMethod(method)}
             _text={{ fontFamily: "body", fontSize: "md" }}
@@ -218,12 +216,10 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                   fontFamily: "body"
                 }}
                 px={4}
-                borderWidth={0}
                 py={4}
                 mt={1}
                 mb={2}
-                variant="rounded"
-                backgroundColor="gray.50"
+                variant="outline"
                 placeholder="Select Provider"
                 selectedValue={provider}>
                 <Select.Item label="Select Provider" value="" />

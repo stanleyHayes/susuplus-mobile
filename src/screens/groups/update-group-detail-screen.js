@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex } from "native-base";
 
-const GroupSusuDetailScreen = () => {
+const UpdateGroupDetailScreen = () => {
     return (
         <Flex flex={1}>
         
@@ -9,4 +9,4 @@ const GroupSusuDetailScreen = () => {
     )
 }
 
-export default GroupSusuDetailScreen;
+export default UpdateGroupDetailScreen;
