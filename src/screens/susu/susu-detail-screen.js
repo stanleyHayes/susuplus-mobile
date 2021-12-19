@@ -64,16 +64,7 @@ const SusuDetailScreen = ({ navigation, route }) => {
           />
         </Center>)
         }
-
-        {susuError && (
-          <Alert p={3} width="100%" status="error" borderRadius={32} variant="left-accent">
-            <VStack alignItems="center" width="100%" space={2}>
-              <Alert.Icon size="lg" />
-              <Text color="red.600" textAlign="center" fontSize="lg">Error</Text>
-              <Text fontSize="md" textAlign="center" color="red.600">{susuError}</Text>
-            </VStack>
-          </Alert>
-        )}
+        
         {susuDetail && (
           <Box>
             <Box
@@ -132,11 +123,13 @@ const SusuDetailScreen = ({ navigation, route }) => {
                 }}
                 variant="outlined"
                 my={1}
+                isDisabled={susuDetail.status !== 'STARTED'}
+                _disabled={{backgroundColor: 'secondary.400'}}
                 backgroundColor="secondary.600"
                 size="lg"
                 py={4}
                 borderRadius={32}>
-                <Text fontSize="md" color="white">Contribute</Text>
+                <Text fontSize="md" color={susuDetail.status === 'STARTED' ? 'white': 'black'}>Contribute</Text>
               </Button>
             </Box>
 

@@ -1,6 +1,7 @@
 import { GROUP_PAYMENT_METHOD_ACTION_TYPES } from "./group-payment-method-action-types";
 import axios from "axios";
 import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS } from "../../constants/constants";
+import { UTILS } from "../../utils/utils";
 
 const getGroupPaymentMethodsRequest = () => {
   return {
@@ -82,6 +83,7 @@ const addGroupPaymentMethod = (token, paymentMethod, groupID, navigation) => {
       navigation.navigate(SCREEN_NAME_CONSTANTS.GROUP_PAYMENT_METHODS, {groupID})
     } catch (e) {
       const { message } = e.response.data;
+      UTILS.showToast('Error', message, 'error', 5000);
       dispatch(addGroupPaymentMethodsFailure(message));
     }
   };

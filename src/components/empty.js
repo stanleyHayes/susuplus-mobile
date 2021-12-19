@@ -11,7 +11,7 @@ const Empty = ({ title, description }) => {
         </Center>
         <Text
           textTransform="uppercase"
-          fontSize="2xl"
+          fontSize="xl"
           mb={4}
           fontFamily="body"
           textAlign="center">

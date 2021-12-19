@@ -2,6 +2,7 @@ import { SUSU_ACTION_TYPES } from "./susu-action-types";
 import axios from "axios";
 import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS } from "../../constants/constants";
 import { SUSU_MEMBERS_ACTION_CREATORS } from "../susu-members/susu-members-action-creators";
+import { UTILS } from "../../utils/utils";
 
 const getSusuGroupRequest = () => {
     return {
@@ -24,6 +25,7 @@ const getSusuGroupFailure = message => {
 };
 
 const getSusuGroup = (token, susuID) => {
+    console.log('susu id', susuID)
     return async dispatch => {
         dispatch(getSusuGroupRequest());
         try {
@@ -36,12 +38,55 @@ const getSusuGroup = (token, susuID) => {
             });
             const { data } = response.data;
             dispatch(getSusuGroupSuccess(data));
+            console.log('data', data)
         } catch (e) {
             const { message } = e.response.data;
             dispatch(getSusuGroupFailure(message));
         }
     };
 };
+
+
+const getSusuByGroupRequest = () => {
+    return {
+        type: SUSU_ACTION_TYPES.GET_SUSU_GROUP_REQUEST,
+    };
+};
+
+const getSusuByGroupSuccess = (susus) => {
+    return {
+        type: SUSU_ACTION_TYPES.GET_SUSU_BY_GROUP_SUCCESS,
+        payload: susus,
+    };
+};
+
+const getSusuByGroupFailure = message => {
+    return {
+        type: SUSU_ACTION_TYPES.GET_SUSU_BY_GROUP_FAILURE,
+        payload: message,
+    };
+};
+
+const getSusuByGroup = (token, groupID) => {
+    return async dispatch => {
+        dispatch(getSusuByGroupRequest());
+        try {
+            const response = await axios({
+                url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/susus?group=${groupID}`,
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            const { data } = response.data;
+            dispatch(getSusuByGroupSuccess(data));
+        } catch (e) {
+            const { message } = e.response.data;
+            dispatch(getSusuByGroupFailure(message));
+        }
+    };
+};
+
 
 
 const saveSusuBasicInfo = info => {
@@ -115,12 +160,18 @@ const createSusu = (token, susu, userID, navigation) => {
                 },
                 data: susu,
             });
-            const { data } = response.data;
+            const { data, message } = response.data;
             dispatch(createSusuSuccess(data));
+            UTILS.showToast(
+                'Susu Created',
+                message,
+                'success',
+                5000);
             dispatch(SUSU_MEMBERS_ACTION_CREATORS.getGroupsOfUser(token, userID));
-            navigation.push(SCREEN_NAME_CONSTANTS.GROUP_DETAIL_SCREEN, {groupID: susu.group});
+            navigation.push(SCREEN_NAME_CONSTANTS.SUSU_SCREEN);
         } catch (e) {
             const { message } = e.response.data;
+            UTILS.showToast('Error', message, 'error', 5000);
             dispatch(createSusuFailure(message));
         }
     };
@@ -135,4 +186,5 @@ export const SUSU_ACTION_CREATORS = {
     susuGoToNextPage,
     saveSusuRegulations,
     saveSusuMembers,
+    getSusuByGroup
 };

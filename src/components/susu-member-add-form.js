@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, Divider, Box, Button } from "native-base";
+import { Box, Button, Divider, ScrollView, Text } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { selectSusu } from "../redux/susu/susu-reducer";
 import { SUSU_ACTION_CREATORS } from "../redux/susu/susu-action-creators";
@@ -7,6 +7,7 @@ import { GROUP_MEMBERS_ACTION_CREATORS } from "../redux/group-members/group-memb
 import SusuMemberListItem from "./susu-member-list-item";
 import { selectAuth } from "../redux/auth/auth-reducer";
 import { selectGroupMembers } from "../redux/group-members/group-members-reducers";
+import Empty from "./empty";
 
 const AddSusuMembersForm = ({ groupDetail }) => {
     
@@ -60,19 +61,25 @@ const AddSusuMembersForm = ({ groupDetail }) => {
                 <Divider width="100%" my={2} />
                 
                 <Box>
-                    {groupMembers && groupMembers.map((member, index) => {
-                        return (
-                            <SusuMemberListItem
-                                showMessage={true}
-                                key={index}
-                                member={member}
-                                index={index}
-                                showDelete={true}
-                                removeMember={removeMember}
-                                addMember={addMember}
-                            />
-                        );
-                    })}
+                    {groupMembers && groupMembers.length === 0 ? (
+                        <Box>
+                            <Empty description="No group members" title="Group Members" />
+                        </Box>
+                    ) : (
+                        groupMembers && groupMembers.map((member, index) => {
+                            return (
+                                <SusuMemberListItem
+                                    showMessage={true}
+                                    key={index}
+                                    member={member}
+                                    index={index}
+                                    showDelete={true}
+                                    removeMember={removeMember}
+                                    addMember={addMember}
+                                />
+                            );
+                        })
+                    )}
                 </Box>
             </Box>
             
@@ -86,17 +93,23 @@ const AddSusuMembersForm = ({ groupDetail }) => {
                 <Divider width="100%" my={2} />
                 
                 <Box>
-                    {selectedSusuMembers.map((member, index) => {
-                        return (
-                            <SusuMemberListItem
-                                key={index}
-                                member={member}
-                                index={index}
-                                showDelete={true}
-                                removeMember={removeMember}
-                            />
-                        );
-                    })}
+                    {selectedSusuMembers && selectedSusuMembers.length === 0 ? (
+                        <Box>
+                            <Empty description="No susu members" title="Susu Members" />
+                        </Box>
+                    ) : (
+                        selectedSusuMembers && selectedSusuMembers.map((member, index) => {
+                            return (
+                                <SusuMemberListItem
+                                    key={index}
+                                    member={member}
+                                    index={index}
+                                    showDelete={true}
+                                    removeMember={removeMember}
+                                />
+                            );
+                        })
+                    )}
                 </Box>
             </Box>
             

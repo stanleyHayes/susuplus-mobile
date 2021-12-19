@@ -5,6 +5,7 @@ import SingleRegulationListItem from "./single-regulation-list-item";
 import { GROUP_ACTION_CREATORS } from "../redux/groups/group-action-creators";
 import { selectSusu } from "../redux/susu/susu-reducer";
 import { SUSU_ACTION_CREATORS } from "../redux/susu/susu-action-creators";
+import Empty from "./empty";
 
 const SusuRegulationsForm = () => {
     
@@ -89,17 +90,23 @@ const SusuRegulationsForm = () => {
                 <Divider width="100%" my={2} />
                 
                 <Box>
-                    {regulations.map((regulation, index) => {
-                        return (
-                            <SingleRegulationListItem
-                                key={index}
-                                regulation={regulation}
-                                showDelete={true}
-                                index={index}
-                                removeRegulation={removeRegulation}
-                            />
-                        );
-                    })}
+                    {regulations.length === 0 ? (
+                        <Box>
+                            <Empty description="No regulations yet" title="Susu Regulations" />
+                        </Box>
+                    ): (
+                        regulations.map((regulation, index) => {
+                            return (
+                                <SingleRegulationListItem
+                                    key={index}
+                                    regulation={regulation}
+                                    showDelete={true}
+                                    index={index}
+                                    removeRegulation={removeRegulation}
+                                />
+                            );
+                        })
+                    )}
                 </Box>
                 
                 <Button

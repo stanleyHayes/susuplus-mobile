@@ -3,6 +3,7 @@ import axios from "axios";
 import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS, SECURE_STORAGE_CONSTANTS } from "../../constants/constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { restoreToken } from "../auth/auth-action-creators";
+import { UTILS } from "../../utils/utils";
 
 const getInvitationsRequest = () => {
   return {
@@ -45,6 +46,7 @@ const getInvitations = (token, query) => {
         dispatch(restoreToken());
       }
       dispatch(getInvitationsFailure(message));
+      UTILS.showToast('Error', message, 'error', 5000);
     }
   }
 }
@@ -92,6 +94,7 @@ const createInvitation = (invitations, token, navigation) => {
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
         dispatch(restoreToken());
       }
+      UTILS.showToast('Error', message, 'error', 5000);
       dispatch(createInvitationFailure(message));
     }
   }

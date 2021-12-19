@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_URL_CONSTANTS } from "../../constants/constants";
 import { GROUP_CONTRIBUTION_ACTION_TYPES } from "./group-contribution-action-types";
+import { UTILS } from "../../utils/utils";
 
 const getGroupContributionsRequest = () => {
   return {
@@ -33,8 +34,13 @@ const getGroupContributions = (token, groupID) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      const { data } = response.data;
+      const { data, message } = response.data;
       dispatch(getGroupContributionsSuccess(data));
+      UTILS.showToast(
+          'Group Created',
+          message,
+          'success',
+          5000);
     } catch (e) {
       const { message } = e.response.message;
       dispatch(getGroupContributionsFailure(message));

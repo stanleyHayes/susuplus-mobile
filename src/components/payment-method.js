@@ -48,22 +48,25 @@ const PaymentMethod = ({ paymentMethod }) => {
     return (
         <Box
             borderRadius={32}
-            backgroundColor="primary.50"
+            backgroundColor="white"
             p={4}
             m={2}
             shadow={0}>
             {paymentMethod.method === "Bank Account" ? (
                 <Box>
-                    <Box>{<Image source={bankIcon} alt="Bank Icon" />}</Box>
+                    <Box mb={1}>{<Image source={bankIcon} alt="Bank Icon" />}</Box>
                     <Text
+                        mb={1}
                         fontSize="md" textTransform= 'uppercase'>
                         {paymentMethod.bankAccount.bankName}({paymentMethod.bankAccount.accountBranch})
                     </Text>
                     <Text
+                        mb={1}
                         fontSize="md" textTransform= 'uppercase'>
                         {renderCardNumber(paymentMethod.bankAccount.accountNumber, paymentMethod.bankAccount.last4)}
                     </Text>
                     <Text
+                        mb={1}
                         fontSize="md" textTransform= 'uppercase'>
                         {paymentMethod.bankAccount.accountName}
                     </Text>
@@ -80,15 +83,16 @@ const PaymentMethod = ({ paymentMethod }) => {
                 </Box>
             ) : paymentMethod.method === "Card" ? (
                 <Box>
-                    <Box>{<Image source={cardIcon} alt="Card Icon" />}</Box>
-                    <Text fontSize="md" textTransform="uppercase">
+                    <Box mb={1}>{<Image source={cardIcon} alt="Card Icon" />}</Box>
+                    <Text mb={1} fontSize="md" textTransform="uppercase">
                         {paymentMethod.cardDetail.bankIssuer}
                     </Text>
                     <Text
+                        mb={1}
                         fontSize="md" textTransform="uppercase">
                         {renderCardNumber(paymentMethod.cardDetail.number, paymentMethod.cardDetail.last4)}
                     </Text>
-                    <Text fontSize="md" textTransform="uppercase">
+                    <Text mb={1} fontSize="md" textTransform="uppercase">
                         {paymentMethod.cardDetail.cardHolderName}
                     </Text>
                     <HStack alignItems="center" direction="row" justifyContent="space-between">
@@ -102,15 +106,15 @@ const PaymentMethod = ({ paymentMethod }) => {
                 </Box>
             ) : paymentMethod.method === "Mobile Money" ? (
                 <Box>
-                    <Text mb={2} fontSize="md" fontFamily="body">{paymentMethod.method}</Text>
+                    <Text mb={1} fontSize="md" fontFamily="body">{paymentMethod.method}</Text>
                     <Icon size="sm" as={<MaterialIcons name="credit-card" size={10} />} />
-                    <Text mb={2} fontSize="md" fontFamily="body">{paymentMethod.mobileMoneyAccount.name}</Text>
-                    <Text mb={2} fontSize="md"
+                    <Text mb={1} fontSize="md" fontFamily="body">{paymentMethod.mobileMoneyAccount.name}</Text>
+                    <Text mb={1} fontSize="md"
                           fontFamily="body">{paymentMethod.mobileMoneyAccount.number}</Text>
                     <HStack justifyContent="space-between">
-                        <Text mb={2} fontSize="md"
+                        <Text fontSize="md"
                               fontFamily="body">{renderProviderName(paymentMethod.mobileMoneyAccount.provider)}</Text>
-                        <Text mb={2} fontSize="md" fontFamily="body">
+                        <Text fontSize="md" fontFamily="body">
                             {renderProviderAccountName(paymentMethod.mobileMoneyAccount.provider)}
                         </Text>
                     </HStack>

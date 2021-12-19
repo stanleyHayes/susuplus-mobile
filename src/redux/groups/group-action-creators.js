@@ -1,6 +1,7 @@
 import { GROUP_ACTION_TYPES } from "./group-action-types";
 import axios from "axios";
 import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS } from "../../constants/constants";
+import { UTILS } from "../../utils/utils";
 
 const getGroupRequest = () => {
     return {
@@ -124,11 +125,17 @@ const createGroup = (token, group, navigation) => {
                 },
                 data: group
             });
-            const { data } = response.data;
+            const { data, message } = response.data;
             dispatch(createGroupSuccess(data));
             navigation.push(SCREEN_NAME_CONSTANTS.GROUPS_SCREEN);
+            UTILS.showToast(
+                'Group Created',
+                message,
+                'success',
+                5000);
         } catch (e) {
             const { message } = e.response.data;
+            UTILS.showToast('Error', message, 'error', 5000);
             dispatch(createGroupFailure(message));
         }
     };

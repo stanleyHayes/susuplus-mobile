@@ -121,18 +121,16 @@ const CreateGroupSummary = ({ navigation,  }) => {
 
                 <Text mb={1} fontSize="sm">Group Regulations</Text>
                 <Box>
-                    <FlatList
-                        data={createGroupRegulations}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item, index }) => {
-                            return (
-                                <SingleRegulationListItem
-                                    regulation={item}
-                                    index={index}
-                                    showDelete={false}
-                                />
-                            );
-                        }} />
+                    {createGroupRegulations && createGroupRegulations.map((instruction, index) => {
+                        return (
+                            <SingleRegulationListItem
+                                key={index}
+                                regulation={instruction}
+                                index={index}
+                                showDelete={false}
+                            />
+                        )
+                    })}
                 </Box>
 
                 <Divider width="100%" my={2} />
@@ -140,23 +138,21 @@ const CreateGroupSummary = ({ navigation,  }) => {
 
                 <Text mb={1} fontSize="sm">Group Invitations</Text>
                 <Box>
-                    <FlatList
-                        data={createGroupInvitations}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item, index }) => {
-                            return (
-                                <SingleInvitationListItem
-                                    email={item}
-                                    index={index}
-                                    showDelete={false}
-                                />
-                            );
-                        }} />
+                    {createGroupInvitations && createGroupInvitations.map((invitation, index) => {
+                        return (
+                            <SingleInvitationListItem
+                                key={index}
+                                email={invitation}
+                                index={index}
+                                showDelete={false}
+                            />
+                        )
+                    })}
                 </Box>
 
                 <Divider width="100%" my={2} />
 
-                <Text mb={1} fontSize="sm">Group Invitations</Text>
+                <Text mb={1} fontSize="sm">Group Payment Method</Text>
                 <Box>
                     <PaymentMethodCard paymentMethod={createGroupPaymentMethod} />
                 </Box>

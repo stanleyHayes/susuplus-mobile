@@ -121,9 +121,7 @@ const GroupSusuBasicInfoForm = ({ groupDetail }) => {
                         mb={1}
                         variant="outline"
                         borderRadius={32}
-                        borderWidth={1}
-                        borderColor="gray.50"
-                        backgroundColor="gray.50"
+                        backgroundColor="white"
                         name="paymentCurrency"
                         placeholder="Payment Currency"
                         onValueChange={paymentCurrency => setPaymentCurrency(paymentCurrency)}
@@ -145,10 +143,9 @@ const GroupSusuBasicInfoForm = ({ groupDetail }) => {
                     <Text mb={1}>Interval</Text>
                     <Input
                         placeholder="Contribution interval"
-                        variant="rounded"
+                        variant="outline"
                         borderWidth={1}
                         borderRadius={32}
-                        borderColor="gray.50"
                         py={4}
                         keyboardType="number-pad"
                         px={4}
@@ -156,7 +153,7 @@ const GroupSusuBasicInfoForm = ({ groupDetail }) => {
                         _focus={{ borderColor: "gray.50" }}
                         _invalid={{ borderColor: "red.400", borderWidth: 1, borderStyle: "solid" }}
                         isFullWidth={true}
-                        backgroundColor="gray.50"
+                        backgroundColor="white"
                         mb={1}
                         value={intervalAmount}
                         name="intervalAmount"

@@ -1,6 +1,7 @@
 import { PAYMENT_METHOD_ACTION_TYPES } from "./payment-method-action-types";
 import axios from "axios";
 import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS } from "../../constants/constants";
+import { UTILS } from "../../utils/utils";
 
 const addPaymentMethodRequest = () => {
   return {
@@ -23,6 +24,7 @@ const addPaymentMethodFailure = message => {
 };
 
 const addPaymentMethod = (paymentMethod, token, navigation) => {
+  console.log(paymentMethod)
   return async dispatch => {
     try {
       dispatch(addPaymentMethodRequest());
@@ -35,11 +37,17 @@ const addPaymentMethod = (paymentMethod, token, navigation) => {
         data: paymentMethod,
       });
 
-      const { data } = response.data;
+      const { data, message } = response.data;
       dispatch(addPaymentMethodSuccess(data));
       navigation.navigate(SCREEN_NAME_CONSTANTS.PAYMENT_METHODS_SCREEN);
+      UTILS.showToast(
+          'Payment Method Added',
+          message,
+          'success',
+          5000);
     } catch (e) {
       const { message } = e.response.data;
+      UTILS.showToast('Error', message, 'error', 5000);
       dispatch(addPaymentMethodFailure(message));
     }
   };

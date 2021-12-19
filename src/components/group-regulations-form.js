@@ -1,19 +1,20 @@
 import React, { useState } from "react";
-import { ScrollView,  Text, Divider, Box, Input, Button } from "native-base";
+import { Box, Button, Divider, Input, ScrollView, Text } from "native-base";
 import { selectGroups } from "../redux/groups/group-reducers";
 import { useDispatch, useSelector } from "react-redux";
 import SingleRegulationListItem from "./single-regulation-list-item";
 import { GROUP_ACTION_CREATORS } from "../redux/groups/group-action-creators";
+import Empty from "./empty";
 
 const GroupRegulationsForm = () => {
-
+    
     const { createGroupRegulations } = useSelector(selectGroups);
-
+    
     const [regulation, setRegulation] = useState("");
     const [error, setError] = useState({});
-
+    
     const [regulations, setRegulations] = useState([...createGroupRegulations]);
-
+    
     const addRegulation = () => {
         if (!regulation) {
             setError({ error, regulation: "Field Required" });
@@ -24,13 +25,13 @@ const GroupRegulationsForm = () => {
         setRegulations([...regulations, regulation]);
         setRegulation("");
     };
-
+    
     const removeRegulation = i => {
         setRegulations(regulations.filter((regulation, index) => i !== index));
     };
-
+    
     const dispatch = useDispatch();
-
+    
     const handleGroupRegulationsSubmit = () => {
         if (regulations.length <= 0) {
             setError({ error, regulations: "Add at least one policy" });
@@ -41,14 +42,14 @@ const GroupRegulationsForm = () => {
         dispatch(GROUP_ACTION_CREATORS.saveGroupRegulations(regulations));
         dispatch(GROUP_ACTION_CREATORS.groupGoToNextPage());
     };
-
+    
     return (
         <ScrollView flex={1} minHeight="100%">
             <Box borderRadius={32} p={5} shadow={0} backgroundColor="white" m={2}>
                 <Text textAlign="center" fontSize="lg">Group Regulations</Text>
-
+                
                 <Divider width="100%" my={2} />
-
+                
                 <Box mb={2}>
                     <Input
                         placeholder="Type regulation"
@@ -70,7 +71,7 @@ const GroupRegulationsForm = () => {
                         isRequired={true}
                     />
                     {error.regulation && <Text color="error.400">{error.regulation}</Text>}
-
+                    
                     <Button
                         mt={2}
                         backgroundColor="primary.600"
@@ -81,28 +82,34 @@ const GroupRegulationsForm = () => {
                     </Button>
                 </Box>
             </Box>
-
+            
             <Box borderRadius={32} p={4} shadow={0} backgroundColor="white" m={2}>
                 <Text textAlign="center" fontSize="lg">Group Regulations ({regulations.length})</Text>
-
+                
                 <Divider width="100%" my={2} />
-
+                
                 <Box>
                     {
-                        regulations.map((regulation, index) => {
-                            return (
-                                <SingleRegulationListItem
-                                    key={index}
-                                    regulation={regulation}
-                                    index={index}
-                                    showDelete={true}
-                                    removeRegulation={removeRegulation}
-                                />
-                            );
-                        })
+                        regulations && regulations.length === 0 ? (
+                            <Box>
+                                <Empty description="No regulations yet" title="Group Regulations" />
+                            </Box>
+                        ) : (
+                            regulations.map((regulation, index) => {
+                                return (
+                                    <SingleRegulationListItem
+                                        key={index}
+                                        regulation={regulation}
+                                        index={index}
+                                        showDelete={true}
+                                        removeRegulation={removeRegulation}
+                                    />
+                                );
+                            })
+                        )
                     }
                 </Box>
-
+                
                 <Button
                     mt={2}
                     backgroundColor="primary.600"
@@ -112,7 +119,7 @@ const GroupRegulationsForm = () => {
                     variant="subtle">
                     <Text color="white" fontSize="md">Previous</Text>
                 </Button>
-
+                
                 {regulations.length > 0 && (
                     <Button
                         mt={2}
@@ -124,7 +131,7 @@ const GroupRegulationsForm = () => {
                         <Text color="white" fontSize="md">Save Regulations</Text>
                     </Button>
                 )}
-
+            
             </Box>
         </ScrollView>
     );

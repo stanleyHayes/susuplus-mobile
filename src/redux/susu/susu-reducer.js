@@ -11,6 +11,7 @@ const INITIAL_STATE = {
     },
     createSusuMembers: [],
     createSusuRegulations: [],
+    susuByGroup: []
 };
 
 const susuReducer = (state = INITIAL_STATE, action) => {
@@ -37,7 +38,30 @@ const susuReducer = (state = INITIAL_STATE, action) => {
                 susuError: action.payload,
                 susuDetail: null
             }
-        
+    
+        case SUSU_ACTION_TYPES.GET_SUSU_BY_GROUP_REQUEST:
+            return {
+                ...state,
+                susuLoading: true,
+                susuError: null
+            }
+    
+        case SUSU_ACTION_TYPES.GET_SUSU_BY_GROUP_SUCCESS:
+            return {
+                ...state,
+                susuLoading: false,
+                susuError: null,
+                susuByGroup: action.payload
+            }
+        case SUSU_ACTION_TYPES.GET_SUSU_BY_GROUP_FAILURE:
+            return {
+                ...state,
+                susuLoading: false,
+                susuError: action.payload,
+                susuByGroup: []
+            }
+    
+    
         case SUSU_ACTION_TYPES.SAVE_SUSU_BASIC_INFO:
             return {
                 ...state,

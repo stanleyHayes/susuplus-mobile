@@ -3,35 +3,39 @@ import { Box, Button, Input, ScrollView, Select, Text } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { GROUP_ACTION_CREATORS } from "../redux/groups/group-action-creators";
 import { selectGroups } from "../redux/groups/group-reducers";
+import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
+import { banks } from "../redux/payment-methods/payment-methods-data";
 
 const PaymentMethodForm = () => {
-
+    
     const { createGroupPaymentMethod } = useSelector(selectGroups);
-
+    
     const [method, setMethod] = useState(createGroupPaymentMethod.method);
-
+    
     const [error, setError] = useState({});
-
+    
     const [provider, setProvider] = useState(createGroupPaymentMethod.mobileMoneyAccount.provider);
     const [mobileMoneyNumber, setMobileMoneyNumber] = useState(createGroupPaymentMethod.mobileMoneyAccount.mobileMoneyNumber);
     const [name, setName] = useState(createGroupPaymentMethod.mobileMoneyAccount.name);
-
+    
     const [bankName, setBankName] = useState(createGroupPaymentMethod.bankAccount.bankName);
     const [bankCode, setBankCode] = useState(createGroupPaymentMethod.bankAccount.bankCode);
     const [accountBranch, setBankBranch] = useState(createGroupPaymentMethod.bankAccount.accountBranch);
     const [accountNumber, setAccountNumber] = useState(createGroupPaymentMethod.bankAccount.accountNumber);
     const [mobileNumber, setMobileNumber] = useState(createGroupPaymentMethod.bankAccount.mobileNumber);
     const [accountName, setAccountName] = useState(createGroupPaymentMethod.bankAccount.accountName);
-
+    const [bankCurrency, setBankCurrency] = useState(createGroupPaymentMethod.bankAccount.currency);
+    
     const [bankIssuer, setBankIssuer] = useState(createGroupPaymentMethod.card.bankIssuer);
     const [cardHolderName, setCardHolderName] = useState(createGroupPaymentMethod.card.cardHolderName);
     const [cardNumber, setCardNumber] = useState(createGroupPaymentMethod.card.cardNumber);
     const [cvv, setCVV] = useState(createGroupPaymentMethod.card.cvv);
     const [expiryDate, setExpiryDate] = useState(createGroupPaymentMethod.card.expiryDate);
-
-
+    const [cardCurrency, setCardCurrency] = useState(createGroupPaymentMethod.card.cardCurrency);
+    
+    
     const dispatch = useDispatch();
-
+    
     const handleBankAccountAdd = () => {
         if (!bankName) {
             setError({ error, bankName: "Field Required" });
@@ -39,35 +43,42 @@ const PaymentMethodForm = () => {
         } else {
             setError({ error, bankName: null });
         }
-
+        
         if (!accountBranch) {
             setError({ error, accountBranch: "Field Required" });
             return;
         } else {
             setError({ error, accountBranch: null });
         }
-
+        
         if (!accountName) {
             setError({ error, accountName: "Field Required" });
             return;
         } else {
             setError({ error, accountName: null });
         }
-
+        
         if (!accountNumber) {
             setError({ error, accountNumber: "Field Required" });
             return;
         } else {
             setError({ error, accountNumber: null });
         }
-
+        
         if (!mobileNumber) {
             setError({ error, mobileNumber: "Field Required" });
             return;
         } else {
             setError({ error, mobileNumber: null });
         }
-
+        
+        if (!bankCurrency) {
+            setError({ error, bankCurrency: "Field Required" });
+            return;
+        } else {
+            setError({ error, bankCurrency: null });
+        }
+        
         dispatch(GROUP_ACTION_CREATORS.saveGroupPaymentInfo({
             ownership: "Group",
             method,
@@ -78,12 +89,13 @@ const PaymentMethodForm = () => {
                 accountName,
                 mobileNumber,
                 bankCode,
+                currency: bankCurrency,
             },
         }));
-
+        
         dispatch(GROUP_ACTION_CREATORS.groupGoToNextPage());
     };
-
+    
     const handleDebitCardAdd = () => {
         if (!bankIssuer) {
             setError({ error, bankIssuer: "Field Required" });
@@ -91,35 +103,42 @@ const PaymentMethodForm = () => {
         } else {
             setError({ error, bankIssuer: null });
         }
-
+        
         if (!cardHolderName) {
             setError({ error, cardHolderName: "Field Required" });
             return;
         } else {
             setError({ error, cardHolderName: null });
         }
-
+        
         if (!cardNumber) {
             setError({ error, cardNumber: "Field Required" });
             return;
         } else {
             setError({ error, cardNumber: null });
         }
-
+        
         if (!cvv) {
             setError({ error, cvv: "Field Required" });
             return;
         } else {
             setError({ error, cvv: null });
         }
-
+        
         if (!expiryDate) {
             setError({ error, expiryDate: "Field Required" });
             return;
         } else {
             setError({ error, expiryDate: null });
         }
-
+        
+        if (!cardCurrency) {
+            setError({ error, cardCurrency: "Field Required" });
+            return;
+        } else {
+            setError({ error, cardCurrency: null });
+        }
+        
         dispatch(GROUP_ACTION_CREATORS.saveGroupPaymentInfo({
             ownership: "Group",
             method,
@@ -129,11 +148,12 @@ const PaymentMethodForm = () => {
                 cardNumber,
                 cvv,
                 expiryDate,
+                currency: cardCurrency,
             },
         }));
         dispatch(GROUP_ACTION_CREATORS.groupGoToNextPage());
     };
-
+    
     const handleMobileMoneyAccountAdd = () => {
         if (!provider) {
             setError({ error, provider: "Field Required" });
@@ -141,21 +161,21 @@ const PaymentMethodForm = () => {
         } else {
             setError({ error, provider: null });
         }
-
+        
         if (!mobileMoneyNumber) {
             setError({ error, mobileMoneyNumber: "Field Required" });
             return;
         } else {
             setError({ error, mobileMoneyNumber: null });
         }
-
+        
         if (!name) {
             setError({ error, name: "Field Required" });
             return;
         } else {
             setError({ error, name: null });
         }
-
+        
         dispatch(GROUP_ACTION_CREATORS.saveGroupPaymentInfo({
             ownership: "Group",
             method,
@@ -167,7 +187,7 @@ const PaymentMethodForm = () => {
         }));
         dispatch(GROUP_ACTION_CREATORS.groupGoToNextPage());
     };
-
+    
     return (
         <ScrollView minHeight="100%" flex={1}>
             <Box borderRadius={32} p={4} shadow={0} backgroundColor="white" m={2}>
@@ -176,9 +196,8 @@ const PaymentMethodForm = () => {
                     px={4}
                     py={4}
                     mb={3}
-                    backgroundColor="gray.50"
+                    backgroundColor="white"
                     variant="rounded"
-                    borderWidth={0}
                     accessibilityLabel="Select Payment Method"
                     onValueChange={method => setMethod(method)}
                     _text={{ fontFamily: "body", fontSize: "md" }}
@@ -204,12 +223,11 @@ const PaymentMethodForm = () => {
                                 bg: "teal.200",
                             }}
                             px={4}
-                            borderWidth={0}
                             py={4}
                             mt={1}
                             mb={2}
                             variant="rounded"
-                            backgroundColor="gray.50"
+                            backgroundColor="white"
                             placeholder="Select Provider"
                             selectedValue={provider}>
                             <Select.Item label="Select Provider" value="" />
@@ -217,7 +235,7 @@ const PaymentMethodForm = () => {
                             <Select.Item label="Vodafone Cash" value="vod" />
                             <Select.Item label="Airtel Tigo Cash" value="tgo" />
                         </Select>
-
+                        
                         <Box mb={1}>
                             <Text fontSize="sm" mb={2}>Mobile Money Name</Text>
                             <Input
@@ -242,7 +260,7 @@ const PaymentMethodForm = () => {
                                 backgroundColor="gray.50" />
                         </Box>
                         {error.name && <Text color="red.400" textAlign="center">{error.name}</Text>}
-
+                        
                         <Box mt={4}>
                             <Text mb={2} fontSize="sm">Mobile Money Number</Text>
                             <Input
@@ -269,7 +287,7 @@ const PaymentMethodForm = () => {
                         </Box>
                         {error.mobileMoneyNumber &&
                         <Text color="red.400" textAlign="center">{error.mobileMoneyNumber}</Text>}
-
+                        
                         <Button
                             mt={8}
                             onPress={handleMobileMoneyAccountAdd}
@@ -287,38 +305,29 @@ const PaymentMethodForm = () => {
                         <Box mb={4}>
                             <Box mb={2}>
                                 <Text mb={2}>Bank Name</Text>
-                                <Input
-                                    isFullWidth={true}
-                                    isRequired={true}
-                                    mb={2}
-                                    py={4}
-                                    isInvalid={Boolean(error.bankName)}
-                                    width="100%"
-                                    _focus={{ borderColor: "gray.50" }}
-                                    value={bankName}
-                                    onChangeText={bankName => setBankName(bankName)}
-                                    name="bankName"
-                                    placeholder="E.g. Barclays"
-                                    autoCapitalize="words"
-                                    variant="filled"
-                                    size="lg"
-                                    borderRadius={32}
-                                    backgroundColor="gray.50" />
+                                <AutocompleteDropdown
+                                    clearOnFocus={false}
+                                    closeOnBlur={true}
+                                    closeOnSubmit={true}
+                                    onSelectItem={handleBankSelected}
+                                    dataSet={banks}
+                                    style={{borderRadius: 32}}
+                                />
                             </Box>
-
+                            
                             <Box mb={2}>
                                 <Text mb={2}>Bank Code</Text>
                                 <Input
                                     isFullWidth={true}
                                     isRequired={true}
-                                    mb={1}
+                                    mb={2}
                                     py={4}
+                                    isReadOnly={true}
                                     isInvalid={Boolean(error.bankCode)}
                                     width="100%"
                                     _focus={{ borderColor: "gray.50" }}
+                                    _readOnly={{backgroundColor: 'gray.100', color: 'gray.200'}}
                                     value={bankCode}
-                                    keyboardType="number-pad"
-                                    onChangeText={bankCode => setBankCode(bankCode)}
                                     name="bankCode"
                                     placeholder="Enter Bank Code"
                                     variant="filled"
@@ -327,7 +336,7 @@ const PaymentMethodForm = () => {
                                     backgroundColor="gray.50" />
                                 {error.bankCode && <Text color="red.400" textAlign="center">{error.bankCode}</Text>}
                             </Box>
-
+                            
                             <Box mb={2}>
                                 <Text mb={2}>Account Branch</Text>
                                 <Input
@@ -349,7 +358,7 @@ const PaymentMethodForm = () => {
                                 {error.accountBranch &&
                                 <Text color="red.400" textAlign="center">{error.accountBranch}</Text>}
                             </Box>
-
+                            
                             <Box mb={2}>
                                 <Text mb={2}>Account Name</Text>
                                 <Input
@@ -371,9 +380,9 @@ const PaymentMethodForm = () => {
                                     backgroundColor="gray.50" />
                                 {error.accountName &&
                                 <Text color="red.400" textAlign="center">{error.accountName}</Text>}
-
+                            
                             </Box>
-
+                            
                             <Box mb={2}>
                                 <Text mb={2}>Account Number</Text>
                                 <Input
@@ -395,7 +404,7 @@ const PaymentMethodForm = () => {
                                 {error.accountNumber &&
                                 <Text color="red.400" textAlign="center">{error.accountNumber}</Text>}
                             </Box>
-
+                            
                             <Box mb={2}>
                                 <Text mb={2}>Mobile Number</Text>
                                 <Input
@@ -417,7 +426,33 @@ const PaymentMethodForm = () => {
                                 {error.mobileNumber &&
                                 <Text color="red.400" textAlign="center">{error.mobileNumber}</Text>}
                             </Box>
-
+                            
+                            <Box mb={2}>
+                                <Text mb={2}>Account Currency</Text>
+                                <Select
+                                    name="bankCurrency"
+                                    borderRadius={32}
+                                    accessibilityLabel="Select Account Currency"
+                                    onValueChange={bankCurrency => setBankCurrency(bankCurrency)}
+                                    _selectedItem={{
+                                        bg: "teal.200",
+                                    }}
+                                    px={4}
+                                    py={4}
+                                    mt={1}
+                                    mb={2}
+                                    variant="rounded"
+                                    backgroundColor="white"
+                                    placeholder="Select Currency"
+                                    selectedValue={provider}>
+                                    <Select.Item label="Select Currency" value="" />
+                                    <Select.Item label="Ghana Cedis" value="GHS" />
+                                    <Select.Item label="US Dollars" value="USD" />
+                                </Select>
+                                {error.bankCurrency &&
+                                <Text color="red.400" textAlign="center">{error.bankCurrency}</Text>}
+                            </Box>
+                            
                             <Button
                                 onPress={handleBankAccountAdd}
                                 borderRadius={32}
@@ -453,7 +488,7 @@ const PaymentMethodForm = () => {
                                 backgroundColor="gray.50" />
                             {error.bankIssuer && <Text color="red.400" textAlign="center">{error.bankIssuer}</Text>}
                         </Box>
-
+                        
                         <Box mb={2}>
                             <Text mb={2}>Card Holder Name</Text>
                             <Input
@@ -476,7 +511,7 @@ const PaymentMethodForm = () => {
                             {error.cardHolderName &&
                             <Text color="red.400" textAlign="center">{error.cardHolderName}</Text>}
                         </Box>
-
+                        
                         <Box mb={2}>
                             <Text mb={2}>Card Number</Text>
                             <Input
@@ -498,7 +533,7 @@ const PaymentMethodForm = () => {
                                 backgroundColor="gray.50" />
                             {error.cardNumber && <Text color="red.400" textAlign="center">{error.cardNumber}</Text>}
                         </Box>
-
+                        
                         <Box mb={2}>
                             <Text mb={2}>CVV</Text>
                             <Input
@@ -521,7 +556,7 @@ const PaymentMethodForm = () => {
                             {error.cvv &&
                             <Text color="red.400" textAlign="center">{error.cvv}</Text>}
                         </Box>
-
+                        
                         <Box mb={4}>
                             <Text mb={2}>Expiry Date</Text>
                             <Input
@@ -544,8 +579,33 @@ const PaymentMethodForm = () => {
                             {error.expiryDate &&
                             <Text color="red.400" textAlign="center">{error.expiryDate}</Text>}
                         </Box>
-
-
+                        
+                        <Box mb={2}>
+                            <Text mb={2}>Account Currency</Text>
+                            <Select
+                                name="cardCurrency"
+                                borderRadius={32}
+                                accessibilityLabel="Select Account Currency"
+                                onValueChange={cardCurrency => setCardCurrency(cardCurrency)}
+                                _selectedItem={{
+                                    bg: "teal.200",
+                                }}
+                                px={4}
+                                py={4}
+                                mt={1}
+                                mb={2}
+                                variant="rounded"
+                                backgroundColor="white"
+                                placeholder="Select Card Currency"
+                                selectedValue={cardCurrency}>
+                                <Select.Item label="Select Currency" value="" />
+                                <Select.Item label="Ghana Cedis" value="GHS" />
+                                <Select.Item label="US Dollars" value="USD" />
+                            </Select>
+                            {error.cardCurrency &&
+                            <Text color="red.400" textAlign="center">{error.cardCurrency}</Text>}
+                        </Box>
+                        
                         <Button
                             onPress={handleDebitCardAdd}
                             borderRadius={32}
@@ -558,7 +618,7 @@ const PaymentMethodForm = () => {
                         </Button>
                     </Box>
                 ) : null}
-
+                
                 <Button
                     mt={2}
                     backgroundColor="primary.600"
