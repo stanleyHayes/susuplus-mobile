@@ -1,10 +1,9 @@
-import React, { useRef, useState } from "react";
-import { Box, Button, Center, Flex, Input, ScrollView, Select, Spinner, Text } from "native-base";
+import React, { useState } from "react";
+import { Box, Button, Center, Flex, Input, Modal, ScrollView, Select, Spinner, Text } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { PAYMENT_METHOD_ACTION_CREATORS } from "../../redux/payment-methods/payment-method-action-creators";
 import { selectPaymentMethods } from "../../redux/payment-methods/payment-method-reducers";
 import { selectAuth } from "../../redux/auth/auth-reducer";
-import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
 import { transformedBanks } from "../../redux/payment-methods/payment-methods-data";
 
 const AddPaymentMethodScreen = ({ navigation }) => {
@@ -15,12 +14,11 @@ const AddPaymentMethodScreen = ({ navigation }) => {
     const [method, setMethod] = useState("");
     
     const [error, setError] = useState({});
-    const searchRef = useRef(null);
-    const dropDownController = useRef(null);
     
     const [suggestedBanks, setSuggestedBanks] = useState([...transformedBanks]);
+    const [searchQuery, setSearchQuery] = useState("");
     
-    const [textSearch, setSearchText] = useState(null);
+    const [dialogOpen, setDialogOpen] = useState(false);
     const [provider, setProvider] = useState("");
     const [mobileMoneyNumber, setMobileMoneyNumber] = useState("");
     const [name, setName] = useState("");
@@ -186,25 +184,22 @@ const AddPaymentMethodScreen = ({ navigation }) => {
         }, authToken, navigation));
     };
     
-    const handleBankSelected = id => {
-        console.log('id', id)
-        if (id) {
-            const bank = transformedBanks.find(bank => bank.id.toString() === id);
-            console.log(bank, 'bank')
-            if (bank) {
-                setBankCode(bank.code);
-                setBankName(bank.name);
-                setBankCurrency(bank.currency);
-                setSuggestedBanks(transformedBanks);
-                setSearchText(null);
-            }
+    const handleBankSelected = bank => {
+        if (bank) {
+            setBankCode(bank.code);
+            setBankName(bank.name);
+            setBankCurrency(bank.currency);
+            setSuggestedBanks(transformedBanks);
+            setDialogOpen(false);
+            setSearchQuery("");
         }
     };
     
     const handleBankSearch = text => {
-        setSearchText(text);
+        setSearchQuery(text);
         setSuggestedBanks(transformedBanks.filter(bank => bank.name.toLowerCase().includes(text.toLowerCase())));
     };
+    
     
     return (
         
@@ -220,7 +215,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                     <Select
                         borderRadius={32}
                         px={2}
-                        py={4}
+                        py={2}
                         mb={3}
                         variant="outline"
                         accessibilityLabel="Select Payment Method"
@@ -249,7 +244,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     fontFamily: "body",
                                 }}
                                 px={4}
-                                py={4}
+                                py={2}
                                 mt={1}
                                 mb={2}
                                 variant="outline"
@@ -325,50 +320,34 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                         <Box>
                             <Box mb={4}>
                                 <Box mb={2}>
-                                    <Text mb={2}>Bank Name</Text>
-                                    <AutocompleteDropdown
-                                        ref={searchRef}
-                                        controller={controller => dropDownController.current = controller}
-                                        clearOnFocus={false}
-                                        closeOnBlur={true}
-                                        closeOnSubmit={true}
-                                        onClear={() => setSearchText("")}
-                                        onSelectItem={item => item && handleBankSelected(item.id)}
-                                        dataSet={suggestedBanks}
-                                        useFilter={false}
-                                        textInputProps={{
-                                            placeholder: "e.g. Barclays",
-                                            style: {
-                                                backgroundColor: "transparent",
-                                                color: "black",
-                                                placeholderTextColor: "#111111",
-                                            },
-                                        }}
-                                        rightButtonsContainerStyle={{
-                                            paddingTop: 12,
-                                            backgroundColor: "transparent",
-                                        }}
-                                        inputContainerStyle={{
-                                            borderWidth: 1,
-                                            borderColor: "#dddddd",
-                                            width: "100%",
-                                            borderRadius: 32,
-                                            paddingTop: 8,
-                                            paddingBottom: 8,
-                                        }}
-                                        containerStyle={{
-                                            borderRadius: 32,
-                                        }}
-                                        suggestionsListContainerStyle={{
-                                            borderRadius: 30,
-                                            padding: 8,
-                                        }}
-                                        renderItem={(item) => {
-                                            return <Text p={1.5}>{item.title}</Text>;
-                                        }}
-                                        onChangeText={handleBankSearch}
-                                        emptyResultText="No Bank Found"
-                                    />
+                                    <Text mb={1}>Bank Name</Text>
+                                    <Input
+                                        isFullWidth={true}
+                                        isRequired={true}
+                                        mb={2}
+                                        py={4}
+                                        isReadOnly={true}
+                                        isInvalid={Boolean(error.bankName)}
+                                        width="100%"
+                                        _focus={{ borderColor: "gray.50" }}
+                                        _readOnly={{ backgroundColor: "gray.100", color: "gray.600" }}
+                                        value={bankName}
+                                        name="bankName"
+                                        placeholder="Enter Bank Name"
+                                        variant="filled"
+                                        size="lg"
+                                        borderRadius={32}
+                                        backgroundColor="gray.50" />
+                                    {error.bankName && <Text color="red.400" textAlign="center">{error.bankName}</Text>}
+                                    <Button
+                                        borderColor="primary.600"
+                                        borderRadius={32}
+                                        borderWidth={1}
+                                        variant="outlined"
+                                        backgroundColor="white"
+                                        onPress={() => setDialogOpen(true)}>
+                                        <Text color="primary.600">Select Bank</Text>
+                                    </Button>
                                 </Box>
                                 
                                 <Box mb={2}>
@@ -382,7 +361,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                         isInvalid={Boolean(error.bankCode)}
                                         width="100%"
                                         _focus={{ borderColor: "gray.50" }}
-                                        _readOnly={{ backgroundColor: "gray.50", color: "gray.600" }}
+                                        _readOnly={{ backgroundColor: "gray.100", color: "gray.600" }}
                                         value={bankCode}
                                         name="bankCode"
                                         placeholder="Enter Bank Code"
@@ -478,6 +457,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     <Select
                                         name="bankCurrency"
                                         borderRadius={32}
+                                        isDisabled={true}
                                         accessibilityLabel="Select Account Currency"
                                         onValueChange={bankCurrency => setBankCurrency(bankCurrency)}
                                         _selectedItem={{
@@ -490,7 +470,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                         variant="rounded"
                                         backgroundColor="white"
                                         placeholder="Select Currency"
-                                        selectedValue={provider}>
+                                        selectedValue={bankCurrency}>
                                         <Select.Item label="Select Currency" value="" />
                                         <Select.Item label="Ghana Cedis" value="GHS" />
                                         <Select.Item label="US Dollars" value="USD" />
@@ -657,6 +637,50 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                     ) : null}
                 </Box>
             </ScrollView>
+            
+            <Modal
+                size="full"
+                isOpen={dialogOpen}
+                onClose={() => setDialogOpen(false)}>
+                <Modal.Content>
+                    <Modal.Header><Text>Select Bank</Text></Modal.Header>
+                    <Modal.Body>
+                        <Input
+                            isFullWidth={true}
+                            isRequired={true}
+                            mb={2}
+                            width="100%"
+                            _focus={{ borderColor: "gray.50" }}
+                            value={searchQuery}
+                            onChangeText={searchQuery => handleBankSearch(searchQuery)}
+                            placeholder="Search bank"
+                            variant="outline"
+                            py={2}
+                            borderWidth={1}
+                            size="md"
+                            borderRadius={32}
+                            backgroundColor="gray.50"
+                        />
+                        {suggestedBanks && suggestedBanks.map((bank, index) => {
+                            return (
+                                <Button variant="ghost" key={index} onPress={() => handleBankSelected(bank)}>
+                                    <Text textAlign="center" fontSize="md" p={1.5}>{bank.name}</Text>
+                                </Button>
+                            );
+                        })}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button
+                            width="100%"
+                            borderRadius={32}
+                            p={2}
+                            backgroundColor="primary.600"
+                            onPress={() => setDialogOpen(false)}>
+                            <Text color="white">Close</Text>
+                        </Button>
+                    </Modal.Footer>
+                </Modal.Content>
+            </Modal>
         </Flex>
     );
 };

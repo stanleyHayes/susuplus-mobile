@@ -14,7 +14,6 @@ import savingsImage from "../../assets/images/savings64px.png";
 import investmentImage from "../../assets/images/investment64px.png";
 import Empty from "../../components/empty";
 import { LineChart } from "react-native-chart-kit";
-import { month, week, year } from "../../redux/dashboard/dashboard-data";
 import NumberSuffix from "number-suffix";
 
 const DashboardScreen = () => {
@@ -96,7 +95,7 @@ const DashboardScreen = () => {
                             </Box>
                             <Box>
                                 <Text fontSize="xl">
-                                    {`${getCurrency(dashboard.contributions.contributionCurrency)} ${dashboard.contributions.totalContributionsAmount && NumberSuffix.format(dashboard.contributions.totalContributionsAmount, {precision: 2})}`}
+                                    {`${getCurrency(dashboard.contributions.contributionCurrency)} ${dashboard.contributions.totalContributionsAmount && NumberSuffix.format(dashboard.contributions.totalContributionsAmount, { precision: 2 })}`}
                                 </Text>
                             </Box>
                         </Flex>
@@ -121,7 +120,6 @@ const DashboardScreen = () => {
                                 selectedValue={selectedPeriod}>
                                 <Select.Item label="Weekly" value="week" />
                                 <Select.Item label="Monthly" value="month" />
-                                <Select.Item label="Yearly" value="year" />
                             </Select>
                         
                         </Flex>
@@ -133,7 +131,7 @@ const DashboardScreen = () => {
                                  justifyContent="space-between" alignItems="center">
                                 <Flex px={2} direction="row" width="100%" justifyContent="space-between">
                                     <Text fontSize="xl" mb={1}>
-                                        {`${getCurrency(dashboard?.contributions?.contributionCurrency)} ${dashboard?.contributions?.week?.lastWeekContributionAmount && NumberSuffix.format(dashboard?.contributions?.week?.lastWeekContributionAmount, {precision: 2})}`}
+                                        {`${getCurrency(dashboard?.contributions?.contributionCurrency)} ${dashboard?.contributions?.week?.lastWeekContributionAmount && NumberSuffix.format(dashboard?.contributions?.week?.lastWeekContributionAmount, { precision: 2 })}`}
                                     </Text>
                                     
                                     <Text
@@ -141,7 +139,7 @@ const DashboardScreen = () => {
                                         textAlign="center"
                                         fontFamily="body"
                                         fontSize="xs">
-                                        {`${dashboard?.contributions?.week?.lastWeekContributionsCount && NumberSuffix.format(dashboard?.contributions?.week?.lastWeekContributionsCount, {precision: 2})} Contributions this week`}
+                                        {`${dashboard?.contributions?.week?.lastWeekContributionsCount && NumberSuffix.format(dashboard?.contributions?.week?.lastWeekContributionsCount, { precision: 2 })} Contributions this week`}
                                     </Text>
                                 </Flex>
                                 
@@ -162,21 +160,21 @@ const DashboardScreen = () => {
                                             propsForDots: {
                                                 r: "4",
                                                 strokeWidth: "2",
-                                                stroke: "#0e7490"
+                                                stroke: "#0e7490",
                                             },
                                             formatXLabel: (label) => label + 5,
-                                            paddingRight: 8
+                                            paddingRight: 8,
                                         }}
                                         bezier={true}
                                         style={{
                                             borderRadius: 32,
-                                            paddingHorizontal: 8
+                                            paddingHorizontal: 8,
                                         }}
                                         data={{
-                                            labels: week.labels,
+                                            labels: dashboard?.contributions?.week?.labels,
                                             datasets: [
                                                 {
-                                                    data: week.data,
+                                                    data: dashboard?.contributions?.week?.data,
                                                 },
                                             ],
                                         }}
@@ -191,7 +189,7 @@ const DashboardScreen = () => {
                                      justifyContent="space-between" alignItems="center">
                                     <Flex px={2} direction="row" width="100%" justifyContent="space-between">
                                         <Text fontSize="xl" mb={1}>
-                                            {`${getCurrency(dashboard?.contributions?.contributionCurrency)} ${dashboard?.contributions?.month?.lastMonthContributionAmount && NumberSuffix.format(dashboard?.contributions?.month?.lastMonthContributionAmount, {precision: 2})}`}
+                                            {`${getCurrency(dashboard?.contributions?.contributionCurrency)} ${dashboard?.contributions?.month?.lastMonthContributionAmount && NumberSuffix.format(dashboard?.contributions?.month?.lastMonthContributionAmount, { precision: 2 })}`}
                                         </Text>
                                         
                                         <Text
@@ -199,7 +197,7 @@ const DashboardScreen = () => {
                                             textAlign="center"
                                             fontFamily="body"
                                             fontSize="xs">
-                                            {`${dashboard?.contributions?.month?.lastMonthContributionsCount && NumberSuffix.format(dashboard?.contributions?.month?.lastMonthContributionsCount, {precision: 2})} Contributions this month`}
+                                            {`${dashboard?.contributions?.month?.lastMonthContributionsCount && NumberSuffix.format(dashboard?.contributions?.month?.lastMonthContributionsCount, { precision: 2 })} Contributions this month`}
                                         </Text>
                                     </Flex>
                                     
@@ -220,80 +218,21 @@ const DashboardScreen = () => {
                                                 propsForDots: {
                                                     r: "4",
                                                     strokeWidth: "2",
-                                                    stroke: "#0e7490"
+                                                    stroke: "#0e7490",
                                                 },
-                                                formatXLabel: (label) => NumberSuffix.format(Integer.valueOf(label), {precision: 2}),
-                                                paddingRight: 8
+                                                formatXLabel: (label) => NumberSuffix.format(Integer.valueOf(label), { precision: 2 }),
+                                                paddingRight: 8,
                                             }}
                                             bezier={true}
                                             style={{
                                                 borderRadius: 32,
-                                                paddingHorizontal: 8
+                                                paddingHorizontal: 8,
                                             }}
                                             data={{
-                                                labels: month.labels,
+                                                labels: dashboard?.contributions?.month?.labels,
                                                 datasets: [
                                                     {
-                                                        data: month.data,
-                                                    },
-                                                ],
-                                            }}
-                                            width={Dimensions.get("window").width - 16}
-                                            height={200}
-                                        />
-                                    </Box>
-                                </Box>
-                            </Box>
-                        ) : selectedPeriod === "year" ? (
-                            <Box>
-                                <Box pt={4} backgroundColor="white" borderRadius={32} mb={2} mx={2} shadow={0} flex={1}
-                                     justifyContent="space-between" alignItems="center">
-                                    <Flex px={2} direction="row" width="100%" justifyContent="space-between">
-                                        <Text fontSize="xl" mb={1}>
-                                            {`${getCurrency(dashboard?.contributions?.contributionCurrency)} ${dashboard?.contributions?.year?.lastYearContributionAmount && NumberSuffix.format(dashboard?.contributions?.year?.lastYearContributionAmount)}`}
-                                        </Text>
-                                        
-                                        <Text
-                                            mb={1}
-                                            textAlign="center"
-                                            fontFamily="body"
-                                            fontSize="xs">
-                                            {`${dashboard?.contributions?.year?.lastYearContributionsCount && NumberSuffix.format(dashboard?.contributions?.year?.lastYearContributionsCount, {precision: 2})} Contributions this year`}
-                                        </Text>
-                                    </Flex>
-                                    
-                                    <Box>
-                                        <LineChart
-                                            yAxisLabel={getCurrency(dashboard?.disbursements?.disbursementCurrency)}
-                                            yAxisInterval={1}
-                                            chartConfig={{
-                                                backgroundColor: "#22d3ee",
-                                                backgroundGradientFrom: "#0891b2",
-                                                backgroundGradientTo: "#67e8f9",
-                                                decimalPlaces: 2,
-                                                color: (opacity = 1``) => `rgba(255, 255, 255, ${opacity})`,
-                                                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                                                style: {
-                                                    borderRadius: 32,
-                                                },
-                                                propsForDots: {
-                                                    r: "4",
-                                                    strokeWidth: "2",
-                                                    stroke: "#0e7490"
-                                                },
-                                                formatXLabel: (label) => NumberSuffix.format(Integer.valueOf(label), {precision: 2}),
-                                                paddingRight: 8
-                                            }}
-                                            bezier={true}
-                                            style={{
-                                                borderRadius: 32,
-                                                paddingHorizontal: 8
-                                            }}
-                                            data={{
-                                                labels: year.labels,
-                                                datasets: [
-                                                    {
-                                                        data: year.data,
+                                                        data: dashboard?.contributions?.month?.data,
                                                     },
                                                 ],
                                             }}
@@ -314,11 +253,11 @@ const DashboardScreen = () => {
                             <Box ml={2} flex={1}>
                                 <Text fontSize="lg">Total Disbursements</Text>
                                 <Text
-                                    fontSize="md">{`${dashboard?.disbursements?.totalDisbursements && NumberSuffix.format(dashboard?.disbursements?.totalDisbursements, {precision: 2})} Disbursements`}</Text>
+                                    fontSize="md">{`${dashboard?.disbursements?.totalDisbursements && NumberSuffix.format(dashboard?.disbursements?.totalDisbursements, { precision: 2 })} Disbursements`}</Text>
                             </Box>
                             <Box>
                                 <Text fontSize="xl">
-                                    {`${getCurrency(dashboard?.disbursements?.disbursementCurrency)} ${dashboard?.disbursements?.totalDisbursements && NumberSuffix.format(dashboard?.disbursements?.totalDisbursements, {precision: 2})}`}
+                                    {`${getCurrency(dashboard?.disbursements?.disbursementCurrency)} ${dashboard?.disbursements?.totalDisbursements && NumberSuffix.format(dashboard?.disbursements?.totalDisbursements, { precision: 2 })}`}
                                 </Text>
                             </Box>
                         </Flex>
@@ -339,7 +278,7 @@ const DashboardScreen = () => {
                                 alignItems="center">
                                 <Flex px={2} direction="row" width="100%" justifyContent="space-between">
                                     <Text fontSize="xl" mb={1}>
-                                        {`${getCurrency(dashboard?.disbursements?.disbursementCurrency)} ${dashboard?.disbursements?.week?.lastWeekDisbursementAmount && NumberSuffix.format(dashboard?.disbursements?.week?.lastWeekDisbursementAmount, {precision: 2})}`}
+                                        {`${getCurrency(dashboard?.disbursements?.disbursementCurrency)} ${dashboard?.disbursements?.week?.lastWeekDisbursementAmount && NumberSuffix.format(dashboard?.disbursements?.week?.lastWeekDisbursementAmount, { precision: 2 })}`}
                                     </Text>
                                     
                                     <Text
@@ -347,7 +286,7 @@ const DashboardScreen = () => {
                                         textAlign="center"
                                         fontFamily="body"
                                         fontSize="xs">
-                                        {`${dashboard?.disbursements?.week?.lastWeekDisbursementsCount && NumberSuffix.format(dashboard?.disbursements?.week?.lastWeekDisbursementsCount, {precision: 2})} Disbursements this week`}
+                                        {`${dashboard?.disbursements?.week?.lastWeekDisbursementsCount && NumberSuffix.format(dashboard?.disbursements?.week?.lastWeekDisbursementsCount, { precision: 2 })} Disbursements this week`}
                                     </Text>
                                 </Flex>
                                 
@@ -368,21 +307,21 @@ const DashboardScreen = () => {
                                             propsForDots: {
                                                 r: "4",
                                                 strokeWidth: "2",
-                                                stroke: "#0e7490"
+                                                stroke: "#0e7490",
                                             },
                                             formatXLabel: (label) => label + 5,
-                                            paddingRight: 8
+                                            paddingRight: 8,
                                         }}
                                         bezier={true}
                                         style={{
                                             borderRadius: 32,
-                                            paddingHorizontal: 8
+                                            paddingHorizontal: 8,
                                         }}
                                         data={{
-                                            labels: week.labels,
+                                            labels: dashboard?.disbursements?.week?.labels,
                                             datasets: [
                                                 {
-                                                    data: week.data,
+                                                    data: dashboard?.disbursements?.week?.data,
                                                 },
                                             ],
                                         }}
@@ -407,7 +346,7 @@ const DashboardScreen = () => {
                                     <Flex px={2} direction="row" width="100%" justifyContent="space-between"
                                           alignItems="center">
                                         <Text fontSize="xl" mb={1}>
-                                            {`${getCurrency(dashboard?.disbursements?.contributionCurrency)} ${dashboard?.disbursements?.month?.lastMonthDisbursementAmount && NumberSuffix.format(dashboard?.disbursements?.month?.lastMonthDisbursementAmount, {precision: 2})}`}
+                                            {`${getCurrency(dashboard?.disbursements?.contributionCurrency)} ${dashboard?.disbursements?.month?.lastMonthDisbursementAmount && NumberSuffix.format(dashboard?.disbursements?.month?.lastMonthDisbursementAmount, { precision: 2 })}`}
                                         </Text>
                                         
                                         <Text
@@ -415,7 +354,7 @@ const DashboardScreen = () => {
                                             textAlign="center"
                                             fontFamily="body"
                                             fontSize="xs">
-                                            {`${dashboard?.disbursements?.month?.lastMonthDisbursementsCount && NumberSuffix.format(dashboard?.disbursements?.month?.lastMonthDisbursementsCount, {precision})} Disbursements this month`}
+                                            {`${dashboard?.disbursements?.month?.lastMonthDisbursementsCount && NumberSuffix.format(dashboard?.disbursements?.month?.lastMonthDisbursementsCount, { precision })} Disbursements this month`}
                                         </Text>
                                     </Flex>
                                     
@@ -436,90 +375,21 @@ const DashboardScreen = () => {
                                                 propsForDots: {
                                                     r: "4",
                                                     strokeWidth: "2",
-                                                    stroke: "#0e7490"
+                                                    stroke: "#0e7490",
                                                 },
-                                                formatXLabel: (label) => NumberSuffix.format(Integer.valueOf(label), {precision: 2}),
-                                                paddingRight: 8
+                                                formatXLabel: (label) => NumberSuffix.format(Integer.valueOf(label), { precision: 2 }),
+                                                paddingRight: 8,
                                             }}
                                             bezier={true}
                                             style={{
                                                 borderRadius: 32,
-                                                paddingHorizontal: 8
+                                                paddingHorizontal: 8,
                                             }}
                                             data={{
-                                                labels: month.labels,
+                                                labels: dashboard?.disbursements?.month?.labels,
                                                 datasets: [
                                                     {
-                                                        data: month.data,
-                                                    },
-                                                ],
-                                            }}
-                                            width={Dimensions.get("window").width - 16}
-                                            height={200}
-                                        />
-                                    </Box>
-                                </Box>
-                            </Box>
-                        ) : selectedPeriod === "year" ? (
-                            <Box>
-                                <Box
-                                    px={4}
-                                    pt={4}
-                                    mb={2}
-                                    backgroundColor="white"
-                                    borderRadius={32}
-                                    mx={2}
-                                    shadow={0}
-                                    flex={1}
-                                    justifyContent="space-between"
-                                    alignItems="center">
-                                    <Flex px={2} direction="row" width="100%" justifyContent="space-between"
-                                          alignItems="center">
-                                        <Text fontSize="xl" mb={1}>
-                                            {`${getCurrency(dashboard?.disbursements?.disbursementCurrency)} ${dashboard?.disbursements?.year?.lastYearDisbursementAmount && NumberSuffix.format(dashboard?.disbursements?.year?.lastYearDisbursementAmount, {precision: 2})}`}
-                                        </Text>
-                                        
-                                        <Text
-                                            mb={1}
-                                            textAlign="center"
-                                            fontFamily="body"
-                                            fontSize="xs">
-                                            {`${dashboard?.disbursements?.year?.lastYearDisbursementsCount && NumberSuffix.format(dashboard?.disbursements?.year?.lastYearDisbursementsCount, {precision: 2})} Disbursements this year`}
-                                        </Text>
-                                    </Flex>
-                                    
-                                    <Box>
-                                        <LineChart
-                                            yAxisLabel={getCurrency(dashboard?.disbursements?.disbursementCurrency)}
-                                            yAxisInterval={1}
-                                            chartConfig={{
-                                                backgroundColor: "#22d3ee",
-                                                backgroundGradientFrom: "#0891b2",
-                                                backgroundGradientTo: "#67e8f9",
-                                                decimalPlaces: 2,
-                                                color: (opacity = 1``) => `rgba(255, 255, 255, ${opacity})`,
-                                                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                                                style: {
-                                                    borderRadius: 32,
-                                                },
-                                                propsForDots: {
-                                                    r: "4",
-                                                    strokeWidth: "2",
-                                                    stroke: "#0e7490"
-                                                },
-                                                formatXLabel: (label) => NumberSuffix.format(Integer.valueOf(label), {precision: 2}),
-                                                paddingRight: 8
-                                            }}
-                                            bezier={true}
-                                            style={{
-                                                borderRadius: 32,
-                                                paddingHorizontal: 8
-                                            }}
-                                            data={{
-                                                labels: year.labels,
-                                                datasets: [
-                                                    {
-                                                        data: year.data,
+                                                        data: dashboard?.disbursements?.month?.data,
                                                     },
                                                 ],
                                             }}
@@ -556,7 +426,7 @@ const DashboardScreen = () => {
                             <Box ml={2} flex={1}>
                                 <Text fontSize="lg">Rejected Invitations</Text>
                                 <Text fontSize="md">
-                                    {`${dashboard.invitations?.rejectedInvitations?.rejectedInvitationsCount && NumberSuffix.format(dashboard.invitations?.rejectedInvitations?.rejectedInvitationsCount, {precision: 2})} Invitations`}
+                                    {`${dashboard.invitations?.rejectedInvitations?.rejectedInvitationsCount && NumberSuffix.format(dashboard.invitations?.rejectedInvitations?.rejectedInvitationsCount, { precision: 2 })} Invitations`}
                                 </Text>
                             </Box>
                             <Box>
@@ -573,7 +443,7 @@ const DashboardScreen = () => {
                             <Box ml={2} flex={1}>
                                 <Text fontSize="lg">Accepted Invitations</Text>
                                 <Text fontSize="md">
-                                    {`${dashboard.invitations?.acceptedInvitations?.acceptedInvitationsCount && NumberSuffix.format(dashboard.invitations?.acceptedInvitations?.acceptedInvitationsCount, {precision: 2})} Invitations`}
+                                    {`${dashboard.invitations?.acceptedInvitations?.acceptedInvitationsCount && NumberSuffix.format(dashboard.invitations?.acceptedInvitations?.acceptedInvitationsCount, { precision: 2 })} Invitations`}
                                 </Text>
                             </Box>
                             <Box>
@@ -652,7 +522,6 @@ const DashboardScreen = () => {
                     <Box shadow={0} py={4} my={1} mx={2} backgroundColor="white" borderRadius={32}>
                         <Text px={4}>Latest Contributions</Text>
                         <Divider orientation="horizontal" width="100%" my={2} />
-                        
                         {
                             dashboard?.contributions?.latestContributions?.length === 0 ? (
                                 <Box>
@@ -733,7 +602,6 @@ const DashboardScreen = () => {
                             )
                         }
                     </Box>
-                
                 </Box>
             )}
         </ScrollView>
