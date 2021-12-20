@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Box, Button, Center, Flex, Input, ScrollView, Select, Spinner, Text } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { PAYMENT_METHOD_ACTION_CREATORS } from "../../redux/payment-methods/payment-method-action-creators";
@@ -15,9 +15,12 @@ const AddPaymentMethodScreen = ({ navigation }) => {
     const [method, setMethod] = useState("");
     
     const [error, setError] = useState({});
+    const searchRef = useRef(null);
+    const dropDownController = useRef(null);
     
     const [suggestedBanks, setSuggestedBanks] = useState([...transformedBanks]);
     
+    const [textSearch, setSearchText] = useState(null);
     const [provider, setProvider] = useState("");
     const [mobileMoneyNumber, setMobileMoneyNumber] = useState("");
     const [name, setName] = useState("");
@@ -184,18 +187,22 @@ const AddPaymentMethodScreen = ({ navigation }) => {
     };
     
     const handleBankSelected = id => {
+        console.log('id', id)
         if (id) {
             const bank = transformedBanks.find(bank => bank.id.toString() === id);
+            console.log(bank, 'bank')
             if (bank) {
                 setBankCode(bank.code);
                 setBankName(bank.name);
                 setBankCurrency(bank.currency);
                 setSuggestedBanks(transformedBanks);
+                setSearchText(null);
             }
         }
     };
     
     const handleBankSearch = text => {
+        setSearchText(text);
         setSuggestedBanks(transformedBanks.filter(bank => bank.name.toLowerCase().includes(text.toLowerCase())));
     };
     
@@ -320,11 +327,13 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                 <Box mb={2}>
                                     <Text mb={2}>Bank Name</Text>
                                     <AutocompleteDropdown
-                                        initialValue={"71"}
+                                        ref={searchRef}
+                                        controller={controller => dropDownController.current = controller}
                                         clearOnFocus={false}
                                         closeOnBlur={true}
                                         closeOnSubmit={true}
-                                        onSelectItem={item => item && handleBankSelected(item.id.toString())}
+                                        onClear={() => setSearchText("")}
+                                        onSelectItem={item => item && handleBankSelected(item.id)}
                                         dataSet={suggestedBanks}
                                         useFilter={false}
                                         textInputProps={{
@@ -346,8 +355,6 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                             borderRadius: 32,
                                             paddingTop: 8,
                                             paddingBottom: 8,
-                                            
-                                            
                                         }}
                                         containerStyle={{
                                             borderRadius: 32,
@@ -357,7 +364,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                             padding: 8,
                                         }}
                                         renderItem={(item) => {
-                                            return <Text p={1.5}>{item.name}</Text>;
+                                            return <Text p={1.5}>{item.title}</Text>;
                                         }}
                                         onChangeText={handleBankSearch}
                                         emptyResultText="No Bank Found"

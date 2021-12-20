@@ -1,7 +1,9 @@
 import { GROUP_PAYMENT_METHOD_ACTION_TYPES } from "./group-payment-method-action-types";
 import axios from "axios";
-import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS } from "../../constants/constants";
+import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS, SECURE_STORAGE_CONSTANTS } from "../../constants/constants";
 import { UTILS } from "../../utils/utils";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AUTH_ACTION_CREATORS } from "../auth/auth-action-creators";
 
 const getGroupPaymentMethodsRequest = () => {
   return {
@@ -39,6 +41,12 @@ const getGroupPaymentMethods = (token, groupID) => {
       dispatch(getGroupPaymentMethodsSuccess(data));
     } catch (e) {
       const { message } = e.response.data;
+  
+      if(message === 'jwt expired'){
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+      }
       dispatch(getGroupPaymentMethodsFailure(message));
     }
   };
@@ -65,7 +73,6 @@ const addGroupPaymentMethodsFailure = message => {
 };
 
 const addGroupPaymentMethod = (token, paymentMethod, groupID, navigation) => {
-  console.log(paymentMethod)
   return async dispatch => {
     try {
       dispatch(addGroupPaymentMethodRequest());
@@ -83,6 +90,12 @@ const addGroupPaymentMethod = (token, paymentMethod, groupID, navigation) => {
       navigation.navigate(SCREEN_NAME_CONSTANTS.GROUP_PAYMENT_METHODS, {groupID})
     } catch (e) {
       const { message } = e.response.data;
+  
+      if(message === 'jwt expired'){
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+      }
       UTILS.showToast('Error', message, 'error', 5000);
       dispatch(addGroupPaymentMethodsFailure(message));
     }

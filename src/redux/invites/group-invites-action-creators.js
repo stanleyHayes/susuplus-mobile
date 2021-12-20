@@ -2,7 +2,7 @@ import { INVITATIONS_ACTION_TYPE } from "./group-invites-action-types";
 import axios from "axios";
 import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS, SECURE_STORAGE_CONSTANTS } from "../../constants/constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { restoreToken } from "../auth/auth-action-creators";
+import { AUTH_ACTION_CREATORS, restoreToken } from "../auth/auth-action-creators";
 import { UTILS } from "../../utils/utils";
 
 const getInvitationsRequest = () => {
@@ -40,7 +40,7 @@ const getInvitations = (token, query) => {
       dispatch(getInvitationsSuccess(data));
     }catch (e) {
       const {message} = e.response.data;
-      if(e.response.message === 'jwt expired'){
+      if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
         dispatch(restoreToken());
@@ -140,6 +140,12 @@ const acceptInvitation = (token, invitationID) => {
       dispatch(acceptInvitationSuccess(data));
     }catch (e) {
       const {message} = e.response.data;
+  
+      if(message === 'jwt expired'){
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+      }
       dispatch(acceptInvitationFailure(message));
     }
   }
@@ -184,6 +190,12 @@ const declineInvitation = (token, invitationID) => {
       dispatch(declineInvitationSuccess(data));
     }catch (e) {
       const {message} = e.response.data;
+  
+      if(message === 'jwt expired'){
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+      }
       dispatch(declineInvitationFailure(message));
     }
   }

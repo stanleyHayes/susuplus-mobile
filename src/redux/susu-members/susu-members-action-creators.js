@@ -1,6 +1,8 @@
 import { SUSU_MEMBER_ACTION_TYPES } from "./susu-members-action-types";
 import axios from "axios";
-import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS } from "../../constants/constants";
+import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS, SECURE_STORAGE_CONSTANTS } from "../../constants/constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AUTH_ACTION_CREATORS } from "../auth/auth-action-creators";
 
 const getSusuGroupsOfUserRequest = () => {
   return {
@@ -37,6 +39,12 @@ const getGroupsOfUser = (token, userID) => {
       dispatch(getSusuGroupsOfUserSuccess(data));
     }catch (e) {
       const {message} = e.response.data;
+  
+      if(message === 'jwt expired'){
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+      }
       dispatch(getSusuGroupsOfUserFailure(message));
     }
   }
@@ -80,6 +88,12 @@ const addSusuMembers = (token, members, navigation) => {
       navigation.navigate(SCREEN_NAME_CONSTANTS.SUSU_MEMBERS_SCREEN, {susuID: members.susuID})
     }catch (e) {
       const {message} = e.response.data;
+  
+      if(message === 'jwt expired'){
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+      }
       dispatch(addSusuMembersFailure(message));
     }
   }
@@ -122,6 +136,12 @@ const getSusuGroupMembers = (token, susuID) => {
       dispatch(getSusuGroupMembersSuccess(data));
     }catch (e) {
       const {message} = e.response.data;
+  
+      if(message === 'jwt expired'){
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+      }
       dispatch(getSusuGroupMembersFailure(message));
     }
   }

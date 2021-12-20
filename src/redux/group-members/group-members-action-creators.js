@@ -1,6 +1,8 @@
 import { GROUP_MEMBER_ACTION_TYPES } from "./group-members-action-types";
 import axios from "axios";
-import { API_URL_CONSTANTS } from "../../constants/constants";
+import { API_URL_CONSTANTS, SECURE_STORAGE_CONSTANTS } from "../../constants/constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AUTH_ACTION_CREATORS } from "../auth/auth-action-creators";
 
 const getGroupsOfUserRequest = () => {
   return {
@@ -37,6 +39,12 @@ const getGroupsOfUser = (token, userID) => {
       dispatch(getGroupsOfUserSuccess(data));
     }catch (e) {
       const {message} = e.response.data;
+  
+      if(message === 'jwt expired'){
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+      }
       dispatch(getGroupsOfUserFailure(message));
     }
   }
@@ -78,6 +86,12 @@ const getGroupMembers = (token, groupID) => {
       dispatch(getGroupMembersSuccess(data));
     }catch (e) {
       const {message} = e.response.data;
+  
+      if(message === 'jwt expired'){
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+      }
       dispatch(getGroupMembersFailure(message));
     }
   }

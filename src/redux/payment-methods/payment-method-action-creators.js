@@ -1,7 +1,9 @@
 import { PAYMENT_METHOD_ACTION_TYPES } from "./payment-method-action-types";
 import axios from "axios";
-import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS } from "../../constants/constants";
+import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS, SECURE_STORAGE_CONSTANTS } from "../../constants/constants";
 import { UTILS } from "../../utils/utils";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AUTH_ACTION_CREATORS } from "../auth/auth-action-creators";
 
 const addPaymentMethodRequest = () => {
   return {
@@ -24,7 +26,6 @@ const addPaymentMethodFailure = message => {
 };
 
 const addPaymentMethod = (paymentMethod, token, navigation) => {
-  console.log(paymentMethod)
   return async dispatch => {
     try {
       dispatch(addPaymentMethodRequest());
@@ -47,6 +48,11 @@ const addPaymentMethod = (paymentMethod, token, navigation) => {
           5000);
     } catch (e) {
       const { message } = e.response.data;
+      if(message === 'jwt expired'){
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+      }
       UTILS.showToast('Error', message, 'error', 5000);
       dispatch(addPaymentMethodFailure(message));
     }
@@ -90,6 +96,12 @@ const getPaymentMethod = (paymentMethodID, token) => {
       dispatch(getPaymentMethodSuccess(data));
     } catch (e) {
       const { message } = e.response.data;
+  
+      if(message === 'jwt expired'){
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+      }
       dispatch(getPaymentMethodFailure(message));
     }
   };
@@ -131,6 +143,11 @@ const getPaymentMethods = (token) => {
       dispatch(getPaymentMethodsSuccess(data));
     } catch (e) {
       const { message } = e.response.data;
+      if(message === 'jwt expired'){
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+      }
       dispatch(getPaymentMethodsFailure(message));
     }
   };
@@ -174,6 +191,11 @@ const updatePaymentMethod = (paymentMethodID, paymentMethod, token) => {
       dispatch(updatePaymentMethodSuccess(data));
     } catch (e) {
       const { message } = e.response.data;
+      if(message === 'jwt expired'){
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+      }
       dispatch(updatePaymentMethodFailure(message));
     }
   };
@@ -215,6 +237,12 @@ const removePaymentMethod = (paymentMethodID, token, query) => {
       dispatch(removePaymentMethodSuccess(data));
     } catch (e) {
       const { message } = e.response.data;
+  
+      if(message === 'jwt expired'){
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+      }
       dispatch(removePaymentMethodFailure(message));
     }
   };

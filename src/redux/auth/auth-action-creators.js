@@ -4,6 +4,7 @@ import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS, SECURE_STORAGE_CONSTANTS } fr
 import axios from "axios";
 import { UTILS } from "../../utils/utils";
 
+
 const restoreTokenRequest = () => {
   return {
     type: AUTH_ACTION_TYPES.RESTORE_TOKEN_REQUEST,
@@ -34,7 +35,6 @@ export const restoreToken = () => {
         dispatch(restoreTokenSuccess(token, JSON.parse(userData)));
       } else {
         dispatch(restoreTokenFailure());
-        
       }
     } catch (e) {
       dispatch(restoreTokenFailure(e.message));
@@ -304,7 +304,6 @@ export const updateProfile = (user, token, navigation) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response, "response");
       const { data } = response.data;
       dispatch(updateProfileSuccess(data));
       navigation.push(SCREEN_NAME_CONSTANTS.MORE_SCREEN);
@@ -315,7 +314,7 @@ export const updateProfile = (user, token, navigation) => {
           5000);
     } catch (e) {
       const { message } = e.response.data;
-      if(e.response.message === 'jwt expired'){
+      if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
         dispatch(restoreToken());
@@ -367,7 +366,7 @@ export const changePassword = (passwords, token, navigation) => {
           5000);
     } catch (e) {
       const { message } = e.response.data;
-      if(e.response.message === 'jwt expired'){
+      if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
         dispatch(restoreToken());
@@ -460,4 +459,4 @@ export const disableAccount = (token, navigator) => {
 };
 
 
-export const AUTH_ACTION_CREATORS = { updateProfile, changePassword, forgotPassword, resetPassword, verifyAccount };
+export const AUTH_ACTION_CREATORS = { updateProfile, changePassword, forgotPassword, resetPassword, verifyAccount, restoreToken };

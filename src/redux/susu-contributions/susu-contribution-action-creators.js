@@ -1,6 +1,8 @@
 import { CONTRIBUTION_ACTION_TYPES } from "../user-contributions/user-contribution-action-types";
 import axios from "axios";
-import { API_URL_CONSTANTS } from "../../constants/constants";
+import { API_URL_CONSTANTS, SECURE_STORAGE_CONSTANTS } from "../../constants/constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AUTH_ACTION_CREATORS } from "../auth/auth-action-creators";
 
 const getContributionsRequest = () => {
   return {
@@ -37,6 +39,12 @@ const getContributions = (token, userID) => {
       dispatch(getContributionsSuccess(data));
     } catch (e) {
       const {message} = e.response.data;
+  
+      if(message === 'jwt expired'){
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+      }
       dispatch(getContributionsFailure(message));
     }
   };
@@ -78,6 +86,12 @@ const getContribution = (token, contributionID) => {
       dispatch(getContributionSuccess(data));
     } catch (e) {
       const {message} = e.response.data;
+  
+      if(message === 'jwt expired'){
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+        await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+      }
       dispatch(getContributionFailure(message));
     }
   };

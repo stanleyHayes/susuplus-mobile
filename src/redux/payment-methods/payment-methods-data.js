@@ -642,5 +642,5 @@ export const banks = [
 ];
 
 export const transformedBanks = banks.map(bank => {
-    return {...bank, id: bank.id.toString()}
+    return {...bank, id: bank.id.toString(), title: bank.name}
 })

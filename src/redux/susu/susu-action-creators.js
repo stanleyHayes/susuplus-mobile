@@ -1,8 +1,10 @@
 import { SUSU_ACTION_TYPES } from "./susu-action-types";
 import axios from "axios";
-import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS } from "../../constants/constants";
+import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS, SECURE_STORAGE_CONSTANTS } from "../../constants/constants";
 import { SUSU_MEMBERS_ACTION_CREATORS } from "../susu-members/susu-members-action-creators";
 import { UTILS } from "../../utils/utils";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AUTH_ACTION_CREATORS } from "../auth/auth-action-creators";
 
 const getSusuGroupRequest = () => {
     return {
@@ -25,7 +27,6 @@ const getSusuGroupFailure = message => {
 };
 
 const getSusuGroup = (token, susuID) => {
-    console.log('susu id', susuID)
     return async dispatch => {
         dispatch(getSusuGroupRequest());
         try {
@@ -38,9 +39,13 @@ const getSusuGroup = (token, susuID) => {
             });
             const { data } = response.data;
             dispatch(getSusuGroupSuccess(data));
-            console.log('data', data)
         } catch (e) {
             const { message } = e.response.data;
+            if(message === 'jwt expired'){
+                await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+                await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+                dispatch(AUTH_ACTION_CREATORS.restoreToken());
+            }
             dispatch(getSusuGroupFailure(message));
         }
     };
@@ -82,6 +87,12 @@ const getSusuByGroup = (token, groupID) => {
             dispatch(getSusuByGroupSuccess(data));
         } catch (e) {
             const { message } = e.response.data;
+    
+            if(message === 'jwt expired'){
+                await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+                await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+                dispatch(AUTH_ACTION_CREATORS.restoreToken());
+            }
             dispatch(getSusuByGroupFailure(message));
         }
     };
@@ -171,6 +182,12 @@ const createSusu = (token, susu, userID, navigation) => {
             navigation.push(SCREEN_NAME_CONSTANTS.SUSU_SCREEN);
         } catch (e) {
             const { message } = e.response.data;
+    
+            if(message === 'jwt expired'){
+                await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+                await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+                dispatch(AUTH_ACTION_CREATORS.restoreToken());
+            }
             UTILS.showToast('Error', message, 'error', 5000);
             dispatch(createSusuFailure(message));
         }
