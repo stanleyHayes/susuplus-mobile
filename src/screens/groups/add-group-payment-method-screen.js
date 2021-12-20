@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Box, Button, Center, Flex, Input, ScrollView, Select, Spinner, Text } from "native-base";
+import { Box, Button, Center, Flex, Input, Modal, ScrollView, Select, Spinner, Text } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAuth } from "../../redux/auth/auth-reducer";
 import { selectGroupPaymentMethods } from "../../redux/group-payment-methods/group-payment-method-reducers";
 import { GROUP_PAYMENT_METHOD_ACTION_CREATORS } from "../../redux/group-payment-methods/group-payment-method-action-creators";
+import { transformedBanks } from "../../redux/payment-methods/payment-methods-data";
 
 const AddGroupPaymentMethodScreen = ({ navigation, route }) => {
     
@@ -13,6 +14,10 @@ const AddGroupPaymentMethodScreen = ({ navigation, route }) => {
     const [method, setMethod] = useState("");
     
     const [error, setError] = useState({});
+    
+    const [suggestedBanks, setSuggestedBanks] = useState([...transformedBanks]);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [dialogOpen, setDialogOpen] = useState(false);
     
     const [provider, setProvider] = useState("");
     const [mobileMoneyNumber, setMobileMoneyNumber] = useState("");
@@ -24,6 +29,7 @@ const AddGroupPaymentMethodScreen = ({ navigation, route }) => {
     const [accountNumber, setAccountNumber] = useState("");
     const [mobileNumber, setMobileNumber] = useState("");
     const [accountName, setAccountName] = useState("");
+    const [bankCurrency, setBankCurrency] = useState("");
     
     const [bankIssuer, setBankIssuer] = useState("");
     const [cardHolderName, setCardHolderName] = useState("");
@@ -171,6 +177,23 @@ const AddGroupPaymentMethodScreen = ({ navigation, route }) => {
             }, groupID, navigation));
     };
     
+    const handleBankSelected = bank => {
+        if (bank) {
+            setBankCode(bank.code);
+            setBankName(bank.name);
+            setBankCurrency(bank.currency);
+            setSuggestedBanks(transformedBanks);
+            setDialogOpen(false);
+            setSearchQuery("");
+        }
+    };
+    
+    const handleBankSearch = text => {
+        setSearchQuery(text);
+        setSuggestedBanks(transformedBanks.filter(bank => bank.name.toLowerCase().includes(text.toLowerCase())));
+    };
+    
+    
     return (
         
         <Flex height="100%" width="100%" pt={4} pb={4} flex={1} backgroundColor="white">
@@ -185,7 +208,7 @@ const AddGroupPaymentMethodScreen = ({ navigation, route }) => {
                     <Select
                         borderRadius={32}
                         px={4}
-                        py={4}
+                        py={2}
                         mb={3}
                         variant="outline"
                         accessibilityLabel="Select Payment Method"
@@ -214,7 +237,7 @@ const AddGroupPaymentMethodScreen = ({ navigation, route }) => {
                                     fontFamily: "body",
                                 }}
                                 px={4}
-                                py={4}
+                                py={2}
                                 mt={1}
                                 mb={2}
                                 variant="outline"
@@ -298,17 +321,28 @@ const AddGroupPaymentMethodScreen = ({ navigation, route }) => {
                                         isRequired={true}
                                         mb={2}
                                         py={4}
+                                        isReadOnly={true}
                                         isInvalid={Boolean(error.bankName)}
                                         width="100%"
                                         _focus={{ borderColor: "gray.50" }}
+                                        _readOnly={{ backgroundColor: "gray.100", color: "gray.600" }}
                                         value={bankName}
-                                        onChangeText={bankName => setBankName(bankName)}
                                         name="bankName"
-                                        placeholder="E.g. Barclays Bank"
+                                        placeholder="Enter Bank Name"
                                         variant="filled"
                                         size="lg"
                                         borderRadius={32}
                                         backgroundColor="gray.50" />
+                                    {error.bankName && <Text color="red.400" textAlign="center">{error.bankName}</Text>}
+                                    <Button
+                                        borderColor="primary.600"
+                                        borderRadius={32}
+                                        borderWidth={1}
+                                        variant="outlined"
+                                        backgroundColor="white"
+                                        onPress={() => setDialogOpen(true)}>
+                                        <Text color="primary.600">Select Bank</Text>
+                                    </Button>
                                 </Box>
                                 
                                 <Box mb={2}>
@@ -318,17 +352,19 @@ const AddGroupPaymentMethodScreen = ({ navigation, route }) => {
                                         isRequired={true}
                                         mb={2}
                                         py={4}
+                                        isReadOnly={true}
                                         isInvalid={Boolean(error.bankCode)}
                                         width="100%"
                                         _focus={{ borderColor: "gray.50" }}
+                                        _readOnly={{ backgroundColor: "gray.100", color: "gray.600" }}
                                         value={bankCode}
-                                        onChangeText={bankCode => setBankCode(bankCode)}
                                         name="bankCode"
                                         placeholder="Enter Bank Code"
                                         variant="filled"
                                         size="lg"
                                         borderRadius={32}
                                         backgroundColor="gray.50" />
+                                    {error.bankCode && <Text color="red.400" textAlign="center">{error.bankCode}</Text>}
                                 </Box>
                                 
                                 <Box mb={2}>
@@ -404,11 +440,38 @@ const AddGroupPaymentMethodScreen = ({ navigation, route }) => {
                                         isInvalid={Boolean(error.mobileNumber)}
                                         width="100%"
                                         name="mobileNumber"
-                                        placeholder="E.g. +233270048319"
+                                        placeholder="E.g. 0270048319"
                                         variant="filled"
                                         size="lg"
                                         borderRadius={32}
                                         backgroundColor="gray.50" />
+                                </Box>
+    
+                                <Box mb={2}>
+                                    <Text mb={2}>Account Currency</Text>
+                                    <Select
+                                        name="bankCurrency"
+                                        borderRadius={32}
+                                        isDisabled={true}
+                                        accessibilityLabel="Select Account Currency"
+                                        onValueChange={bankCurrency => setBankCurrency(bankCurrency)}
+                                        _selectedItem={{
+                                            bg: "teal.200",
+                                        }}
+                                        px={4}
+                                        py={4}
+                                        mt={1}
+                                        mb={2}
+                                        variant="rounded"
+                                        backgroundColor="white"
+                                        placeholder="Select Currency"
+                                        selectedValue={bankCurrency}>
+                                        <Select.Item label="Select Currency" value="" />
+                                        <Select.Item label="Ghana Cedis" value="GHS" />
+                                        <Select.Item label="US Dollars" value="USD" />
+                                    </Select>
+                                    {error.bankCurrency &&
+                                    <Text color="red.400" textAlign="center">{error.bankCurrency}</Text>}
                                 </Box>
                                 
                                 <Button
@@ -546,6 +609,50 @@ const AddGroupPaymentMethodScreen = ({ navigation, route }) => {
                 
                 </Box>
             </ScrollView>
+    
+            <Modal
+                size="full"
+                isOpen={dialogOpen}
+                onClose={() => setDialogOpen(false)}>
+                <Modal.Content>
+                    <Modal.Header><Text>Select Bank</Text></Modal.Header>
+                    <Modal.Body>
+                        <Input
+                            isFullWidth={true}
+                            isRequired={true}
+                            mb={2}
+                            width="100%"
+                            _focus={{ borderColor: "gray.50" }}
+                            value={searchQuery}
+                            onChangeText={searchQuery => handleBankSearch(searchQuery)}
+                            placeholder="Search bank"
+                            variant="outline"
+                            py={2}
+                            borderWidth={1}
+                            size="md"
+                            borderRadius={32}
+                            backgroundColor="gray.50"
+                        />
+                        {suggestedBanks && suggestedBanks.map((bank, index) => {
+                            return (
+                                <Button variant="ghost" key={index} onPress={() => handleBankSelected(bank)}>
+                                    <Text textAlign="center" fontSize="md" p={1.5}>{bank.name}</Text>
+                                </Button>
+                            );
+                        })}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button
+                            width="100%"
+                            borderRadius={32}
+                            p={2}
+                            backgroundColor="primary.600"
+                            onPress={() => setDialogOpen(false)}>
+                            <Text color="white">Close</Text>
+                        </Button>
+                    </Modal.Footer>
+                </Modal.Content>
+            </Modal>
         </Flex>
     );
 };

@@ -17,8 +17,8 @@ const AddPaymentMethodScreen = ({ navigation }) => {
     
     const [suggestedBanks, setSuggestedBanks] = useState([...transformedBanks]);
     const [searchQuery, setSearchQuery] = useState("");
-    
     const [dialogOpen, setDialogOpen] = useState(false);
+    
     const [provider, setProvider] = useState("");
     const [mobileMoneyNumber, setMobileMoneyNumber] = useState("");
     const [name, setName] = useState("");
@@ -199,7 +199,6 @@ const AddPaymentMethodScreen = ({ navigation }) => {
         setSearchQuery(text);
         setSuggestedBanks(transformedBanks.filter(bank => bank.name.toLowerCase().includes(text.toLowerCase())));
     };
-    
     
     return (
         
@@ -445,7 +444,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                         isInvalid={Boolean(error.mobileNumber)}
                                         width="100%"
                                         name="mobileNumber"
-                                        placeholder="E.g. +233270048319"
+                                        placeholder="E.g. 0270048319"
                                         variant="filled"
                                         size="lg"
                                         borderRadius={32}
