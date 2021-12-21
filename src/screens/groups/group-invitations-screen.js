@@ -45,6 +45,8 @@ const GroupInvitationsScreen = ({ route }) => {
                 </Flex>
             ) : (
                 <FlatList
+                    refreshing={inviteLoading}
+                    onRefresh={() => dispatch(INVITATION_ACTION_CREATORS.getInvitations(authToken, `group=${groupID}`))}
                     data={invites}
                     renderItem={(userInvite) => <UserInvitation userInvite={userInvite.item} />}
                     keyExtractor={(userInvite) => userInvite._id}

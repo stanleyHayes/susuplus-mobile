@@ -43,7 +43,29 @@ const groupReducer = (state = INITIAL_STATE, action) => {
         groupDetail: null,
         groupMembers: []
       }
-
+  
+    case GROUP_ACTION_TYPES.UPDATE_GROUP_REQUEST:
+      return {
+        ...state,
+        groupLoading: true,
+        groupError: null
+      }
+  
+    case GROUP_ACTION_TYPES.UPDATE_GROUP_SUCCESS:
+      return {
+        ...state,
+        groupLoading: false,
+        groupError: null,
+        groupDetail: action.payload.group
+      }
+      
+    case GROUP_ACTION_TYPES.UPDATE_GROUP_FAILURE:
+      return {
+        ...state,
+        groupLoading: false,
+        groupError: action.payload
+      }
+      
     case GROUP_ACTION_TYPES.SAVE_GROUP_BASIC_INFO:
       return {
         ...state,

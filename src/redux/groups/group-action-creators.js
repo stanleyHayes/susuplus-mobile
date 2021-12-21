@@ -156,6 +156,60 @@ const createGroup = (token, group, navigation) => {
 };
 
 
+const updateGroupRequest = () => {
+    return {
+        type: GROUP_ACTION_TYPES.CREATE_GROUP_REQUEST,
+    };
+};
+
+const updateGroupSuccess = (group) => {
+    return {
+        type: GROUP_ACTION_TYPES.CREATE_GROUP_SUCCESS,
+        payload: group,
+    };
+};
+
+const updateGroupFailure = message => {
+    return {
+        type: GROUP_ACTION_TYPES.CREATE_GROUP_FAILURE,
+        payload: message,
+    };
+};
+
+const updateGroup = (token, group, groupID,  navigation) => {
+    return async dispatch => {
+        dispatch(updateGroupRequest());
+        try {
+            const response = await axios({
+                url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/groups/${groupID}`,
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                data: group
+            });
+            const { data, message } = response.data;
+            dispatch(updateGroupSuccess(data));
+            navigation.push(SCREEN_NAME_CONSTANTS.GROUP_DETAIL_SCREEN, {groupID});
+            UTILS.showToast(
+                'Group Updated',
+                message,
+                'success',
+                5000);
+        } catch (e) {
+            const { message } = e.response.data;
+            
+            if(message === 'jwt expired'){
+                await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+                await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+                dispatch(AUTH_ACTION_CREATORS.restoreToken());
+            }
+            UTILS.showToast('Error', message, 'error', 5000);
+            dispatch(updateGroupFailure(message));
+        }
+    };
+};
+
 
 export const GROUP_ACTION_CREATORS = {
     saveGroupInvites,
@@ -166,5 +220,6 @@ export const GROUP_ACTION_CREATORS = {
     groupGoToPage,
     groupGoToPreviousPage,
     saveGroupPaymentInfo,
-    createGroup
+    createGroup,
+    updateGroup
 };

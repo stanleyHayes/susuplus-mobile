@@ -16,7 +16,6 @@ import {
 } from "native-base";
 
 
-import defaultGroupImage from "./../../assets/images/group.png";
 import invitationsImage from "./../../assets/images/invite.png";
 import savingsImage from "./../../assets/images/savings64px.png";
 import investmentImage from "./../../assets/images/investment64px.png";
@@ -57,15 +56,6 @@ const GroupDetailScreen = ({ navigation, route }) => {
             
             {groupDetail && (
                 <Box m={2}>
-                    <Box mx={2} flex={1} p={2} flexGrow={1} shadow={0} borderRadius={32} backgroundColor="white">
-                        <Image
-                            alt={groupDetail.name}
-                            height={250}
-                            width="100%"
-                            source={groupDetail.image ? groupDetail.image : defaultGroupImage}
-                        />
-                    </Box>
-                    
                     <Box p={2} backgroundColor="gray.100">
                         <Box mb={2} shadow={0} borderRadius={32} backgroundColor="white" p={4}>
                             <Text fontFamily="body" fontSize="md">
@@ -124,7 +114,7 @@ const GroupDetailScreen = ({ navigation, route }) => {
                                 {groupDetail.description}
                             </Text>
                         </Box>
-                        <Box mt={2} mb={2}>
+                        <Box mb={2}>
                             <Flex direction="row" width="100%" justifyContent="space-around">
                                 <Box
                                     flex={1}
@@ -132,7 +122,7 @@ const GroupDetailScreen = ({ navigation, route }) => {
                                     p={4} mr={1}
                                     flexGrow={1}
                                     shadow={0}
-                                    borderRadius={8}
+                                    borderRadius={32}
                                     backgroundColor="white">
                                     <Flex
                                         flex={1}
@@ -140,7 +130,7 @@ const GroupDetailScreen = ({ navigation, route }) => {
                                         alignItems="center"
                                         backgroundColor="primary.100"
                                         px={3}
-                                        borderRadius={8}>
+                                        borderRadius={100}>
                                         <Image size={7} alt="Savings image" source={savingsImage} />
                                     </Flex>
                                     
@@ -158,13 +148,13 @@ const GroupDetailScreen = ({ navigation, route }) => {
                                 </Box>
                                 
                                 <Box flex={1} p={4} ml={1} alignItems="center" flexGrow={1} shadow={0}
-                                     borderRadius={8} backgroundColor="white">
+                                     borderRadius={32} backgroundColor="white">
                                     <Flex
                                         flex={1}
                                         justifyContent="center"
                                         alignItems="center"
                                         backgroundColor="primary.100"
-                                        borderRadius={8}
+                                        borderRadius={100}
                                         py={2}
                                         px={3}>
                                         <Image size={30} alt="Investment image" source={investmentImage} />
@@ -183,7 +173,6 @@ const GroupDetailScreen = ({ navigation, route }) => {
                                 </Box>
                             </Flex>
                         </Box>
-                        
                         <Box mb={2} shadow={0} borderRadius={32} backgroundColor="white" p={4}>
                             <Text fontFamily="body" fontSize="md">
                                 Group Regulations
@@ -209,7 +198,6 @@ const GroupDetailScreen = ({ navigation, route }) => {
                                 })
                             }
                         </Box>
-                        
                         <Box p={2}>
                             <Button
                                 onPress={() => {
@@ -224,7 +212,6 @@ const GroupDetailScreen = ({ navigation, route }) => {
                                 <Text fontSize="md" color="white">Create Susu</Text>
                             </Button>
                         </Box>
-                        
                         
                         <Pressable
                             onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.GROUP_MEMBERS_SCREEN, { groupID: groupDetail._id })}>
