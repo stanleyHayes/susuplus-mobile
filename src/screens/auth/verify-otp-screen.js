@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Center, Flex, Icon, Image, Input, Text } from "native-base";
+import { Box, Button, Center, Flex, Icon, Image, Input, StatusBar, Text } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { AUTH_ACTION_CREATORS } from "../../redux/auth/auth-action-creators";
 import susuplusIcon from "../../assets/images/plus.png";
@@ -11,7 +11,7 @@ const VerifyOTPScreen = ({ navigation }) => {
     const [otp, setOTP] = useState("");
     const [error, setError] = useState({});
     
-    const {signUpToken} = useSelector(selectAuth);
+    const {signUpToken, authLoading} = useSelector(selectAuth);
     
     const dispatch = useDispatch();
     
@@ -31,6 +31,7 @@ const VerifyOTPScreen = ({ navigation }) => {
             flex={1}
             backgroundColor="primary.800"
             justifyContent="center">
+            <StatusBar backgroundColor="#155e75" />
             <Center flex={1}>
                 <Center width="100%">
                     <Image
@@ -82,14 +83,13 @@ const VerifyOTPScreen = ({ navigation }) => {
                     size="lg"
                     value={otp}
                     name="otp"
-                    p={4}
                     onChangeText={otp => setOTP(otp)}
                     isRequired={true}
-                    variant="filled"
-                    autoComplete="sms-otp"
+                    variant="outline"
+                    keyboardType="numeric"
                     placeholderTextColor="primary.600"
                     borderColor="primary.100"
-                    backgroundColor="white"
+                    _focus={{borderColor: 'primary.100'}}
                     borderWidth={1}
                     InputLeftElement={
                         <Icon
@@ -103,16 +103,18 @@ const VerifyOTPScreen = ({ navigation }) => {
                 
                 <Button
                     onPress={handleResetPassword}
-                    backgroundColor="primary.700"
-                    pt={4}
+                    backgroundColor={authLoading ? 'primary.400' :'primary.800'}
                     mt={4}
-                    pb={4}
                     borderRadius={32}
                     mb={4}
+                    isLoading={authLoading}
+                    isDisabled={authLoading}
                     alignSelf="stretch"
                     size="lg"
                     variant="solid">
-                    <Text color="white" fontSize="md">Verify Account</Text>
+                    <Text color="white" fontSize="md">
+                        {authLoading ? 'Verifying Account...' :'Verify Account'}
+                    </Text>
                 </Button>
             </Box>
         </Flex>

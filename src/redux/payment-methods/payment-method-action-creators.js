@@ -4,6 +4,7 @@ import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS, SECURE_STORAGE_CONSTANTS } fr
 import { UTILS } from "../../utils/utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AUTH_ACTION_CREATORS } from "../auth/auth-action-creators";
+import { SPLASH_ACTION_CREATORS } from "../splash/splash-action-creators";
 
 const addPaymentMethodRequest = () => {
   return {
@@ -51,7 +52,7 @@ const addPaymentMethod = (paymentMethod, token, navigation) => {
       if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+        dispatch(SPLASH_ACTION_CREATORS.restoreToken());
       }
       UTILS.showToast('Error', message, 'error', 5000);
       dispatch(addPaymentMethodFailure(message));
@@ -100,7 +101,7 @@ const getPaymentMethod = (paymentMethodID, token) => {
       if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+        dispatch(SPLASH_ACTION_CREATORS.restoreToken());
       }
       dispatch(getPaymentMethodFailure(message));
     }
@@ -146,7 +147,7 @@ const getPaymentMethods = (token) => {
       if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+        dispatch(SPLASH_ACTION_CREATORS.restoreToken());
       }
       dispatch(getPaymentMethodsFailure(message));
     }
@@ -194,7 +195,7 @@ const updatePaymentMethod = (paymentMethodID, paymentMethod, token) => {
       if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+        dispatch(SPLASH_ACTION_CREATORS.restoreToken());
       }
       dispatch(updatePaymentMethodFailure(message));
     }
@@ -241,7 +242,7 @@ const removePaymentMethod = (paymentMethodID, token, query) => {
       if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-        dispatch(AUTH_ACTION_CREATORS.restoreToken());
+        dispatch(SPLASH_ACTION_CREATORS.restoreToken());
       }
       dispatch(removePaymentMethodFailure(message));
     }

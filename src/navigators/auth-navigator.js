@@ -12,6 +12,7 @@ const AuthNavigator = () => {
     const StackNavigator = createNativeStackNavigator();
     return (
         <StackNavigator.Navigator
+            name={SCREEN_NAME_CONSTANTS.RESET_PASSWORD_SCREEN}
             screenOptions={{ headerShown: false }}>
             
             <StackNavigator.Screen

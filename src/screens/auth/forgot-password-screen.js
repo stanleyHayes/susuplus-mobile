@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import { Alert, Button, Center, Flex, Icon, Image, Input, Text, VStack, Box } from "native-base";
-import { useDispatch } from "react-redux";
+import { Button, Center, Flex, Icon, Image, Input, Text, Box, StatusBar } from "native-base";
+import { useDispatch, useSelector } from "react-redux";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { SCREEN_NAME_CONSTANTS } from "../../constants/constants";
 import validator from "validator";
 import { AUTH_ACTION_CREATORS } from "../../redux/auth/auth-action-creators";
 import susuplusIcon from "../../assets/images/plus.png";
+import { selectAuth } from "../../redux/auth/auth-reducer";
 
 const ForgotPasswordScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [error, setError] = useState({});
     
     const dispatch = useDispatch();
+    
+    const {authLoading} = useSelector(selectAuth);
     
     const handleClick = () => {
         if (!email) {
@@ -36,7 +38,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
             flex={1}
             backgroundColor="primary.800"
             justifyContent="center">
-    
+            <StatusBar backgroundColor="#155e75" />
             <Center
                 m={10}
                 p={5}
@@ -45,9 +47,9 @@ const ForgotPasswordScreen = ({ navigation }) => {
                 borderRadius={100} size={10}
                 backgroundColor="primary.600">
                 <Icon
-                    onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.SIGN_IN_SCREEN)}
+                    onPress={() => navigation.goBack()}
                     color="white"
-                    as={<MaterialIcons name="keyboard-arrow-left" />} size="md"
+                    as={<MaterialIcons name="arrow-back" />} size="sm"
                 />
             </Center>
             
@@ -110,7 +112,8 @@ const ForgotPasswordScreen = ({ navigation }) => {
                     mb={1}
                     borderWidth={1}
                     borderColor="primary.100"
-                    p={4}
+                    px={4}
+                    py={2}
                     borderRadius={32}
                     isFullWidth={true}
                     size="lg"
@@ -142,18 +145,20 @@ const ForgotPasswordScreen = ({ navigation }) => {
     
                 <Button
                     onPress={handleClick}
-                    pt={4}
+                    pt={2}
                     borderRadius={32}
-                    pb={4}
+                    pb={2}
                     mt={8}
-                    backgroundColor="primary.800"
+                    isLoading={authLoading}
+                    isDisabled={authLoading}
+                    backgroundColor={authLoading ? "primary.400": "primary.800"}
                     _text={{ textTransform: "uppercase" }}
                     mb={4}
                     alignSelf="stretch"
                     size="lg"
                     variant="solid">
                     <Text color="white" fontSize="md">
-                        Get Reset Link
+                        {authLoading ? "Sending Link...": "Get Reset Link"}
                     </Text>
                 </Button>
             </Box>

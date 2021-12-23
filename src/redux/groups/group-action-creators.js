@@ -3,7 +3,7 @@ import axios from "axios";
 import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS, SECURE_STORAGE_CONSTANTS } from "../../constants/constants";
 import { UTILS } from "../../utils/utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AUTH_ACTION_CREATORS } from "../auth/auth-action-creators";
+import { SPLASH_ACTION_CREATORS } from "../splash/splash-action-creators";
 
 const getGroupRequest = () => {
     return {
@@ -44,7 +44,7 @@ const getGroup = (token, groupID) => {
             if(message === 'jwt expired'){
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-                dispatch(AUTH_ACTION_CREATORS.restoreToken());
+                dispatch(SPLASH_ACTION_CREATORS.restoreToken());
             }
             dispatch(getGroupFailure(message));
         }
@@ -147,7 +147,7 @@ const createGroup = (token, group, navigation) => {
             if(message === 'jwt expired'){
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-                dispatch(AUTH_ACTION_CREATORS.restoreToken());
+                dispatch(SPLASH_ACTION_CREATORS.restoreToken());
             }
             UTILS.showToast('Error', message, 'error', 5000);
             dispatch(createGroupFailure(message));
@@ -202,7 +202,7 @@ const updateGroup = (token, group, groupID,  navigation) => {
             if(message === 'jwt expired'){
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-                dispatch(AUTH_ACTION_CREATORS.restoreToken());
+                dispatch(SPLASH_ACTION_CREATORS.restoreToken());
             }
             UTILS.showToast('Error', message, 'error', 5000);
             dispatch(updateGroupFailure(message));

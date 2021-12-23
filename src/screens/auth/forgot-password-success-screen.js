@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Center, Flex, Image, Text } from "native-base";
+import { Button, Center, Flex, Image, StatusBar, Text } from "native-base";
 import { SCREEN_NAME_CONSTANTS } from "../../constants/constants";
 import susuplusIcon from "../../assets/images/plus.png";
 
@@ -7,6 +7,7 @@ const ForgotPasswordSuccessScreen = ({ navigation }) => {
   
   return (
     <Flex p={5} flex={1} backgroundColor="white">
+      <StatusBar backgroundColor="#155e75" />
       <Center flex={1}>
         <Center width="100%">
           <Image
@@ -35,7 +36,7 @@ const ForgotPasswordSuccessScreen = ({ navigation }) => {
         <Button
             width="100%"
             backgroundColor="primary.800"
-            py={3}
+            py={2}
             borderRadius={32}
             onPress={() => navigation.navigate(SCREEN_NAME_CONSTANTS.RESET_PASSWORD_SCREEN)}>
           <Text color="white" fontSize="md">Go to Password Reset</Text>

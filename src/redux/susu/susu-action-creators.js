@@ -4,7 +4,7 @@ import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS, SECURE_STORAGE_CONSTANTS } fr
 import { SUSU_MEMBERS_ACTION_CREATORS } from "../susu-members/susu-members-action-creators";
 import { UTILS } from "../../utils/utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AUTH_ACTION_CREATORS } from "../auth/auth-action-creators";
+import { SPLASH_ACTION_CREATORS } from "../splash/splash-action-creators";
 
 const getSusuGroupRequest = () => {
     return {
@@ -44,7 +44,7 @@ const getSusuGroup = (token, susuID) => {
             if(message === 'jwt expired'){
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-                dispatch(AUTH_ACTION_CREATORS.restoreToken());
+                dispatch(SPLASH_ACTION_CREATORS.restoreToken());
             }
             dispatch(getSusuGroupFailure(message));
         }
@@ -91,7 +91,7 @@ const getSusuByGroup = (token, groupID) => {
             if(message === 'jwt expired'){
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-                dispatch(AUTH_ACTION_CREATORS.restoreToken());
+                dispatch(SPLASH_ACTION_CREATORS.restoreToken());
             }
             dispatch(getSusuByGroupFailure(message));
         }
@@ -186,7 +186,7 @@ const createSusu = (token, susu, userID, navigation) => {
             if(message === 'jwt expired'){
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-                dispatch(AUTH_ACTION_CREATORS.restoreToken());
+                dispatch(SPLASH_ACTION_CREATORS.restoreToken());
             }
             UTILS.showToast('Error', message, 'error', 5000);
             dispatch(createSusuFailure(message));

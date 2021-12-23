@@ -14,6 +14,7 @@ import susuContributionReducer from "./susu-contributions/susu-contribution-redu
 import userContributionReducer from "./user-contributions/user-contribution-reducers";
 import userDisbursementReducer from "./user-disbursements/user-disbursement-reducers";
 import groupPaymentMethodReducer from "./group-payment-methods/group-payment-method-reducers";
+import splashReducer from "./splash/splash-reducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -30,7 +31,8 @@ const rootReducer = combineReducers({
   groupDisbursements: groupDisbursementReducer,
   groupContributions: groupContributionReducer,
   susuContributions: susuContributionReducer,
-  groupPaymentMethods: groupPaymentMethodReducer
+  groupPaymentMethods: groupPaymentMethodReducer,
+  splash: splashReducer
 });
 
 export default rootReducer;

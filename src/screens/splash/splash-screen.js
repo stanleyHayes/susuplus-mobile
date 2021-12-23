@@ -14,8 +14,8 @@ const SplashScreen = () => {
         <Center width="100%">
           <Image
               borderRadius={100}
-              height={100}
-              width={100}
+              height={120}
+              width={120}
               objectFit="cover"
               objectPosition="center"
               alt="susu plus icon"
@@ -30,13 +30,6 @@ const SplashScreen = () => {
           textAlign="center"
           textTransform="capitalize">
           Susu+
-        </Text>
-        <Spinner mb={2} size={50} color="white"  />
-        <Text
-          fontSize="md"
-          color="white"
-          textAlign="center">
-          Please wait...
         </Text>
       </Center>
     </Flex>

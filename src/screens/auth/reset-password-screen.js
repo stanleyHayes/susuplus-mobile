@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Center, Flex, Icon, Image, Input, Text } from "native-base";
+import { Box, Button, Center, Flex, Icon, Image, Input, StatusBar, Text } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { AUTH_ACTION_CREATORS } from "../../redux/auth/auth-action-creators";
@@ -15,7 +15,7 @@ const ResetPasswordScreen = ({ navigation }) => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState({});
     
-    const { authLoading, authToken, authError } = useSelector(selectAuth);
+    const { authLoading, resetPasswordToken } = useSelector(selectAuth);
     
     const dispatch = useDispatch();
     
@@ -41,7 +41,7 @@ const ResetPasswordScreen = ({ navigation }) => {
             setError({ error, confirmPassword: null, password: null });
         }
         
-        dispatch(AUTH_ACTION_CREATORS.resetPassword({ password }, authToken, navigation));
+        dispatch(AUTH_ACTION_CREATORS.resetPassword({ password }, resetPasswordToken, navigation));
     };
     return (
         <Flex
@@ -49,7 +49,7 @@ const ResetPasswordScreen = ({ navigation }) => {
             flex={1}
             backgroundColor="primary.800"
             justifyContent="center">
-            
+            <StatusBar backgroundColor="#155e75" />
             <Center flex={1}>
                 <Center width="100%">
                     <Image
@@ -102,7 +102,7 @@ const ResetPasswordScreen = ({ navigation }) => {
                 <Input
                     mt={2}
                     mb={1}
-                    p={4}
+                    px={4}
                     borderRadius={32}
                     isFullWidth={true}
                     size="lg"
@@ -119,11 +119,11 @@ const ResetPasswordScreen = ({ navigation }) => {
                     InputRightElement={
                         <Icon
                             color="primary.400"
-                            as={<MaterialIcons name={isPasswordVisible ? "visibility" : "visibility-off"} />}
+                            as={<MaterialIcons name={isPasswordVisible ? "visibility-off" : "visibility"} />}
                             mr={4}
                             size={25}
                             onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-                            name={isPasswordVisible ? "visibility" : "visibility-off"}
+                            name={isPasswordVisible ? "visibility-off" : "visibility"}
                         />
                     }
         
@@ -133,7 +133,7 @@ const ResetPasswordScreen = ({ navigation }) => {
                     width="100%"
                     isRequired={true}
                     autoComplete="password"
-                    secureTextEntry={isPasswordVisible}
+                    secureTextEntry={!isPasswordVisible}
                     textContentType="newPassword"
                     name="password"
                     returnKeyType="next"
@@ -141,7 +141,6 @@ const ResetPasswordScreen = ({ navigation }) => {
                     color="gray.800"
                     placeholderTextColor="primary.600"
                     borderColor="primary.100"
-                    backgroundColor="white"
                     borderWidth={1}
                 />
                 {error.password && <Text color="red.600">{error.password}</Text>}
@@ -151,7 +150,7 @@ const ResetPasswordScreen = ({ navigation }) => {
                     mt={2}
                     mb={1}
                     borderWidth={1}
-                    p={4}
+                    px={4}
                     borderRadius={32}
                     isFullWidth={true}
                     size="lg"
@@ -168,7 +167,7 @@ const ResetPasswordScreen = ({ navigation }) => {
                     InputRightElement={
                         <Icon
                             color="primary.400"
-                            as={<MaterialIcons name={isConfirmPasswordVisible ? "visibility" : "visibility-off"} />}
+                            as={<MaterialIcons name={isConfirmPasswordVisible ? "visibility-off" : "visibility"} />}
                             mr={4}
                             size={6}
                             onPress={() => setIsConfirmPasswordVisible(!isConfirmPasswordVisible)}
@@ -181,31 +180,32 @@ const ResetPasswordScreen = ({ navigation }) => {
                     width="100%"
                     isRequired={true}
                     autoComplete="password"
-                    secureTextEntry={isConfirmPasswordVisible}
+                    secureTextEntry={!isConfirmPasswordVisible}
                     textContentType="newPassword"
                     name="confirmPassword"
                     returnKeyType="next"
                     onChangeText={confirmPassword => setConfirmPassword(confirmPassword)}
                     color="gray.800"
                     borderColor="primary.100"
-                    backgroundColor="white"
                 />
                 {error.confirmPassword && <Text color="red.400">{error.confirmPassword}</Text>}
     
                 <Button
                     mt={4}
-                    isLoading={authLoading}
-                    isLoadingText="Resetting Password..."
                     onPress={handleResetPassword}
-                    backgroundColor="primary.700"
-                    pt={4}
-                    pb={4}
+                    backgroundColor={authLoading ? 'primary.400': 'primary.800'}
+                    pt={2}
+                    pb={2}
                     borderRadius={32}
+                    isLoading={authLoading}
+                    isDisabled={authLoading}
                     mb={4}
                     width="100%"
                     size="lg"
                     variant="solid">
-                    <Text color="white" fontSize="md">Reset Password</Text>
+                    <Text color="white" fontSize="md">
+                        {authLoading ? 'Resetting Password...': 'Reset Password'}
+                    </Text>
                 </Button>
                 
                 <Button
