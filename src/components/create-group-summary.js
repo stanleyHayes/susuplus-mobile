@@ -18,6 +18,7 @@ const CreateGroupSummary = ({ navigation,  }) => {
         createGroupRegulations,
         createGroupInvitations,
         createGroupPaymentMethod,
+        groupLoading
     } = useSelector(selectGroups);
 
     const { authToken } = useSelector(selectAuth);
@@ -182,10 +183,12 @@ const CreateGroupSummary = ({ navigation,  }) => {
                     mt={2}
                     backgroundColor="primary.600"
                     py={3}
-                    borderRadius={32}
+                    _text={{color: 'white'}}
+                    isLoading={groupLoading}
+                    isLoadingText="Creating Group..."
                     onPress={handleCreateGroup}
                     variant="solid">
-                    <Text color="white" fontSize="md">Create Group</Text>
+                    Create Group
                 </Button>
             </Box>
     
@@ -198,9 +201,10 @@ const CreateGroupSummary = ({ navigation,  }) => {
                     borderTopLeftRadius={16}
                     backgroundColor="primary.600"
                     py={3}
+                    _text={{color: 'white'}}
                     onPress={() => dispatch(GROUP_ACTION_CREATORS.groupGoToPreviousPage())}
                     variant="subtle">
-                    <Text color="white" fontSize="md">Previous</Text>
+                    Previous
                 </Button>
             </Box>
         </ScrollView>

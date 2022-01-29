@@ -57,7 +57,11 @@ const GroupDetailScreen = ({ navigation, route }) => {
             {groupDetail && (
                 <Box m={2}>
                     <Box p={2} backgroundColor="gray.100">
-                        <Box mb={2} shadow={0} borderRadius={32} backgroundColor="white" p={4}>
+                        <Box mb={2} shadow={0}
+                             borderBottomLeftRadius={0}
+                             borderTopRightRadius={0}
+                             borderBottomRightRadius={16}
+                             borderTopLeftRadius={16} backgroundColor="white" p={4}>
                             <Text fontFamily="body" fontSize="md">
                                 About Group
                             </Text>
@@ -122,7 +126,10 @@ const GroupDetailScreen = ({ navigation, route }) => {
                                     p={4} mr={1}
                                     flexGrow={1}
                                     shadow={0}
-                                    borderRadius={32}
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}
                                     backgroundColor="white">
                                     <Flex
                                         flex={1}
@@ -130,7 +137,10 @@ const GroupDetailScreen = ({ navigation, route }) => {
                                         alignItems="center"
                                         backgroundColor="primary.100"
                                         px={3}
-                                        borderRadius={100}>
+                                        borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16}>
                                         <Image size={7} alt="Savings image" source={savingsImage} />
                                     </Flex>
                                     
@@ -148,13 +158,16 @@ const GroupDetailScreen = ({ navigation, route }) => {
                                 </Box>
                                 
                                 <Box flex={1} p={4} ml={1} alignItems="center" flexGrow={1} shadow={0}
-                                     borderRadius={32} backgroundColor="white">
+                                     borderBottomLeftRadius={0}
+                                     borderTopRightRadius={0}
+                                     borderBottomRightRadius={16}
+                                     borderTopLeftRadius={16}
+                                     backgroundColor="white">
                                     <Flex
                                         flex={1}
                                         justifyContent="center"
                                         alignItems="center"
                                         backgroundColor="primary.100"
-                                        borderRadius={100}
                                         py={2}
                                         px={3}>
                                         <Image size={30} alt="Investment image" source={investmentImage} />
@@ -173,7 +186,14 @@ const GroupDetailScreen = ({ navigation, route }) => {
                                 </Box>
                             </Flex>
                         </Box>
-                        <Box mb={2} shadow={0} borderRadius={32} backgroundColor="white" p={4}>
+                        <Box
+                            mb={2}
+                             shadow={0}
+                             borderBottomLeftRadius={0}
+                             borderTopRightRadius={0}
+                             borderBottomRightRadius={16}
+                             borderTopLeftRadius={16}
+                            backgroundColor="white" p={4}>
                             <Text fontFamily="body" fontSize="md">
                                 Group Regulations
                             </Text>
@@ -208,14 +228,24 @@ const GroupDetailScreen = ({ navigation, route }) => {
                                 backgroundColor="secondary.600"
                                 size="lg"
                                 py={4}
-                                borderRadius={32}>
+                                borderBottomLeftRadius={0}
+                                borderTopRightRadius={0}
+                                borderBottomRightRadius={16}
+                                borderTopLeftRadius={16}>
                                 <Text fontSize="md" color="white">Create Susu</Text>
                             </Button>
                         </Box>
                         
                         <Pressable
                             onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.GROUP_MEMBERS_SCREEN, { groupID: groupDetail._id })}>
-                            <Box mt={2} mb={2} shadow={0} borderRadius={32} p={2}
+                            <Box
+                                mt={2}
+                                 mb={2}
+                                 shadow={0}
+                                 borderBottomLeftRadius={0}
+                                 borderTopRightRadius={0}
+                                 borderBottomRightRadius={16}
+                                 borderTopLeftRadius={16} p={2}
                                  backgroundColor="primary.50">
                                 <HStack>
                                     <Center
@@ -245,7 +275,12 @@ const GroupDetailScreen = ({ navigation, route }) => {
                         
                         <Pressable
                             onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.GROUP_SUSU_HISTORY_SCREEN, { groupID: groupDetail._id })}>
-                            <Box mt={2} mb={2} shadow={0} borderRadius={32} p={2}
+                            <Box mt={2} mb={2} shadow={0}
+                                 borderBottomLeftRadius={0}
+                                 borderTopRightRadius={0}
+                                 borderBottomRightRadius={16}
+                                 borderTopLeftRadius={16}
+                                 p={2}
                                  backgroundColor="primary.50">
                                 <HStack>
                                     <Center
@@ -275,7 +310,12 @@ const GroupDetailScreen = ({ navigation, route }) => {
                         
                         <Pressable
                             onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.GROUP_PAYMENT_METHODS, { groupID: groupDetail._id })}>
-                            <Box mt={2} mb={2} shadow={0} borderRadius={32} p={2}
+                            <Box mt={2} mb={2} shadow={0}
+                                 borderBottomLeftRadius={0}
+                                 borderTopRightRadius={0}
+                                 borderBottomRightRadius={16}
+                                 borderTopLeftRadius={16}
+                                 p={2}
                                  backgroundColor="primary.50">
                                 <HStack>
                                     <Center
@@ -305,7 +345,11 @@ const GroupDetailScreen = ({ navigation, route }) => {
                         
                         <Pressable
                             onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.GROUP_DISBURSEMENTS_SCREEN, { groupID: groupDetail._id })}>
-                            <Box mt={2} mb={2} shadow={0} borderRadius={32} p={2}
+                            <Box mt={2} mb={2} shadow={0} borderBottomLeftRadius={0}
+                                 borderTopRightRadius={0}
+                                 borderBottomRightRadius={16}
+                                 borderTopLeftRadius={16}
+                                 p={2}
                                  backgroundColor="primary.50">
                                 <HStack>
                                     <Center
@@ -335,7 +379,11 @@ const GroupDetailScreen = ({ navigation, route }) => {
                         
                         <Pressable
                             onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.GROUP_CONTRIBUTION_DETAIL_SCREEN, { groupID: groupDetail._id })}>
-                            <Box mt={2} mb={2} shadow={0} borderRadius={32} p={2}
+                            <Box mt={2} mb={2} shadow={0} borderBottomLeftRadius={0}
+                                 borderTopRightRadius={0}
+                                 borderBottomRightRadius={16}
+                                 borderTopLeftRadius={16}
+                                 p={2}
                                  backgroundColor="primary.50">
                                 <HStack>
                                     <Center
@@ -365,7 +413,12 @@ const GroupDetailScreen = ({ navigation, route }) => {
                         
                         <Pressable
                             onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.GROUP_INVITATIONS_SCREEN, { groupID: groupDetail._id })}>
-                            <Box mt={2} mb={2} shadow={0} borderRadius={32} p={2}
+                            <Box mt={2} mb={2} shadow={0}
+                                 borderBottomLeftRadius={0}
+                                 borderTopRightRadius={0}
+                                 borderBottomRightRadius={16}
+                                 borderTopLeftRadius={16}
+                                 p={2}
                                  backgroundColor="primary.50">
                                 <HStack>
                                     <Center

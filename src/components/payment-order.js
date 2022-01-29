@@ -7,7 +7,10 @@ const PaymentOrder = ({ order }) => {
 
   return (
     <Box
-      borderRadius={32}
+        borderBottomLeftRadius={0}
+        borderTopRightRadius={0}
+        borderBottomRightRadius={16}
+        borderTopLeftRadius={16}
       backgroundColor="white"
       p={2}
       mx={2}

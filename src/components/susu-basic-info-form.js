@@ -68,7 +68,10 @@ const SusuBasicInfoForm = ({groupDetail}) => {
     
     return (
         <ScrollView p={2}>
-            <Box borderRadius={32} mb={2} p={5} shadow={0} backgroundColor="white" m={2}>
+            <Box borderBottomLeftRadius={0}
+                 borderTopRightRadius={0}
+                 borderBottomRightRadius={16}
+                 borderTopLeftRadius={16} mb={2} p={5} shadow={0} backgroundColor="white" m={2}>
                 <Text textAlign="center" fontSize="lg">Group Info</Text>
                 
                 <Divider width="100%" my={2} />

@@ -23,7 +23,10 @@ const Contribution = ({ contribution, navigation }) => {
       <Pressable
         onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.CONTRIBUTION_DETAIL_SCREEN, { contributionID: contribution._id })}>
         <Box
-          borderRadius={32}
+            borderBottomLeftRadius={0}
+            borderTopRightRadius={0}
+            borderBottomRightRadius={16}
+            borderTopLeftRadius={16}
           backgroundColor="white"
           p={4}
           m={2}

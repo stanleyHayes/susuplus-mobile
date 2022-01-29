@@ -55,7 +55,10 @@ const AddSusuMembersForm = ({ groupDetail }) => {
     
     return (
         <ScrollView flex={1} minHeight="100%">
-            <Box borderRadius={32} p={5} shadow={0} backgroundColor="white" m={2}>
+            <Box borderBottomLeftRadius={0}
+                 borderTopRightRadius={0}
+                 borderBottomRightRadius={16}
+                 borderTopLeftRadius={16} p={5} shadow={0} backgroundColor="white" m={2}>
                 <Text textAlign="center" fontSize="md">Group Members</Text>
                 
                 <Divider width="100%" my={2} />

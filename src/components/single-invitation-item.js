@@ -6,7 +6,10 @@ const SingleInvitationListItem = ({ index, email, showDelete, removeInvitation }
     return (
         <HStack
             justifyContent="space-between"
-            borderRadius={32}
+            borderBottomLeftRadius={0}
+            borderTopRightRadius={0}
+            borderBottomRightRadius={16}
+            borderTopLeftRadius={16}
             backgroundColor="primary.50"
             mx={2}
             my={0.5}

@@ -9,7 +9,10 @@ const SusuMember = ({ susuMember }) => {
         <Box
             mx={2}
             my={.5}
-            borderRadius={32}
+            borderBottomLeftRadius={0}
+            borderTopRightRadius={0}
+            borderBottomRightRadius={16}
+            borderTopLeftRadius={16}
             backgroundColor="white"
             p={4}
             shadow={0}>

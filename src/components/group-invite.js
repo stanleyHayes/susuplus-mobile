@@ -45,7 +45,10 @@ const GroupInvite = ({ groupInvite, showButtons }) => {
     return (
         <Box
             maxWidth="100%"
-            borderRadius={32}
+            borderBottomLeftRadius={0}
+            borderTopRightRadius={0}
+            borderBottomRightRadius={16}
+            borderTopLeftRadius={16}
             backgroundColor="white"
             p={4}
             m={2}

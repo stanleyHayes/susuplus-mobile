@@ -23,7 +23,10 @@ const SusuContribution = ({ contribution, navigation }) => {
       <Pressable
         onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.SUSU_CONTRIBUTION_DETAIL_SCREEN, { contributionID: contribution._id })}>
         <Box
-          borderRadius={32}
+            borderBottomLeftRadius={0}
+            borderTopRightRadius={0}
+            borderBottomRightRadius={16}
+            borderTopLeftRadius={16}
           borderWidth={1}
           borderColor="gray.100"
           backgroundColor="white"

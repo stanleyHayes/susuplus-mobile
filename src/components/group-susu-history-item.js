@@ -26,7 +26,10 @@ const GroupSusuHistoryItem = ({ susu, navigation }) => {
         <Pressable
             onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.GROUP_SUSU_DETAIL_SCREEN, { susuID: susu._id, groupID: susu.group._id })}>
             <Box
-                borderRadius={32}
+                borderBottomLeftRadius={0}
+                borderTopRightRadius={0}
+                borderBottomRightRadius={16}
+                borderTopLeftRadius={16}
                 backgroundColor="white"
                 p={4}
                 mx={2}

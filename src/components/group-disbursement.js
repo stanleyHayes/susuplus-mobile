@@ -23,7 +23,10 @@ const GroupDisbursement = ({ disbursement, navigation }) => {
       <Pressable
         onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.GROUP_DISBURSEMENT_DETAIL_SCREEN, { disbursementID: disbursement._id })}>
         <Box
-          borderRadius={32}
+            borderBottomLeftRadius={0}
+            borderTopRightRadius={0}
+            borderBottomRightRadius={16}
+            borderTopLeftRadius={16}
           backgroundColor="white"
           p={4}
           m={2}
