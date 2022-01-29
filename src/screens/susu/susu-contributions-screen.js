@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Alert, Spinner, FlatList, Flex, Center, VStack, Text } from "native-base";
 import { useSelector } from "react-redux";
 import Empty from "../../components/empty";
 import { selectSusuContributions } from "../../redux/susu-contributions/susu-contribution-reducers";
 import SusuContribution from "../../components/susu-contribution";
+import NavigationBar from "react-native-navbar-color";
 
 const SusuContributionsScreen = ({navigation}) => {
   const { susuContributionLoading, susuContributionError, susuContributions } = useSelector(selectSusuContributions);
-
+  
+  useEffect(() => {
+    NavigationBar.setColor('#155e75');
+  }, []);
+  
   return (
       <Flex position="relative" height="100%" width="100%" backgroundColor="gray.100">
         {susuContributionLoading &&

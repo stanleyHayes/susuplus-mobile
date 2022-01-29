@@ -6,7 +6,10 @@ const SingleRegulationListItem = ({ index, regulation, showDelete, removeRegulat
     return (
         <HStack
             justifyContent="space-between"
-            borderRadius={32}
+            borderBottomLeftRadius={0}
+            borderTopRightRadius={0}
+            borderBottomRightRadius={16}
+            borderTopLeftRadius={16}
             backgroundColor="primary.50"
             mx={2}
             my={0.5}
@@ -15,7 +18,12 @@ const SingleRegulationListItem = ({ index, regulation, showDelete, removeRegulat
             flexDirection="row"
             alignItems="center">
             <Box>
-                <Avatar size="sm" backgroundColor="primary.100">
+                <Avatar
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
+                    size="sm" backgroundColor="primary.100">
                     <Text color="primary.600" fontSize="md">{index + 1}</Text>
                 </Avatar>
             </Box>

@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Button,
     Icon,
     Flex,
     Input,
     Text,
-    Center, Image, Box, StatusBar,
+    Center,
+    Image,
+    Box,
+    StatusBar,
 } from "native-base";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { SCREEN_NAME_CONSTANTS } from "../../constants/constants";
@@ -14,6 +17,7 @@ import { signIn } from "../../redux/auth/auth-action-creators";
 import validator from "validator";
 import susuplusIcon from "../../assets/images/plus.png";
 import { selectAuth } from "../../redux/auth/auth-reducer";
+import NavigationBar from "react-native-navbar-color";
 
 const SignInScreen = ({ navigation }) => {
     const [isVisible, setIsVisible] = useState(true);
@@ -48,6 +52,10 @@ const SignInScreen = ({ navigation }) => {
         
         dispatch(signIn({ email, password }, navigation));
     };
+    
+    useEffect(() => {
+        NavigationBar.setColor("#155e75");
+    }, []);
     
     return (
         
@@ -102,7 +110,10 @@ const SignInScreen = ({ navigation }) => {
                     _focus={{borderColor: "primary.100"}}
                     py={2}
                     px={4}
-                    borderRadius={32}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
                     isFullWidth={true}
                     size="lg"
                     value={email}
@@ -136,7 +147,10 @@ const SignInScreen = ({ navigation }) => {
                     borderWidth={1}
                     px={4}
                     py={2}
-                    borderRadius={32}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
                     isFullWidth={true}
                     size="lg"
                     _focus={{borderColor: "primary.100"}}
@@ -180,7 +194,6 @@ const SignInScreen = ({ navigation }) => {
                 
                 <Button
                     mt={4}
-                    borderRadius={32}
                     onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.FORGOT_PASSWORD_SCREEN)}
                     pt={3}
                     pb={3}
@@ -195,19 +208,21 @@ const SignInScreen = ({ navigation }) => {
                 
                 <Button
                     onPress={handleSignIn}
-                    pt={2}
-                    pb={2}
+                    pt={3}
+                    pb={3}
                     mb={4}
                     isLoading={authLoading}
                     isDisabled={authLoading}
+                    isLoadingText='Signing In...'
                     backgroundColor={authLoading ? "primary.400": "primary.800"}
-                    borderRadius={32}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
                     width="100%"
                     size="lg"
                     variant="solid">
-                    <Text  color="white" fontSize="md">
-                        {authLoading? 'Signing In...': 'Sign In'}
-                    </Text>
+                    Sign In
                 </Button>
                 
                 <Button

@@ -3,7 +3,6 @@ import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS, SECURE_STORAGE_CONSTANTS } fr
 import { CONTRIBUTION_ACTION_TYPES } from "./user-contribution-action-types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AUTH_ACTION_CREATORS } from "../auth/auth-action-creators";
-import { SPLASH_ACTION_CREATORS } from "../splash/splash-action-creators";
 
 const getContributionsRequest = () => {
   return {
@@ -44,7 +43,7 @@ const getContributions = (token) => {
       if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-        dispatch(SPLASH_ACTION_CREATORS.restoreToken());
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
       }
       dispatch(getContributionsFailure(message));
     }
@@ -91,7 +90,7 @@ const getContribution = (contributionID, token) => {
       if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-        dispatch(SPLASH_ACTION_CREATORS.restoreToken());
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
       }
       dispatch(getContributionFailure(message));
     }
@@ -140,7 +139,7 @@ const makeContributions = (contribution, token, navigation) => {
       if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-        dispatch(SPLASH_ACTION_CREATORS.restoreToken());
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
       }
       dispatch(makeContributionFailure(message));
     }

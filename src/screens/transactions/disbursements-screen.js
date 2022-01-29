@@ -6,6 +6,7 @@ import { selectUserDisbursements } from "../../redux/user-disbursements/user-dis
 import Disbursement from "../../components/disbursement";
 import { DISBURSEMENTS_ACTION_CREATORS } from "../../redux/user-disbursements/user-disbursement-action-creators";
 import { selectAuth } from "../../redux/auth/auth-reducer";
+import NavigationBar from "react-native-navbar-color";
 
 const DisbursementsScreen = ({ navigation }) => {
   const { userDisbursementLoading, userDisbursementError, userDisbursements } = useSelector(selectUserDisbursements);
@@ -16,7 +17,11 @@ const DisbursementsScreen = ({ navigation }) => {
   useEffect(() => {
     dispatch(DISBURSEMENTS_ACTION_CREATORS.getDisbursements(authToken, userData._id));
   }, []);
-
+  
+  useEffect(() => {
+    NavigationBar.setColor('#155e75');
+  }, []);
+  
   return (
     <Flex
       position="relative"

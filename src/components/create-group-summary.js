@@ -9,6 +9,7 @@ import SingleInvitationListItem from "./single-invitation-item";
 import PaymentMethodCard from "./payment-method-card";
 import { GROUP_ACTION_CREATORS } from "../redux/groups/group-action-creators";
 import { selectAuth } from "../redux/auth/auth-reducer";
+import UserGroupContactInvitation from "./user-group-contact-invitation";
 
 const CreateGroupSummary = ({ navigation,  }) => {
 
@@ -59,14 +60,20 @@ const CreateGroupSummary = ({ navigation,  }) => {
                             alignItems="center"
                             p={4} mr={1}
                             flexGrow={1}
-                            borderRadius={8}
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
                             backgroundColor="gray.50">
                             <Flex
                                 flex={1}
                                 justifyContent="center"
                                 alignItems="center"
                                 backgroundColor="primary.100"
-                                borderRadius={8}
+                                borderBottomLeftRadius={0}
+                                borderTopRightRadius={0}
+                                borderBottomRightRadius={16}
+                                borderTopLeftRadius={16}
                                 size={50}>
                                 <Image size={30} alt="Savings image" source={savingsImage} />
                             </Flex>
@@ -85,14 +92,25 @@ const CreateGroupSummary = ({ navigation,  }) => {
                             </Text>
                         </Box>
 
-                        <Box flex={1} p={4} ml={1} alignItems="center" flexGrow={1} borderRadius={8}
+                        <Box flex={1}
+                             p={4}
+                             ml={1}
+                             alignItems="center"
+                             flexGrow={1}
+                             borderBottomLeftRadius={0}
+                             borderTopRightRadius={0}
+                             borderBottomRightRadius={16}
+                             borderTopLeftRadius={16}
                              backgroundColor="gray.50">
                             <Flex
                                 flex={1}
                                 justifyContent="center"
                                 alignItems="center"
                                 backgroundColor="primary.100"
-                                borderRadius={8}
+                                borderBottomLeftRadius={0}
+                                borderTopRightRadius={0}
+                                borderBottomRightRadius={16}
+                                borderTopLeftRadius={16}
                                 size={50}>
                                 <Image size={30} alt="Investment image" source={investmentImage} />
                             </Flex>
@@ -135,16 +153,15 @@ const CreateGroupSummary = ({ navigation,  }) => {
 
                 <Divider width="100%" my={2} />
 
-
                 <Text mb={1} fontSize="sm">Group Invitations</Text>
+                
                 <Box>
                     {createGroupInvitations && createGroupInvitations.map((invitation, index) => {
                         return (
-                            <SingleInvitationListItem
+                            <UserGroupContactInvitation
                                 key={index}
-                                email={invitation}
-                                index={index}
                                 showDelete={false}
+                                contact={invitation}
                             />
                         )
                     })}
@@ -158,26 +175,34 @@ const CreateGroupSummary = ({ navigation,  }) => {
                 </Box>
 
                 <Button
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
                     mt={2}
                     backgroundColor="primary.600"
-                    py={2}
+                    py={3}
                     borderRadius={32}
+                    onPress={handleCreateGroup}
+                    variant="solid">
+                    <Text color="white" fontSize="md">Create Group</Text>
+                </Button>
+            </Box>
+    
+            <Box p={5}>
+                <Button
+                    mt={2}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
+                    backgroundColor="primary.600"
+                    py={3}
                     onPress={() => dispatch(GROUP_ACTION_CREATORS.groupGoToPreviousPage())}
                     variant="subtle">
                     <Text color="white" fontSize="md">Previous</Text>
                 </Button>
-
-                <Button
-                    mt={2}
-                    backgroundColor="primary.700"
-                    py={3}
-                    borderRadius={32}
-                    onPress={handleCreateGroup}
-                    variant="subtle">
-                    <Text color="white" fontSize="md">Create Group</Text>
-                </Button>
             </Box>
-
         </ScrollView>
     );
 };

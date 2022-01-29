@@ -3,50 +3,84 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS, SECURE_STORAGE_CONSTANTS } from "../../constants/constants";
 import axios from "axios";
 import { UTILS } from "../../utils/utils";
-import { SPLASH_ACTION_CREATORS } from "../splash/splash-action-creators";
 
 
-const getProfileRequest = () => {
+const restoreTokenRequest = () => {
     return {
         type: AUTH_ACTION_TYPES.RESTORE_TOKEN_REQUEST,
     };
 };
 
-const getProfileSuccess = (authToken, userData) => {
+const restoreTokenSuccess = (authToken, userData) => {
     return {
         type: AUTH_ACTION_TYPES.RESTORE_TOKEN_SUCCESS,
         payload: { authToken, userData },
     };
 };
 
-const getProfileFailure = error => {
+const restoreTokenFailure = error => {
     return {
         type: AUTH_ACTION_TYPES.RESTORE_TOKEN_FAILURE,
         payload: error,
     };
 };
 
-export const getProfile = token => {
+export const restoreToken = () => {
+    return async dispatch => {
+        dispatch(restoreTokenRequest());
+        try {
+            const token = await AsyncStorage.getItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
+            const data = await AsyncStorage.getItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
+            dispatch(restoreTokenSuccess(token, JSON.parse(data)));
+        } catch (e) {
+            dispatch(restoreTokenFailure(e.message));
+        }
+    };
+};
+
+const getProfileRequest = () => {
+    return {
+        type: AUTH_ACTION_TYPES.GET_PROFILE_REQUEST,
+    };
+};
+
+const getProfileSuccess = (token, user) => {
+    return {
+        type: AUTH_ACTION_TYPES.GET_PROFILE_SUCCESS,
+        payload: { token, user },
+    };
+};
+
+const getProfileFailure = error => {
+    return {
+        type: AUTH_ACTION_TYPES.GET_PROFILE_FAILURE,
+        payload: error,
+    };
+};
+
+export const getProfile = (authToken) => {
     return async dispatch => {
         dispatch(getProfileRequest());
         try {
+            console.log('get profile')
             const response = await axios({
                 method: "GET",
                 url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/auth/profile`,
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${authToken}`,
                 },
             });
-            const { token: authToken, data } = response.data;
-            await AsyncStorage.setItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY, authToken);
+            const { token, data } = response.data;
+            await AsyncStorage.setItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY, token);
             await AsyncStorage.setItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY, JSON.stringify(data));
-            dispatch(getProfileSuccess(authToken, data));
+            dispatch(getProfileSuccess(token, data));
         } catch (e) {
             const { message } = e.response.data;
+            console.log(message, "message here");
             if (message === "jwt expired") {
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-                dispatch(SPLASH_ACTION_CREATORS.restoreToken());
+                dispatch(AUTH_ACTION_CREATORS.restoreToken());
             }
             dispatch(getProfileFailure(e.message));
         }
@@ -170,7 +204,7 @@ export const forgotPassword = (email, navigation) => {
                 url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/auth/forgot-password`,
             });
             const { token } = response.data;
-            console.log(token)
+            console.log(token);
             await AsyncStorage.setItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_FORGOT_PASSWORD_TOKEN_KEY, token);
             UTILS.showToast(
                 "Reset Password Link Sent",
@@ -212,7 +246,6 @@ const resetPasswordFailure = error => {
 };
 
 export const resetPassword = (user, token, navigator) => {
-    console.log(user)
     return async dispatch => {
         dispatch(resetPasswordRequest());
         try {
@@ -231,7 +264,6 @@ export const resetPassword = (user, token, navigator) => {
             navigator.push(SCREEN_NAME_CONSTANTS.SIGN_IN_SCREEN);
         } catch (e) {
             const { message } = e.response.data;
-            console.log(message)
             UTILS.showToast("Reset Password failed", message, "error", 5000);
             dispatch(resetPasswordFailure(message));
         }
@@ -332,7 +364,7 @@ export const updateProfile = (user, token, navigation) => {
             if (message === "jwt expired") {
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-                dispatch(SPLASH_ACTION_CREATORS.restoreToken());
+                dispatch(AUTH_ACTION_CREATORS.restoreToken());
             }
             UTILS.showToast("Update profile failed", message, "error", 5000);
             dispatch(updateProfileFailure(message));
@@ -384,7 +416,7 @@ export const changePassword = (passwords, token, navigation) => {
             if (message === "jwt expired") {
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-                dispatch(SPLASH_ACTION_CREATORS.restoreToken());
+                dispatch(AUTH_ACTION_CREATORS.restoreToken());
             }
             UTILS.showToast("Update password failed", message, "error", 5000);
             dispatch(changePasswordFailure(message));
@@ -419,7 +451,7 @@ export const logout = () => {
             await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
             await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
             dispatch(logoutSuccess());
-            dispatch(SPLASH_ACTION_CREATORS.restoreToken());
+            dispatch(AUTH_ACTION_CREATORS.restoreToken());
         } catch (e) {
             const { message } = e.response.data;
             dispatch(logoutFailure(message));
@@ -481,4 +513,6 @@ export const AUTH_ACTION_CREATORS = {
     resetPassword,
     verifyAccount,
     getProfile,
+    logout,
+    restoreToken
 };

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Center, Flex, Input, Modal, ScrollView, Select, Spinner, Text } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { PAYMENT_METHOD_ACTION_CREATORS } from "../../redux/payment-methods/payment-method-action-creators";
 import { selectPaymentMethods } from "../../redux/payment-methods/payment-method-reducers";
 import { selectAuth } from "../../redux/auth/auth-reducer";
 import { transformedBanks } from "../../redux/payment-methods/payment-methods-data";
+import NavigationBar from "react-native-navbar-color";
 
 const AddPaymentMethodScreen = ({ navigation }) => {
     
@@ -148,7 +149,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
             cardNumber,
             cvv,
             expiryDate,
-            currency: cardCurrency,
+            cardCurrency,
         }, authToken, navigation));
         
     };
@@ -199,6 +200,10 @@ const AddPaymentMethodScreen = ({ navigation }) => {
         setSearchQuery(text);
         setSuggestedBanks(transformedBanks.filter(bank => bank.name.toLowerCase().includes(text.toLowerCase())));
     };
+    
+    useEffect(() => {
+        NavigationBar.setColor('#155e75');
+    }, []);
     
     return (
         

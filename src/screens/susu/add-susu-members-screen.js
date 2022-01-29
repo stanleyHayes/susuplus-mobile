@@ -10,6 +10,7 @@ import SusuMemberListItem from "../../components/susu-member-list-item";
 import Empty from "../../components/empty";
 import { SUSU_ACTION_CREATORS } from "../../redux/susu/susu-action-creators";
 import { selectSusu } from "../../redux/susu/susu-reducer";
+import NavigationBar from "react-native-navbar-color";
 
 const AddSusuMembersScreen = ({ navigation, route }) => {
     
@@ -73,6 +74,10 @@ const AddSusuMembersScreen = ({ navigation, route }) => {
                 }, navigation));
         }
     };
+    
+    useEffect(() => {
+        NavigationBar.setColor('#155e75');
+    }, []);
     
     return (
         <ScrollView flex={1}>

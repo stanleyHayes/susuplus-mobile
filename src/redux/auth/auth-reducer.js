@@ -148,6 +148,29 @@ const authReducer = (state = INITIAL_STATE, action) => {
         authLoading: false,
         authError: action.payload
       }
+      
+    case AUTH_ACTION_TYPES.GET_PROFILE_REQUEST:
+      return {
+        ...state,
+        authLoading: true,
+        authError: null
+      }
+      
+    case AUTH_ACTION_TYPES.GET_PROFILE_SUCCESS:
+      return {
+        ...state,
+        authLoading: false,
+        authError: null,
+        userData: action.payload.user,
+        authToken: action.payload.token
+      }
+  
+    case AUTH_ACTION_TYPES.GET_PROFILE_FAILURE:
+      return {
+        ...state,
+        authLoading: false,
+        authError: action.payload
+      }
     default:
       return state;
   }

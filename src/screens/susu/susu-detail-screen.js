@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import {
-  Alert,
   Box,
   Button,
   Center,
@@ -13,7 +12,6 @@ import {
   ScrollView,
   Spinner,
   Text,
-  VStack,
 } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { selectSusu } from "../../redux/susu/susu-reducer";
@@ -31,6 +29,7 @@ import susuMembersIcon from "./../../assets/images/team.png";
 import { SUSU_MEMBERS_ACTION_CREATORS } from "../../redux/susu-members/susu-members-action-creators";
 import { selectSusuGroupMembers } from "../../redux/susu-members/susu-members-reducers";
 import SingleRegulationListItem from "../../components/single-regulation-list-item";
+import NavigationBar from "react-native-navbar-color";
 
 const SusuDetailScreen = ({ navigation, route }) => {
   const { susuDetail, susuLoading, susuError } = useSelector(selectSusu);
@@ -49,7 +48,11 @@ const SusuDetailScreen = ({ navigation, route }) => {
   useEffect(() => {
     dispatch(SUSU_MEMBERS_ACTION_CREATORS.getSusuGroupMembers(authToken, susuID));
   }, []);
-
+  
+  useEffect(() => {
+    NavigationBar.setColor('#155e75');
+  }, []);
+  
   return (
 
     <ScrollView minHeight="100%" backgroundColor="gray.100">

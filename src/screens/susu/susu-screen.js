@@ -6,6 +6,7 @@ import Susu from "../../components/susu";
 import { selectSusuGroupMembers } from "../../redux/susu-members/susu-members-reducers";
 import { SUSU_MEMBERS_ACTION_CREATORS } from "../../redux/susu-members/susu-members-action-creators";
 import { selectAuth } from "../../redux/auth/auth-reducer";
+import NavigationBar from "react-native-navbar-color";
 
 const SusuScreen = ({ navigation }) => {
     const { susuMemberLoading, susuGroupsOfUser } = useSelector(selectSusuGroupMembers);
@@ -14,6 +15,10 @@ const SusuScreen = ({ navigation }) => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(SUSU_MEMBERS_ACTION_CREATORS.getGroupsOfUser(authToken, userData._id));
+    }, []);
+    
+    useEffect(() => {
+        NavigationBar.setColor('#155e75');
     }, []);
     
     return (

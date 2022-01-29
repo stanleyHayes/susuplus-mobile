@@ -7,6 +7,7 @@ import { selectGroupPaymentMethods } from "../../redux/group-payment-methods/gro
 import { selectPaymentMethods } from "../../redux/payment-methods/payment-method-reducers";
 import { PAYMENT_METHOD_ACTION_CREATORS } from "../../redux/payment-methods/payment-method-action-creators";
 import { GROUP_PAYMENT_METHOD_ACTION_CREATORS } from "../../redux/group-payment-methods/group-payment-method-action-creators";
+import NavigationBar from "react-native-navbar-color";
 
 const MakePaymentScreen = ({ navigation, route }) => {
   const [selectedSourceAccount, setSelectedSourceAccount] = useState("");
@@ -49,7 +50,11 @@ const MakePaymentScreen = ({ navigation, route }) => {
       group: susuDetail.group,
     }, authToken, navigation));
   };
-
+  
+  useEffect(() => {
+    NavigationBar.setColor('#155e75');
+  }, []);
+  
   return (
     <Flex flex={1} width="100%" minHeight="100%" backgroundColor="gray.200">
       <ScrollView m={2}>

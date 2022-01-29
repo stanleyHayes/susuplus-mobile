@@ -114,7 +114,10 @@ const ForgotPasswordScreen = ({ navigation }) => {
                     borderColor="primary.100"
                     px={4}
                     py={2}
-                    borderRadius={32}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
                     isFullWidth={true}
                     size="lg"
                     value={email}
@@ -145,21 +148,22 @@ const ForgotPasswordScreen = ({ navigation }) => {
     
                 <Button
                     onPress={handleClick}
-                    pt={2}
-                    borderRadius={32}
-                    pb={2}
+                    pt={3}
+                    pb={3}
                     mt={8}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
                     isLoading={authLoading}
                     isDisabled={authLoading}
+                    isLoadingText="Sending Link..."
                     backgroundColor={authLoading ? "primary.400": "primary.800"}
-                    _text={{ textTransform: "uppercase" }}
                     mb={4}
                     alignSelf="stretch"
                     size="lg"
                     variant="solid">
-                    <Text color="white" fontSize="md">
-                        {authLoading ? "Sending Link...": "Get Reset Link"}
-                    </Text>
+                   Get Reset Link
                 </Button>
             </Box>
         </Flex>

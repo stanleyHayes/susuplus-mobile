@@ -487,7 +487,7 @@ const MoreStackNavigator = () => {
 const MainBottomTabsNavigator = () => {
     return (
         <BottomTabsNavigator.Navigator
-            barStyle={{ backgroundColor: "#003F5E", zIndex: 10 }}
+            barStyle={{ backgroundColor: "#155e75", zIndex: 10 }}
             shifting={false}
             labeled={true}
             backBehavior="firstRoute"

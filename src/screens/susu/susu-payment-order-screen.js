@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FlatList, Flex } from "native-base";
 import Empty from "../../components/empty";
 import PaymentOrder from "../../components/payment-order";
+import NavigationBar from "react-native-navbar-color";
 
 const SusuPaymentOrderScreen = ({ navigation, route }) => {
 
   const { paymentOrder } = route.params;
-
+  
+  useEffect(() => {
+    NavigationBar.setColor('#155e75');
+  }, []);
+  
   return (
     <Flex position="relative" height="100%" width="100%" backgroundColor="gray.100">
       {paymentOrder && paymentOrder.length === 0 ? (

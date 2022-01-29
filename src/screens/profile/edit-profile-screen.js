@@ -5,6 +5,7 @@ import { selectAuth } from "../../redux/auth/auth-reducer";
 
 import { AUTH_ACTION_CREATORS } from "../../redux/auth/auth-action-creators";
 import validator from "validator";
+import NavigationBar from "react-native-navbar-color";
 
 const EditProfileScreen = ({ navigation }) => {
     
@@ -64,6 +65,10 @@ const EditProfileScreen = ({ navigation }) => {
         }
         dispatch(AUTH_ACTION_CREATORS.updateProfile({ email, phone, name }, authToken, navigation));
     };
+    
+    useEffect(() => {
+        NavigationBar.setColor('#155e75');
+    }, []);
     
     return (
         <Box>

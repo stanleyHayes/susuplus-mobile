@@ -53,20 +53,20 @@ const GroupRegulationsForm = () => {
                 <Box mb={2}>
                     <Input
                         placeholder="Type regulation"
-                        variant="filled"
-                        borderRadius={32}
-                        py={4}
-                        px={4}
+                        variant="outline"
+                        borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}
+                        py={3}
                         isInvalid={Boolean(error.regulation)}
                         _focus={{ borderColor: "gray.50" }}
                         _invalid={{ borderColor: "red.400", borderWidth: 1, borderStyle: "solid" }}
                         isFullWidth={true}
-                        backgroundColor="gray.50"
                         mb={1}
                         multiline={true}
                         value={regulation}
                         name="regulation"
-                        type="text"
                         onChangeText={regulation => setRegulation(regulation)}
                         isRequired={true}
                     />
@@ -75,10 +75,14 @@ const GroupRegulationsForm = () => {
                     <Button
                         mt={2}
                         backgroundColor="primary.600"
-                        py={2} borderRadius={32}
-                        onPress={addRegulation}
-                        variant="subtle">
-                        <Text color="white" fontSize="md">Add</Text>
+                        py={3}
+                        _text={{color: 'white'}}
+                        borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}
+                        onPress={addRegulation}>
+                        Add
                     </Button>
                 </Box>
             </Box>
@@ -110,28 +114,38 @@ const GroupRegulationsForm = () => {
                     }
                 </Box>
                 
-                <Button
-                    mt={2}
-                    backgroundColor="primary.600"
-                    py={2}
-                    borderRadius={32}
-                    onPress={() => dispatch(GROUP_ACTION_CREATORS.groupGoToPreviousPage())}
-                    variant="subtle">
-                    <Text color="white" fontSize="md">Previous</Text>
-                </Button>
-                
                 {regulations.length > 0 && (
                     <Button
-                        mt={2}
+                        mt={5}
                         backgroundColor="primary.600"
-                        py={2}
-                        borderRadius={32}
+                        borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}
+                        py={3}
+                        _text={{color: 'white'}}
                         onPress={handleGroupRegulationsSubmit}
-                        variant="subtle">
-                        <Text color="white" fontSize="md">Save Regulations</Text>
+                        variant="solid">
+                        Save Regulations
                     </Button>
                 )}
             
+            </Box>
+            
+            <Box p={5}>
+                <Button
+                    mt={2}
+                    backgroundColor="primary.600"
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
+                    py={3}
+                    _text={{color: 'white'}}
+                    onPress={() => dispatch(GROUP_ACTION_CREATORS.groupGoToPreviousPage())}
+                    variant="solid">
+                    Previous
+                </Button>
             </Box>
         </ScrollView>
     );

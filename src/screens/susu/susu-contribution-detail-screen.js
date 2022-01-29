@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Alert, Box, Divider, HStack, Image, ScrollView, Spinner, Text } from "native-base";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { selectSusuContributions } from "../../redux/susu-contributions/susu-contribution-reducers";
+import NavigationBar from "react-native-navbar-color";
 
 const SusuContributionDetailScreen = () => {
 
@@ -12,7 +13,11 @@ const SusuContributionDetailScreen = () => {
     susuContributionLoading,
     susuContributionError,
   } = useSelector(selectSusuContributions);
-
+  
+  useEffect(() => {
+    NavigationBar.setColor('#155e75');
+  }, []);
+  
   return (
     <ScrollView backgroundColor="gray.100">
       <Box>

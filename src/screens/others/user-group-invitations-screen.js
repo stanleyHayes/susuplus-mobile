@@ -6,6 +6,7 @@ import { selectInvites } from "../../redux/invites/group-invites-reducers";
 import GroupInvite from "../../components/group-invite";
 import { INVITATION_ACTION_CREATORS } from "../../redux/invites/group-invites-action-creators";
 import { selectAuth } from "../../redux/auth/auth-reducer";
+import NavigationBar from "react-native-navbar-color";
 
 const UserGroupInvitationsScreen = ({ navigation }) => {
     const { inviteLoading, inviteError, invites } = useSelector(selectInvites);
@@ -15,6 +16,10 @@ const UserGroupInvitationsScreen = ({ navigation }) => {
     
     useEffect(() => {
         dispatch(INVITATION_ACTION_CREATORS.getInvitations(authToken, `invitee=${userData._id}`));
+    }, []);
+    
+    useEffect(() => {
+        NavigationBar.setColor('#155e75');
     }, []);
     return (
         <Flex position="relative" height="100%" width="100%" backgroundColor="gray.100">

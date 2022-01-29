@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Alert, Box, Center, Divider, HStack, Image, ScrollView, Spinner, Text, VStack } from "native-base";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { selectSusuDisbursements } from "../../redux/susu-disbursements/susu-disbursement-reducers";
+import NavigationBar from "react-native-navbar-color";
 
 const SusuDisbursementDetailScreen = () => {
     
@@ -11,6 +12,10 @@ const SusuDisbursementDetailScreen = () => {
         susuDisbursementLoading,
         susuDisbursementError,
     } = useSelector(selectSusuDisbursements);
+    
+    useEffect(() => {
+        NavigationBar.setColor('#155e75');
+    }, []);
     
     return (
         <ScrollView backgroundColor="gray.100">

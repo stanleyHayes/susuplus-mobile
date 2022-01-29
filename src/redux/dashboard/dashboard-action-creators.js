@@ -2,7 +2,7 @@ import { DASHBOARD_ACTION_TYPES } from "./dashboard-action-types";
 import axios from "axios";
 import { API_URL_CONSTANTS, SECURE_STORAGE_CONSTANTS } from "../../constants/constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { SPLASH_ACTION_CREATORS } from "../splash/splash-action-creators";
+import { AUTH_ACTION_CREATORS } from "../auth/auth-action-creators";
 
 const getDashboardRequest = () => {
     return {
@@ -42,7 +42,7 @@ const getDashboard = (token) => {
             if(message === 'jwt expired'){
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
                 await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-                dispatch(SPLASH_ACTION_CREATORS.restoreToken());
+                dispatch(AUTH_ACTION_CREATORS.restoreToken());
             }
             dispatch(getDashboardFailure(message));
         }

@@ -56,11 +56,33 @@ const theme = extendTheme({
         italic: 'ProductSans-BlackItalic'
       }
     },
+    EuclidCircularA: {
+      300: {
+        normal: 'EuclidCircularALight',
+        italic: 'EuclidCircularALightItalic'
+      },
+      400: {
+        normal: 'EuclidCircularARegular',
+        italic: 'EuclidCircularAItalic'
+      },
+      500: {
+        normal: 'EuclidCircularAMedium',
+        italic: 'EuclidCircularAMediumItalic'
+      },
+      600: {
+        normal: 'EuclidCircularASemiBold',
+        italic: 'EuclidCircularASemiBoldItalic'
+      },
+      700: {
+        normal: 'EuclidCircularABold',
+        italic: 'EuclidCircularABoldItalic'
+      }
+    }
   },
   fonts: {
-    body: 'GoogleSans',
-    heading: 'GoogleSans',
-    mono: 'GoogleSans'
+    body: 'EuclidCircularA',
+    heading: 'EuclidCircularA',
+    mono: 'EuclidCircularA'
   }
 });
 

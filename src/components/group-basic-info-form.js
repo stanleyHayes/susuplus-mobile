@@ -67,15 +67,17 @@ const GroupBasicInfoForm = () => {
                 <Box mb={2}>
                     <Input
                         placeholder="Name"
-                        variant="filled"
-                        borderRadius={32}
-                        py={4}
+                        variant="outline"
+                        borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}
+                        py={3}
                         px={4}
                         isInvalid={Boolean(error.name)}
-                        _focus={{ borderColor: "gray.50" }}
+                        _focus={{ borderColor: "gray.200" }}
                         _invalid={{ borderColor: "red.400", borderWidth: 1, borderStyle: "solid" }}
                         isFullWidth={true}
-                        backgroundColor="gray.50"
                         mb={1}
                         value={name}
                         name="name"
@@ -90,16 +92,18 @@ const GroupBasicInfoForm = () => {
                 <Box mb={2}>
                     <Input
                         placeholder="What percentage goes to susu?"
-                        variant="filled"
-                        borderRadius={32}
-                        py={4}
+                        variant="outline"
+                        borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}
+                        py={3}
                         keyboardType="number-pad"
                         px={4}
                         isInvalid={Boolean(error.susuPercentage)}
-                        _focus={{ borderColor: "gray.50" }}
+                        _focus={{ borderColor: "gray.200" }}
                         _invalid={{ borderColor: "red.400", borderWidth: 1, borderStyle: "solid" }}
                         isFullWidth={true}
-                        backgroundColor="gray.50"
                         mb={1}
                         value={susuPercentage}
                         name="susuPercentage"
@@ -112,16 +116,18 @@ const GroupBasicInfoForm = () => {
                 <Box mb={2}>
                     <Input
                         placeholder="What percentage goes to investment?"
-                        variant="filled"
-                        borderRadius={32}
-                        py={4}
+                        borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}
+                        py={3}
                         px={4}
                         keyboardType="number-pad"
                         isInvalid={Boolean(error.investmentPercentage)}
-                        _focus={{ borderColor: "gray.50" }}
+                        _focus={{ borderColor: "gray.200" }}
                         _invalid={{ borderColor: "red.400", borderWidth: 1, borderStyle: "solid" }}
                         isFullWidth={true}
-                        backgroundColor="gray.50"
+                        variant="outline"
                         mb={1}
                         value={investmentPercentage}
                         name="investmentPercentage"
@@ -134,13 +140,15 @@ const GroupBasicInfoForm = () => {
                 <Box mb={4}>
                     <Input
                         placeholder="What is the group about?"
-                        variant="filled"
-                        borderRadius={32}
-                        py={4}
+                        variant="outline"
+                        borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}
+                        py={3}
                         px={4}
-                        backgroundColor="gray.50"
                         isInvalid={Boolean(error.description)}
-                        _focus={{ borderColor: "gray.50" }}
+                        _focus={{ borderColor: "gray.200" }}
                         _invalid={{ borderColor: "red.400", borderWidth: 1, borderStyle: "solid" }}
                         isFullWidth={true}
                         mb={1}
@@ -155,11 +163,15 @@ const GroupBasicInfoForm = () => {
 
                 <Button
                     onPress={handleSaveGroupBasicInfo}
-                    borderRadius={32}
-                    py={2}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
+                    _text={{color: 'white'}}
+                    py={3}
                     backgroundColor="primary.600"
                     variant="solid">
-                    <Text color="white" fontSize="md">Save Basic Info</Text>
+                    Save Basic Info
                 </Button>
             </Box>
         </ScrollView>

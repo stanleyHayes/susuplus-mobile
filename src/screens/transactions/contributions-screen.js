@@ -6,6 +6,7 @@ import { selectUserContributions } from "../../redux/user-contributions/user-con
 import Contribution from "../../components/contribution";
 import { CONTRIBUTIONS_ACTION_CREATORS } from "../../redux/user-contributions/user-contribution-action-creators";
 import { selectAuth } from "../../redux/auth/auth-reducer";
+import NavigationBar from "react-native-navbar-color";
 
 const ContributionsScreen = ({navigation}) => {
   const { userContributionLoading, userContributionError, userContributions } = useSelector(selectUserContributions);
@@ -16,7 +17,11 @@ const ContributionsScreen = ({navigation}) => {
   useEffect(() => {
     dispatch(CONTRIBUTIONS_ACTION_CREATORS.getContributions(authToken));
   }, []);
-
+  
+  useEffect(() => {
+    NavigationBar.setColor('#155e75');
+  }, []);
+  
   return (
     <Flex position="relative" height="100%" width="100%" backgroundColor="gray.100">
       {userContributionLoading &&

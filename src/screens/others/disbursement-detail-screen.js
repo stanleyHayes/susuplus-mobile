@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Alert, Box, Center, Divider, HStack, Image, ScrollView, Spinner, Text, VStack } from "native-base";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useSelector } from "react-redux";
 import { selectDisbursements } from "../../redux/user-disbursements/user-disbursement-reducers";
 import moment from "moment";
+import NavigationBar from "react-native-navbar-color";
 
 const DisbursementDetailScreen = () => {
 
   const { disbursementDetail, disbursementLoading, disbursementError } = useSelector(selectDisbursements);
-
+  
+  useEffect(() => {
+    NavigationBar.setColor('#155e75');
+  }, []);
+  
   return (
     <ScrollView>
       <Box position="relative" height="100%" width="100%" backgroundColor="gray.100">

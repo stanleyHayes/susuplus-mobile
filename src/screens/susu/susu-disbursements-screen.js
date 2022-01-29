@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Alert, Spinner, FlatList, Flex, Center, VStack, Text } from "native-base";
 import { useSelector } from "react-redux";
 import Empty from "../../components/empty";
 import SusuDisbursement from "../../components/susu-disbursement";
 import { selectSusuDisbursements } from "../../redux/susu-disbursements/susu-disbursement-reducers";
+import NavigationBar from "react-native-navbar-color";
 
 const SusuDisbursementsScreen = ({navigation}) => {
   const { susuDisbursementLoading, susuDisbursementError, susuDisbursements } = useSelector(selectSusuDisbursements);
-
+  
+  useEffect(() => {
+    NavigationBar.setColor('#155e75');
+  }, []);
+  
   return (
     <Flex position="relative" height="100%" width="100%" backgroundColor="gray.100">
       {susuDisbursementLoading &&

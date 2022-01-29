@@ -79,6 +79,29 @@
 		<string>Zocial.ttf</string>
 		<string>GoogleSans-Regular.ttf</string>
 		<string>Inter.woff2</string>
+		<string>EuclidCircularABold.ttf</string>
+		<string>EuclidCircularABoldItalic.ttf</string>
+		<string>EuclidCircularAItalic.ttf</string>
+		<string>EuclidCircularALight.ttf</string>
+		<string>EuclidCircularALightItalic.ttf</string>
+		<string>EuclidCircularAMedium.ttf</string>
+		<string>EuclidCircularAMediumItalic.ttf</string>
+		<string>EuclidCircularARegular.ttf</string>
+		<string>EuclidCircularASemiBold.ttf</string>
+		<string>EuclidCircularASemiBoldItalic.ttf</string>
+		<string>Inter-Black.woff</string>
+		<string>ProductSans-Black.ttf</string>
+		<string>ProductSans-BlackItalic.ttf</string>
+		<string>ProductSans-Bold.ttf</string>
+		<string>ProductSans-BoldItalic.ttf</string>
+		<string>ProductSans-Italic.ttf</string>
+		<string>ProductSans-Light.ttf</string>
+		<string>ProductSans-LightItalic.ttf</string>
+		<string>ProductSans-Medium.ttf</string>
+		<string>ProductSans-MediumItalic.ttf</string>
+		<string>ProductSans-Regular.ttf</string>
+		<string>ProductSans-Thin.ttf</string>
+		<string>ProductSans-ThinItalic.ttf</string>
 	</array>
 </dict>
 </plist>

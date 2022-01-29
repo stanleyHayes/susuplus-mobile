@@ -3,7 +3,7 @@ import axios from "axios";
 import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS, SECURE_STORAGE_CONSTANTS } from "../../constants/constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UTILS } from "../../utils/utils";
-import { SPLASH_ACTION_CREATORS } from "../splash/splash-action-creators";
+import { AUTH_ACTION_CREATORS } from "../auth/auth-action-creators";
 
 const getInvitationsRequest = () => {
   return {
@@ -43,7 +43,7 @@ const getInvitations = (token, query) => {
       if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-        dispatch(SPLASH_ACTION_CREATORS.restoreToken());
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
       }
       dispatch(getInvitationsFailure(message));
       UTILS.showToast('Error', message, 'error', 5000);
@@ -92,7 +92,7 @@ const createInvitation = (invitations, token, navigation) => {
       if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-        dispatch(SPLASH_ACTION_CREATORS.restoreToken());
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
       }
       UTILS.showToast('Error', message, 'error', 5000);
       dispatch(createInvitationFailure(message));
@@ -144,7 +144,7 @@ const acceptInvitation = (token, invitationID) => {
       if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-        dispatch(SPLASH_ACTION_CREATORS.restoreToken());
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
       }
       dispatch(acceptInvitationFailure(message));
     }
@@ -194,7 +194,7 @@ const declineInvitation = (token, invitationID) => {
       if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-        dispatch(SPLASH_ACTION_CREATORS.restoreToken());
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
       }
       dispatch(declineInvitationFailure(message));
     }

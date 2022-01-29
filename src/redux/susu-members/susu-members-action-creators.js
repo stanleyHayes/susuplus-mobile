@@ -3,7 +3,6 @@ import axios from "axios";
 import { API_URL_CONSTANTS, SCREEN_NAME_CONSTANTS, SECURE_STORAGE_CONSTANTS } from "../../constants/constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AUTH_ACTION_CREATORS } from "../auth/auth-action-creators";
-import { SPLASH_ACTION_CREATORS } from "../splash/splash-action-creators";
 
 const getSusuGroupsOfUserRequest = () => {
   return {
@@ -44,7 +43,7 @@ const getGroupsOfUser = (token, userID) => {
       if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-        dispatch(SPLASH_ACTION_CREATORS.restoreToken());
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
       }
       dispatch(getSusuGroupsOfUserFailure(message));
     }
@@ -93,7 +92,7 @@ const addSusuMembers = (token, members, navigation) => {
       if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-        dispatch(SPLASH_ACTION_CREATORS.restoreToken());
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
       }
       dispatch(addSusuMembersFailure(message));
     }
@@ -141,7 +140,7 @@ const getSusuGroupMembers = (token, susuID) => {
       if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);
-        dispatch(SPLASH_ACTION_CREATORS.restoreToken());
+        dispatch(AUTH_ACTION_CREATORS.restoreToken());
       }
       dispatch(getSusuGroupMembersFailure(message));
     }

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Box, Button, Input, ScrollView, Select, Text } from "native-base";
+import { Box, Button, Flex, Input, Modal, ScrollView, Select, Text } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { GROUP_ACTION_CREATORS } from "../redux/groups/group-action-creators";
 import { selectGroups } from "../redux/groups/group-reducers";
-import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
-import { banks } from "../redux/payment-methods/payment-methods-data";
+import { transformedBanks } from "../redux/payment-methods/payment-methods-data";
 
 const PaymentMethodForm = () => {
     
@@ -33,6 +32,9 @@ const PaymentMethodForm = () => {
     const [expiryDate, setExpiryDate] = useState(createGroupPaymentMethod.card.expiryDate);
     const [cardCurrency, setCardCurrency] = useState(createGroupPaymentMethod.card.cardCurrency);
     
+    const [suggestedBanks, setSuggestedBanks] = useState([...transformedBanks]);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [dialogOpen, setDialogOpen] = useState(false);
     
     const dispatch = useDispatch();
     
@@ -148,7 +150,7 @@ const PaymentMethodForm = () => {
                 cardNumber,
                 cvv,
                 expiryDate,
-                currency: cardCurrency,
+                cardCurrency,
             },
         }));
         dispatch(GROUP_ACTION_CREATORS.groupGoToNextPage());
@@ -188,252 +190,447 @@ const PaymentMethodForm = () => {
         dispatch(GROUP_ACTION_CREATORS.groupGoToNextPage());
     };
     
+    const handleBankSelected = bank => {
+        if (bank) {
+            setBankCode(bank.code);
+            setBankName(bank.name);
+            setBankCurrency(bank.currency);
+            setSuggestedBanks(transformedBanks);
+            setDialogOpen(false);
+            setSearchQuery("");
+        }
+    };
+    
+    const handleBankSearch = text => {
+        setSearchQuery(text);
+        setSuggestedBanks(transformedBanks.filter(bank => bank.name.toLowerCase().includes(text.toLowerCase())));
+    };
+    
     return (
-        <ScrollView minHeight="100%" flex={1}>
-            <Box borderRadius={32} p={4} shadow={0} backgroundColor="white" m={2}>
-                <Select
-                    borderRadius={32}
-                    px={4}
-                    py={4}
-                    mb={3}
-                    backgroundColor="white"
-                    variant="rounded"
-                    accessibilityLabel="Select Payment Method"
-                    onValueChange={method => setMethod(method)}
-                    _text={{ fontFamily: "body", fontSize: "md" }}
-                    _selectedItem={{
-                        bg: "primary.200",
-                    }}
-                    mt={1}
-                    placeholder="Select Payment Method"
-                    selectedValue={method}>
-                    <Select.Item label="Select Payment Method" value="" />
-                    <Select.Item label="Mobile Money" value="Mobile Money" />
-                    <Select.Item label="Bank Account" value="Bank Account" />
-                    <Select.Item label="Card" value="Card" />
-                </Select>
-                {method === "Mobile Money" ? (
-                    <Box mb={4}>
-                        <Select
-                            name="provider"
-                            borderRadius={32}
-                            accessibilityLabel="Select Provider"
-                            onValueChange={provider => setProvider(provider)}
-                            _selectedItem={{
-                                bg: "teal.200",
-                            }}
-                            px={4}
-                            py={4}
-                            mt={1}
-                            mb={2}
-                            variant="rounded"
-                            backgroundColor="white"
-                            placeholder="Select Provider"
-                            selectedValue={provider}>
-                            <Select.Item label="Select Provider" value="" />
-                            <Select.Item label="MTN Mobile Money" value="mtn" />
-                            <Select.Item label="Vodafone Cash" value="vod" />
-                            <Select.Item label="Airtel Tigo Cash" value="tgo" />
-                        </Select>
-                        
-                        <Box mb={1}>
-                            <Text fontSize="sm" mb={2}>Mobile Money Name</Text>
-                            <Input
-                                isFullWidth={true}
-                                isRequired={true}
-                                mb={1}
-                                py={4}
-                                _focus={{ borderColor: "gray.50" }}
-                                isInvalid={Boolean(error.name)}
-                                width="100%"
-                                value={name}
-                                type="name"
-                                name="name"
-                                textContentType="name"
-                                spellCheck={true}
-                                selectTextOnFocus={true}
-                                placeholder="E.g. Stanley Hayford"
-                                variant="filled"
-                                size="lg"
-                                borderRadius={32}
-                                onChangeText={name => setName(name)}
-                                backgroundColor="gray.50" />
-                        </Box>
-                        {error.name && <Text color="red.400" textAlign="center">{error.name}</Text>}
-                        
-                        <Box mt={4}>
-                            <Text mb={2} fontSize="sm">Mobile Money Number</Text>
-                            <Input
-                                isFullWidth={true}
-                                isRequired={true}
-                                mb={1}
-                                _focus={{ borderColor: "gray.50" }}
-                                isInvalid={Boolean(error.mobileMoneyNumber)}
-                                width="100%"
-                                py={4}
-                                value={mobileMoneyNumber}
-                                onChange={event => setMobileMoneyNumber(event.target.value)}
-                                name="mobileMoneyNumber"
-                                placeholder="E.g. +233270048319"
-                                variant="filled"
-                                size="lg"
-                                type="tel"
-                                dataDetectorTypes="phoneNumber"
-                                keyboardType="number-pad"
-                                autoCapitalize="words"
-                                borderRadius={32}
-                                onChangeText={mobileMoneyNumber => setMobileMoneyNumber(mobileMoneyNumber)}
-                                backgroundColor="gray.50" />
-                        </Box>
-                        {error.mobileMoneyNumber &&
-                        <Text color="red.400" textAlign="center">{error.mobileMoneyNumber}</Text>}
-                        
-                        <Button
-                            mt={8}
-                            onPress={handleMobileMoneyAccountAdd}
-                            borderRadius={32}
-                            py={4}
-                            backgroundColor="primary.800"
-                            _text={{ fontFamily: "body" }}>
-                            <Text fontSize="md" color="white">
-                                Add Mobile Money Account
-                            </Text>
-                        </Button>
-                    </Box>
-                ) : method === "Bank Account" ? (
-                    <Box>
+        <Flex height="100%" width="100%" pt={4} pb={4} flex={1} backgroundColor="white">
+            <ScrollView minHeight="100%" flex={1}>
+                <Box borderRadius={32} p={4} shadow={0} backgroundColor="white" m={2}>
+                    <Select
+                        mb={3}
+                        py={2}
+                        px={4}
+                        borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}
+                        variant="rounded"
+                        accessibilityLabel="Select Payment Method"
+                        onValueChange={method => setMethod(method)}
+                        _text={{ fontFamily: "body", fontSize: "md" }}
+                        _selectedItem={{
+                            bg: "primary.200",
+                        }}
+                        mt={1}
+                        placeholder="Select Payment Method"
+                        selectedValue={method}>
+                        <Select.Item label="Select Payment Method" value="" />
+                        <Select.Item label="Mobile Money" value="Mobile Money" />
+                        <Select.Item label="Bank Account" value="Bank Account" />
+                        <Select.Item label="Card" value="Card" />
+                    </Select>
+                    {method === "Mobile Money" ? (
                         <Box mb={4}>
-                            <Box mb={2}>
-                                <Text mb={2}>Bank Name</Text>
-                                <AutocompleteDropdown
-                                    clearOnFocus={false}
-                                    closeOnBlur={true}
-                                    closeOnSubmit={true}
-                                    onSelectItem={handleBankSelected}
-                                    dataSet={banks}
-                                    style={{borderRadius: 32}}
-                                />
-                            </Box>
+                            <Select
+                                name="provider"
+                                borderRadius={32}
+                                accessibilityLabel="Select Provider"
+                                onValueChange={provider => setProvider(provider)}
+                                _selectedItem={{
+                                    bg: "teal.200",
+                                }}
+                                px={3}
+                                py={2}
+                                mt={1}
+                                mb={2}
+                                borderBottomLeftRadius={0}
+                                borderTopRightRadius={0}
+                                borderBottomRightRadius={16}
+                                borderTopLeftRadius={16}
+                                variant="rounded"
+                                placeholder="Select Provider"
+                                selectedValue={provider}>
+                                <Select.Item label="Select Provider" value="" />
+                                <Select.Item label="MTN Mobile Money" value="mtn" />
+                                <Select.Item label="Vodafone Cash" value="vod" />
+                                <Select.Item label="Airtel Tigo Cash" value="tgo" />
+                            </Select>
                             
                             <Box mb={2}>
-                                <Text mb={2}>Bank Code</Text>
+                                <Text fontSize="xs">Mobile Money Name</Text>
+                                <Input
+                                    isFullWidth={true}
+                                    isRequired={true}
+                                    mb={1}
+                                    px={3}
+                                    py={3}
+                                    mt={1}
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}
+                                    _focus={{ borderColor: "gray.50" }}
+                                    isInvalid={Boolean(error.name)}
+                                    width="100%"
+                                    value={name}
+                                    autoComplete="name"
+                                    name="name"
+                                    textContentType="name"
+                                    spellCheck={true}
+                                    selectTextOnFocus={true}
+                                    placeholder="E.g. Stanley Hayford"
+                                    variant="outline"
+                                    size="lg"
+                                    borderRadius={32}
+                                    onChangeText={name => setName(name)}
+                                />
+                            </Box>
+                            {error.name && <Text color="red.400" textAlign="center">{error.name}</Text>}
+                            
+                            <Box mt={4}>
+                                <Text mb={2} fontSize="xs">Mobile Money Number</Text>
+                                <Input
+                                    isFullWidth={true}
+                                    isRequired={true}
+                                    mb={1}
+                                    _focus={{ borderColor: "gray.50" }}
+                                    isInvalid={Boolean(error.mobileMoneyNumber)}
+                                    width="100%"
+                                    px={3}
+                                    py={3}
+                                    mt={1}
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}
+                                    value={mobileMoneyNumber}
+                                    onChange={event => setMobileMoneyNumber(event.target.value)}
+                                    name="mobileMoneyNumber"
+                                    placeholder="E.g. 0270048319"
+                                    variant="outline"
+                                    size="lg"
+                                    dataDetectorTypes="phoneNumber"
+                                    keyboardType="number-pad"
+                                    onChangeText={mobileMoneyNumber => setMobileMoneyNumber(mobileMoneyNumber)}
+                                />
+                            </Box>
+                            {error.mobileMoneyNumber &&
+                                <Text color="red.400" textAlign="center">{error.mobileMoneyNumber}</Text>}
+                            
+                            <Button
+                                mt={8}
+                                onPress={handleMobileMoneyAccountAdd}
+                                px={3}
+                                py={3}
+                                mb={2}
+                                borderBottomLeftRadius={0}
+                                borderTopRightRadius={0}
+                                borderBottomRightRadius={16}
+                                borderTopLeftRadius={16}
+                                backgroundColor="primary.600"
+                                _text={{ fontFamily: "body", color: 'white' }}>
+                                Add Mobile Money Account
+                            </Button>
+                        </Box>
+                    ) : method === "Bank Account" ? (
+                        <Box>
+                            <Box mb={4}>
+                                <Box mb={2}>
+                                    <Text mb={1}>Bank Name</Text>
+                                    <Input
+                                        isFullWidth={true}
+                                        isRequired={true}
+                                        mb={2}
+                                        py={4}
+                                        isReadOnly={true}
+                                        isInvalid={Boolean(error.bankName)}
+                                        width="100%"
+                                        _focus={{ borderColor: "gray.50" }}
+                                        _readOnly={{ backgroundColor: "gray.100", color: "gray.600" }}
+                                        value={bankName}
+                                        name="bankName"
+                                        placeholder="Enter Bank Name"
+                                        variant="filled"
+                                        size="lg"
+                                        borderRadius={32}
+                                        backgroundColor="gray.50" />
+                                    {error.bankName && <Text color="red.400" textAlign="center">{error.bankName}</Text>}
+                                    <Button
+                                        borderColor="primary.600"
+                                        borderRadius={32}
+                                        borderWidth={1}
+                                        variant="outlined"
+                                        backgroundColor="white"
+                                        onPress={() => setDialogOpen(true)}>
+                                        <Text color="primary.600">Select Bank</Text>
+                                    </Button>
+                                </Box>
+                                
+                                <Box mb={2}>
+                                    <Text mb={2}>Bank Code</Text>
+                                    <Input
+                                        isFullWidth={true}
+                                        isRequired={true}
+                                        mb={2}
+                                        py={4}
+                                        isReadOnly={true}
+                                        isInvalid={Boolean(error.bankCode)}
+                                        width="100%"
+                                        _focus={{ borderColor: "gray.50" }}
+                                        _readOnly={{ backgroundColor: "gray.100", color: "gray.600" }}
+                                        value={bankCode}
+                                        name="bankCode"
+                                        placeholder="Enter Bank Code"
+                                        variant="filled"
+                                        size="lg"
+                                        borderRadius={32}
+                                        backgroundColor="gray.50" />
+                                    {error.bankCode && <Text color="red.400" textAlign="center">{error.bankCode}</Text>}
+                                </Box>
+                                
+                                <Box mb={2}>
+                                    <Text mb={2}>Account Branch</Text>
+                                    <Input
+                                        isFullWidth={true}
+                                        isRequired={true}
+                                        mb={2}
+                                        py={4}
+                                        _focus={{ borderColor: "gray.50" }}
+                                        value={accountBranch}
+                                        onChangeText={accountBranch => setBankBranch(accountBranch)}
+                                        isInvalid={Boolean(error.accountBranch)}
+                                        width="100%"
+                                        name="accountBranch"
+                                        placeholder="E.g. Madina"
+                                        variant="filled"
+                                        size="lg"
+                                        borderRadius={32}
+                                        backgroundColor="gray.50" />
+                                </Box>
+                                
+                                <Box mb={2}>
+                                    <Text mb={2}>Account Name</Text>
+                                    <Input
+                                        isFullWidth={true}
+                                        isRequired={true}
+                                        mb={2}
+                                        py={4}
+                                        _focus={{ borderColor: "gray.50" }}
+                                        value={accountName}
+                                        onChangeText={accountName => setAccountName(accountName)}
+                                        isInvalid={Boolean(error.accountName)}
+                                        width="100%"
+                                        name="accountName"
+                                        placeholder="E.g. Stanley Hayford"
+                                        variant="filled"
+                                        size="lg"
+                                        borderRadius={32}
+                                        backgroundColor="gray.50" />
+                                </Box>
+                                
+                                <Box mb={2}>
+                                    <Text mb={2}>Account Number</Text>
+                                    <Input
+                                        isFullWidth={true}
+                                        isRequired={true}
+                                        py={4}
+                                        mb={2}
+                                        _focus={{ borderColor: "gray.50" }}
+                                        value={accountNumber}
+                                        onChangeText={accountNumber => setAccountNumber(accountNumber)}
+                                        isInvalid={Boolean(error.accountNumber)}
+                                        width="100%"
+                                        name="accountNumber"
+                                        placeholder="E.g. 1234567812345678"
+                                        variant="filled"
+                                        size="lg"
+                                        borderRadius={32}
+                                        backgroundColor="gray.50" />
+                                </Box>
+                                
+                                <Box mb={2}>
+                                    <Text mb={2}>Mobile Number</Text>
+                                    <Input
+                                        isFullWidth={true}
+                                        isRequired={true}
+                                        mb={2}
+                                        py={4}
+                                        _focus={{ borderColor: "gray.50" }}
+                                        value={mobileNumber}
+                                        onChangeText={mobileNumber => setMobileNumber(mobileNumber)}
+                                        isInvalid={Boolean(error.mobileNumber)}
+                                        width="100%"
+                                        name="mobileNumber"
+                                        placeholder="E.g. 0270048319"
+                                        variant="filled"
+                                        size="lg"
+                                        borderRadius={32}
+                                        backgroundColor="gray.50" />
+                                </Box>
+                                
+                                <Box mb={2}>
+                                    <Text mb={2}>Account Currency</Text>
+                                    <Select
+                                        name="bankCurrency"
+                                        borderRadius={32}
+                                        isDisabled={true}
+                                        accessibilityLabel="Select Account Currency"
+                                        onValueChange={bankCurrency => setBankCurrency(bankCurrency)}
+                                        _selectedItem={{
+                                            bg: "teal.200",
+                                        }}
+                                        px={4}
+                                        py={4}
+                                        mt={1}
+                                        mb={2}
+                                        variant="rounded"
+                                        backgroundColor="white"
+                                        placeholder="Select Currency"
+                                        selectedValue={bankCurrency}>
+                                        <Select.Item label="Select Currency" value="" />
+                                        <Select.Item label="Ghana Cedis" value="GHS" />
+                                        <Select.Item label="US Dollars" value="USD" />
+                                    </Select>
+                                    {error.bankCurrency &&
+                                        <Text color="red.400" textAlign="center">{error.bankCurrency}</Text>}
+                                </Box>
+                                
+                                <Button
+                                    onPress={handleBankAccountAdd}
+                                    borderRadius={32}
+                                    py={4}
+                                    backgroundColor="primary.600"
+                                    _text={{ fontFamily: "body", color: 'white' }}>
+                                        Add Bank Account
+                                </Button>
+                            </Box>
+                        </Box>
+                    ) : method === "Card" ? (
+                        <Box>
+                            <Box mb={2}>
+                                <Text mb={2}>Issuing Bank</Text>
                                 <Input
                                     isFullWidth={true}
                                     isRequired={true}
                                     mb={2}
-                                    py={4}
-                                    isReadOnly={true}
-                                    isInvalid={Boolean(error.bankCode)}
+                                    isInvalid={Boolean(error.bankIssuer)}
                                     width="100%"
+                                    value={bankIssuer}
                                     _focus={{ borderColor: "gray.50" }}
-                                    _readOnly={{backgroundColor: 'gray.100', color: 'gray.200'}}
-                                    value={bankCode}
-                                    name="bankCode"
-                                    placeholder="Enter Bank Code"
-                                    variant="filled"
+                                    onChangeText={bankIssuer => setBankIssuer(bankIssuer)}
+                                    name="issuingNetwork"
+                                    placeholder="E.g. Barclays Bank"
+                                    variant="rounded"
+                                    py={4}
+                                    borderWidth={0}
                                     size="lg"
                                     borderRadius={32}
                                     backgroundColor="gray.50" />
-                                {error.bankCode && <Text color="red.400" textAlign="center">{error.bankCode}</Text>}
+                                {error.bankIssuer && <Text color="red.400" textAlign="center">{error.bankIssuer}</Text>}
                             </Box>
                             
                             <Box mb={2}>
-                                <Text mb={2}>Account Branch</Text>
+                                <Text mb={2}>Card Holder Name</Text>
                                 <Input
                                     isFullWidth={true}
                                     isRequired={true}
-                                    mb={1}
-                                    py={4}
+                                    mb={2}
                                     _focus={{ borderColor: "gray.50" }}
-                                    value={accountBranch}
-                                    onChangeText={accountBranch => setBankBranch(accountBranch)}
-                                    isInvalid={Boolean(error.accountBranch)}
+                                    isInvalid={Boolean(error.cardHolderName)}
                                     width="100%"
-                                    name="accountBranch"
-                                    placeholder="E.g. Madina"
-                                    variant="filled"
-                                    size="lg"
-                                    borderRadius={32}
-                                    backgroundColor="gray.50" />
-                                {error.accountBranch &&
-                                <Text color="red.400" textAlign="center">{error.accountBranch}</Text>}
-                            </Box>
-                            
-                            <Box mb={2}>
-                                <Text mb={2}>Account Name</Text>
-                                <Input
-                                    isFullWidth={true}
-                                    isRequired={true}
-                                    mb={1}
-                                    py={4}
-                                    _focus={{ borderColor: "gray.50" }}
-                                    value={accountName}
-                                    onChangeText={accountName => setAccountName(accountName)}
-                                    isInvalid={Boolean(error.accountName)}
-                                    width="100%"
-                                    name="accountName"
+                                    value={cardHolderName}
+                                    onChangeText={cardHolderName => setCardHolderName(cardHolderName)}
+                                    name="cardHolderName"
                                     placeholder="E.g. Stanley Hayford"
-                                    variant="filled"
-                                    autoCapitalize="words"
+                                    variant="rounded"
+                                    py={4}
+                                    borderWidth={0}
                                     size="lg"
                                     borderRadius={32}
                                     backgroundColor="gray.50" />
-                                {error.accountName &&
-                                <Text color="red.400" textAlign="center">{error.accountName}</Text>}
-                            
+                                {error.cardHolderName &&
+                                    <Text color="red.400" textAlign="center">{error.cardHolderName}</Text>}
                             </Box>
                             
                             <Box mb={2}>
-                                <Text mb={2}>Account Number</Text>
+                                <Text mb={2}>Card Number</Text>
                                 <Input
                                     isFullWidth={true}
                                     isRequired={true}
-                                    py={4}
-                                    mb={1}
+                                    mb={2}
                                     _focus={{ borderColor: "gray.50" }}
-                                    value={accountNumber}
-                                    onChangeText={accountNumber => setAccountNumber(accountNumber)}
-                                    isInvalid={Boolean(error.accountNumber)}
+                                    isInvalid={Boolean(error.cardNumber)}
                                     width="100%"
-                                    name="accountNumber"
+                                    value={cardNumber}
+                                    onChangeText={cardNumber => setCardNumber(cardNumber)}
+                                    name="cardNumber"
                                     placeholder="E.g. 1234567812345678"
-                                    variant="filled"
+                                    variant="rounded"
+                                    py={4}
+                                    borderWidth={0}
                                     size="lg"
                                     borderRadius={32}
                                     backgroundColor="gray.50" />
-                                {error.accountNumber &&
-                                <Text color="red.400" textAlign="center">{error.accountNumber}</Text>}
+                                {error.cardNumber && <Text color="red.400" textAlign="center">{error.cardNumber}</Text>}
                             </Box>
                             
                             <Box mb={2}>
-                                <Text mb={2}>Mobile Number</Text>
+                                <Text mb={2}>CVV</Text>
                                 <Input
                                     isFullWidth={true}
                                     isRequired={true}
-                                    mb={1}
-                                    py={4}
+                                    mb={2}
                                     _focus={{ borderColor: "gray.50" }}
-                                    value={mobileNumber}
-                                    onChangeText={mobileNumber => setMobileNumber(mobileNumber)}
-                                    isInvalid={Boolean(error.mobileNumber)}
+                                    isInvalid={Boolean(error.cvv)}
                                     width="100%"
-                                    name="mobileNumber"
-                                    placeholder="E.g. +233270048319"
-                                    variant="filled"
+                                    value={cvv}
+                                    onChangeText={cvv => setCVV(cvv)}
+                                    name="cvv"
+                                    placeholder="E.g. 123"
+                                    variant="rounded"
+                                    py={4}
+                                    borderWidth={0}
                                     size="lg"
                                     borderRadius={32}
                                     backgroundColor="gray.50" />
-                                {error.mobileNumber &&
-                                <Text color="red.400" textAlign="center">{error.mobileNumber}</Text>}
+                                {error.cvv &&
+                                    <Text color="red.400" textAlign="center">{error.cvv}</Text>}
+                            </Box>
+                            
+                            <Box mb={4}>
+                                <Text mb={2}>Expiry Date</Text>
+                                <Input
+                                    isFullWidth={true}
+                                    isRequired={true}
+                                    mb={2}
+                                    isInvalid={Boolean(error.expiryDate)}
+                                    width="100%"
+                                    _focus={{ borderColor: "gray.50" }}
+                                    value={expiryDate}
+                                    onChangeText={expiryDate => setExpiryDate(expiryDate)}
+                                    name="expiryDate"
+                                    placeholder="E.g. MM/YYYY"
+                                    variant="rounded"
+                                    py={4}
+                                    borderWidth={0}
+                                    size="lg"
+                                    borderRadius={32}
+                                    backgroundColor="gray.50" />
+                                {error.expiryDate &&
+                                    <Text color="red.400" textAlign="center">{error.expiryDate}</Text>}
                             </Box>
                             
                             <Box mb={2}>
                                 <Text mb={2}>Account Currency</Text>
                                 <Select
-                                    name="bankCurrency"
+                                    name="cardCurrency"
                                     borderRadius={32}
                                     accessibilityLabel="Select Account Currency"
-                                    onValueChange={bankCurrency => setBankCurrency(bankCurrency)}
+                                    onValueChange={cardCurrency => setCardCurrency(cardCurrency)}
                                     _selectedItem={{
                                         bg: "teal.200",
                                     }}
@@ -443,193 +640,99 @@ const PaymentMethodForm = () => {
                                     mb={2}
                                     variant="rounded"
                                     backgroundColor="white"
-                                    placeholder="Select Currency"
-                                    selectedValue={provider}>
+                                    placeholder="Select Card Currency"
+                                    selectedValue={cardCurrency}>
                                     <Select.Item label="Select Currency" value="" />
                                     <Select.Item label="Ghana Cedis" value="GHS" />
                                     <Select.Item label="US Dollars" value="USD" />
                                 </Select>
-                                {error.bankCurrency &&
-                                <Text color="red.400" textAlign="center">{error.bankCurrency}</Text>}
+                                {error.cardCurrency &&
+                                    <Text color="red.400" textAlign="center">{error.cardCurrency}</Text>}
                             </Box>
                             
                             <Button
-                                onPress={handleBankAccountAdd}
-                                borderRadius={32}
-                                py={4}
+                                onPress={handleDebitCardAdd}
+                                py={2}
+                                px={4}
+                                borderBottomLeftRadius={0}
+                                borderTopRightRadius={0}
+                                borderBottomRightRadius={16}
+                                borderTopLeftRadius={16}
                                 backgroundColor="primary.800"
                                 _text={{ fontFamily: "body" }}>
-                                <Text fontSize="md" color="white">
-                                    Add Bank Account
-                                </Text>
+                                    Add Card Details
                             </Button>
                         </Box>
-                    </Box>
-                ) : method === "Card" ? (
-                    <Box>
-                        <Box mb={2}>
-                            <Text mb={2}>Issuing Bank</Text>
-                            <Input
-                                isFullWidth={true}
-                                isRequired={true}
-                                mb={2}
-                                isInvalid={Boolean(error.bankIssuer)}
-                                width="100%"
-                                value={bankIssuer}
-                                _focus={{ borderColor: "gray.50" }}
-                                onChangeText={bankIssuer => setBankIssuer(bankIssuer)}
-                                name="issuingNetwork"
-                                placeholder="E.g. Barclays Bank"
-                                variant="rounded"
-                                py={4}
-                                borderWidth={0}
-                                size="lg"
-                                borderRadius={32}
-                                backgroundColor="gray.50" />
-                            {error.bankIssuer && <Text color="red.400" textAlign="center">{error.bankIssuer}</Text>}
-                        </Box>
-                        
-                        <Box mb={2}>
-                            <Text mb={2}>Card Holder Name</Text>
-                            <Input
-                                isFullWidth={true}
-                                isRequired={true}
-                                mb={2}
-                                _focus={{ borderColor: "gray.50" }}
-                                isInvalid={Boolean(error.cardHolderName)}
-                                width="100%"
-                                value={cardHolderName}
-                                onChangeText={cardHolderName => setCardHolderName(cardHolderName)}
-                                name="cardHolderName"
-                                placeholder="E.g. Stanley Hayford"
-                                variant="rounded"
-                                py={4}
-                                borderWidth={0}
-                                size="lg"
-                                borderRadius={32}
-                                backgroundColor="gray.50" />
-                            {error.cardHolderName &&
-                            <Text color="red.400" textAlign="center">{error.cardHolderName}</Text>}
-                        </Box>
-                        
-                        <Box mb={2}>
-                            <Text mb={2}>Card Number</Text>
-                            <Input
-                                isFullWidth={true}
-                                isRequired={true}
-                                mb={2}
-                                _focus={{ borderColor: "gray.50" }}
-                                isInvalid={Boolean(error.cardNumber)}
-                                width="100%"
-                                value={cardNumber}
-                                onChangeText={cardNumber => setCardNumber(cardNumber)}
-                                name="cardNumber"
-                                placeholder="E.g. 1234567812345678"
-                                variant="rounded"
-                                py={4}
-                                borderWidth={0}
-                                size="lg"
-                                borderRadius={32}
-                                backgroundColor="gray.50" />
-                            {error.cardNumber && <Text color="red.400" textAlign="center">{error.cardNumber}</Text>}
-                        </Box>
-                        
-                        <Box mb={2}>
-                            <Text mb={2}>CVV</Text>
-                            <Input
-                                isFullWidth={true}
-                                isRequired={true}
-                                mb={2}
-                                _focus={{ borderColor: "gray.50" }}
-                                isInvalid={Boolean(error.cvv)}
-                                width="100%"
-                                value={cvv}
-                                onChangeText={cvv => setCVV(cvv)}
-                                name="cvv"
-                                placeholder="E.g. 123"
-                                variant="rounded"
-                                py={4}
-                                borderWidth={0}
-                                size="lg"
-                                borderRadius={32}
-                                backgroundColor="gray.50" />
-                            {error.cvv &&
-                            <Text color="red.400" textAlign="center">{error.cvv}</Text>}
-                        </Box>
-                        
-                        <Box mb={4}>
-                            <Text mb={2}>Expiry Date</Text>
-                            <Input
-                                isFullWidth={true}
-                                isRequired={true}
-                                mb={2}
-                                isInvalid={Boolean(error.expiryDate)}
-                                width="100%"
-                                _focus={{ borderColor: "gray.50" }}
-                                value={expiryDate}
-                                onChangeText={expiryDate => setExpiryDate(expiryDate)}
-                                name="expiryDate"
-                                placeholder="E.g. MM/YYYY"
-                                variant="rounded"
-                                py={4}
-                                borderWidth={0}
-                                size="lg"
-                                borderRadius={32}
-                                backgroundColor="gray.50" />
-                            {error.expiryDate &&
-                            <Text color="red.400" textAlign="center">{error.expiryDate}</Text>}
-                        </Box>
-                        
-                        <Box mb={2}>
-                            <Text mb={2}>Account Currency</Text>
-                            <Select
-                                name="cardCurrency"
-                                borderRadius={32}
-                                accessibilityLabel="Select Account Currency"
-                                onValueChange={cardCurrency => setCardCurrency(cardCurrency)}
-                                _selectedItem={{
-                                    bg: "teal.200",
-                                }}
-                                px={4}
-                                py={4}
-                                mt={1}
-                                mb={2}
-                                variant="rounded"
-                                backgroundColor="white"
-                                placeholder="Select Card Currency"
-                                selectedValue={cardCurrency}>
-                                <Select.Item label="Select Currency" value="" />
-                                <Select.Item label="Ghana Cedis" value="GHS" />
-                                <Select.Item label="US Dollars" value="USD" />
-                            </Select>
-                            {error.cardCurrency &&
-                            <Text color="red.400" textAlign="center">{error.cardCurrency}</Text>}
-                        </Box>
-                        
-                        <Button
-                            onPress={handleDebitCardAdd}
-                            borderRadius={32}
-                            py={4}
-                            backgroundColor="primary.800"
-                            _text={{ fontFamily: "body" }}>
-                            <Text fontSize="md" color="white">
-                                Add Card Details
-                            </Text>
-                        </Button>
-                    </Box>
-                ) : null}
+                    ) : null}
+                </Box>
                 
-                <Button
-                    mt={2}
-                    backgroundColor="primary.600"
-                    py={2}
-                    borderRadius={32}
-                    onPress={() => dispatch(GROUP_ACTION_CREATORS.groupGoToPreviousPage())}
-                    variant="subtle">
-                    <Text color="white" fontSize="md">Previous</Text>
-                </Button>
-            </Box>
-        </ScrollView>
+                <Box p={5}>
+                    <Button
+                        mt={2}
+                        backgroundColor="primary.600"
+                        py={3}
+                        px={4}
+                        _text={{color: 'white'}}
+                        borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}
+                        onPress={() => dispatch(GROUP_ACTION_CREATORS.groupGoToPreviousPage())}
+                        variant="subtle">
+                        Previous
+                    </Button>
+                </Box>
+            </ScrollView>
+            <Modal
+                size="full"
+                isOpen={dialogOpen}
+                onClose={() => setDialogOpen(false)}>
+                <Modal.Content>
+                    <Modal.Header><Text>Select Bank</Text></Modal.Header>
+                    <Modal.Body>
+                        <Input
+                            isFullWidth={true}
+                            isRequired={true}
+                            mb={2}
+                            width="100%"
+                            _focus={{ borderColor: "gray.50" }}
+                            value={searchQuery}
+                            onChangeText={searchQuery => handleBankSearch(searchQuery)}
+                            placeholder="Search bank"
+                            variant="outline"
+                            py={2}
+                            borderWidth={1}
+                            size="md"
+                            borderRadius={32}
+                            backgroundColor="gray.50"
+                        />
+                        {suggestedBanks && suggestedBanks.map((bank, index) => {
+                            return (
+                                <Button variant="ghost" key={index} onPress={() => handleBankSelected(bank)}>
+                                    <Text textAlign="center" fontSize="md" p={1.5}>{bank.name}</Text>
+                                </Button>
+                            );
+                        })}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button
+                            width="100%"
+                            px={3}
+                            py={3}
+                            mt={2}
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
+                            backgroundColor="primary.600"
+                            _text={{color: 'white'}}
+                            onPress={() => setDialogOpen(false)}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal.Content>
+            </Modal>
+        </Flex>
     );
 };
 
