@@ -39,7 +39,11 @@ const SusuMembersScreen = ({ navigation, route }) => {
             
             {susuMembers && susuMembers.length === 0 ? (
                 <Flex backgroundColor="white" width="100%" height="100%" justifyContent="center" alignItems="center">
-                    <Empty description="There are no susu members" title="Susu Members" />
+                    <Empty
+                        description="There are no susu members"
+                        title="Susu Members"
+                    refresh={() => dispatch(SUSU_MEMBERS_ACTION_CREATORS.getSusuGroupMembers(authToken, susuID))}
+                    />
                 </Flex>
             ) : (
                 <FlatList

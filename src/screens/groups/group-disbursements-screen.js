@@ -1,13 +1,23 @@
 import React from "react";
 import { Alert, Spinner, FlatList, Flex, Center, VStack, Text } from "native-base";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Empty from "../../components/empty";
 import { selectGroupDisbursements } from "../../redux/group-disbursements/group-disbursement-reducers";
 import GroupDisbursement from "../../components/group-disbursement";
+import {
+  GROUP_DISBURSEMENTS_ACTION_CREATORS
+} from "../../redux/group-disbursements/group-disbursement-action-creators";
+import { selectAuth } from "../../redux/auth/auth-reducer";
 
-const GroupDisbursementsScreen = ({navigation}) => {
+const GroupDisbursementsScreen = ({navigation, route}) => {
   const { groupDisbursementLoading, groupDisbursementError, groupDisbursements } = useSelector(selectGroupDisbursements);
 
+  const {authToken} = useSelector(selectAuth);
+  const dispatch = useDispatch();
+  
+  const {disbursementID} = route.params;
+  
+  
   return (
     <Flex position="relative" height="100%" width="100%" backgroundColor="gray.100">
       {groupDisbursementLoading &&
@@ -33,7 +43,12 @@ const GroupDisbursementsScreen = ({navigation}) => {
 
       {groupDisbursements && groupDisbursements.length === 0 ? (
         <Flex backgroundColor="primary.100" width="100%" height="100%" justifyContent="center" alignItems="center">
-          <Empty description="Group has no disbursements" title="Disbursements" />
+          <Empty
+              description="Group has no disbursements"
+              title="Disbursements"
+              refresh={() => dispatch(GROUP_DISBURSEMENTS_ACTION_CREATORS.getGroupDisbursements(authToken, disbursementID))}
+          />
+          
         </Flex>
       ) : (
         <FlatList

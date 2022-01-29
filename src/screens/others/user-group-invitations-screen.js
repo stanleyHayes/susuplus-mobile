@@ -9,7 +9,7 @@ import { selectAuth } from "../../redux/auth/auth-reducer";
 import NavigationBar from "react-native-navbar-color";
 
 const UserGroupInvitationsScreen = ({ navigation }) => {
-    const { inviteLoading, inviteError, invites } = useSelector(selectInvites);
+    const { inviteLoading,  invites } = useSelector(selectInvites);
     const { authToken, userData } = useSelector(selectAuth);
     
     const dispatch = useDispatch();
@@ -33,7 +33,11 @@ const UserGroupInvitationsScreen = ({ navigation }) => {
             
             {invites && invites.length === 0 ? (
                 <Flex backgroundColor="white" width="100%" height="100%" justifyContent="center" alignItems="center">
-                    <Empty description="You have no group invites" title="Group Invites" />
+                    <Empty
+                        description="You have no group invites"
+                        title="Group Invites"
+                        refresh={() => dispatch(INVITATION_ACTION_CREATORS.getInvitations(authToken, `invitee=${userData._id}`))}
+                    />
                 </Flex>
             ) : (
                 <FlatList

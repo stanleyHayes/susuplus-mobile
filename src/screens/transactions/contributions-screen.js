@@ -52,7 +52,11 @@ const ContributionsScreen = ({navigation}) => {
           height="100%"
           justifyContent="center"
           alignItems="center">
-          <Empty description="You have made no contributions" title="Contributions" />
+          <Empty
+              description="You have made no contributions"
+              title="Contributions"
+              refresh={() => dispatch(CONTRIBUTIONS_ACTION_CREATORS.getContributions(authToken))}
+          />
         </Flex>
       ) : (
         <FlatList

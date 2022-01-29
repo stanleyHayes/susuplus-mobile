@@ -59,6 +59,7 @@ const DisbursementsScreen = ({ navigation }) => {
           <Empty
             description="You have not been disbursed"
             title="Disbursements"
+            refresh={() => dispatch(DISBURSEMENTS_ACTION_CREATORS.getDisbursements(authToken, userData._id))}
           />
         </Flex>
       ) : (

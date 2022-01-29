@@ -18,6 +18,7 @@ const GroupInvitationsScreen = ({ route }) => {
     useEffect(() => {
         dispatch(INVITATION_ACTION_CREATORS.getInvitations(authToken, `group=${groupID}`));
     }, []);
+    
     return (
         <Flex position="relative" height="100%" width="100%" backgroundColor="gray.100">
             {inviteLoading &&
@@ -41,7 +42,11 @@ const GroupInvitationsScreen = ({ route }) => {
             
             {invites && invites.length === 0 ? (
                 <Flex backgroundColor="white" width="100%" height="100%" justifyContent="center" alignItems="center">
-                    <Empty description="You have no pending invites" title="Group Invites" />
+                    <Empty
+                        description="You have no pending invites"
+                        title="Group Invites"
+                        refresh={() => dispatch(INVITATION_ACTION_CREATORS.getInvitations(authToken, `group=${groupID}`))}
+                    />
                 </Flex>
             ) : (
                 <FlatList

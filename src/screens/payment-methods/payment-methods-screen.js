@@ -38,13 +38,16 @@ const PaymentMethodsScreen = ({ navigation }) => {
             
             {paymentMethods && paymentMethods.length === 0 ? (
                 <Flex backgroundColor="white" width="100%" height="100%" justifyContent="center" alignItems="center">
-                    <Empty description="You have no payment methods" title="Payment Methods" />
+                    <Empty
+                        description="You have no payment methods"
+                        title="Payment Methods"
+                        refresh={() => dispatch(PAYMENT_METHOD_ACTION_CREATORS.getPaymentMethods(authToken))}
+                    />
                 </Flex>
             ) : (
                 <FlatList
                     data={paymentMethods}
-                    renderItem={(paymentMethod) => <PaymentMethod navigation={navigation}
-                                                                  paymentMethod={paymentMethod.item} />}
+                    renderItem={(paymentMethod) => <PaymentMethod navigation={navigation} paymentMethod={paymentMethod.item} />}
                     keyExtractor={(paymentMethod) => paymentMethod._id}
                 />
             )}

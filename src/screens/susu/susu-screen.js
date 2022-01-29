@@ -37,7 +37,11 @@ const SusuScreen = ({ navigation }) => {
                     width="100%" height="100%"
                     justifyContent="center"
                     alignItems="center">
-                    <Empty description="You belong to no susu groups" title="Susu Groups" />
+                    <Empty
+                        description="You belong to no susu groups"
+                        title="Susu Groups"
+                        refresh={() => dispatch(SUSU_MEMBERS_ACTION_CREATORS.getGroupsOfUser(authToken, userData._id))}
+                    />
                 </Flex>
             ) : (
                 <FlatList

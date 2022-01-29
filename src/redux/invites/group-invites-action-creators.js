@@ -138,7 +138,7 @@ const acceptInvitation = (token, invitationID) => {
       dispatch(acceptInvitationSuccess(data));
     }catch (e) {
       const {message} = e.response.data;
-  
+      console.log(message, 'error');
       if(message === 'jwt expired'){
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_TOKEN_KEY);
         await AsyncStorage.removeItem(SECURE_STORAGE_CONSTANTS.SUSU_PLUS_USER_DATA_KEY);

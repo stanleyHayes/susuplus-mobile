@@ -39,7 +39,11 @@ const GroupsScreen = ({ navigation }) => {
                     height="100%"
                     justifyContent="center"
                     alignItems="center">
-                    <Empty description="You belong to no groups" title="User Groups" />
+                    <Empty
+                        description="You belong to no groups"
+                        title="User Groups"
+                        refresh={() => dispatch(GROUP_MEMBERS_ACTION_CREATORS.getGroupsOfUser(authToken, userData._id))}
+                    />
                 </Flex>
             ) : (
                 <FlatList
