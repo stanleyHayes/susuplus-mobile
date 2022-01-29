@@ -122,6 +122,7 @@ const createGroupFailure = message => {
 };
 
 const createGroup = (token, group, navigation) => {
+    console.log(group);
     return async dispatch => {
         dispatch(createGroupRequest());
         try {
@@ -141,6 +142,7 @@ const createGroup = (token, group, navigation) => {
                 message,
                 'success',
                 5000);
+            dispatch(groupGoToPage(0));
         } catch (e) {
             const { message } = e.response.data;
     

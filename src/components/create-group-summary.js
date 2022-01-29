@@ -187,6 +187,7 @@ const CreateGroupSummary = ({ navigation,  }) => {
                     isLoading={groupLoading}
                     isLoadingText="Creating Group..."
                     onPress={handleCreateGroup}
+                    isDisabled={groupLoading}
                     variant="solid">
                     Create Group
                 </Button>

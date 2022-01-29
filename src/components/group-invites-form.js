@@ -21,7 +21,7 @@ const GroupInvitesForm = () => {
     };
     
     const removeUser = user => {
-        setSelectedUsers(selectedContacts.filter(c => c.email !== user.email));
+        setSelectedUsers(selectedUsers.filter(c => c.email !== user.email));
     };
     
     const dispatch = useDispatch();

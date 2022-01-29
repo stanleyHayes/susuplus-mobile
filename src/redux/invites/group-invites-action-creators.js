@@ -72,7 +72,7 @@ const createInvitationFailure = message => {
   }
 }
 
-const createInvitation = (invitations, token, navigation) => {
+const createInvitation = (groupID, invitations, token, navigation) => {
   return async dispatch => {
     dispatch(createInvitationRequest());
     try {
@@ -82,11 +82,11 @@ const createInvitation = (invitations, token, navigation) => {
         headers: {
           Authorization: `Bearer ${token}`
         },
-        data: invitations
+        data: { invitations, group: groupID },
       });
       const {data} = response.data;
       dispatch(createInvitationSuccess(data));
-      navigation.push(SCREEN_NAME_CONSTANTS.GROUP_INVITATIONS_SCREEN, {groupID: invitations.group});
+      navigation.push(SCREEN_NAME_CONSTANTS.GROUP_INVITATIONS_SCREEN, {groupID});
     }catch (e) {
       const {message} = e.response.data;
       if(message === 'jwt expired'){
@@ -99,8 +99,6 @@ const createInvitation = (invitations, token, navigation) => {
     }
   }
 }
-
-
 
 const acceptInvitationRequest = () => {
   return {
