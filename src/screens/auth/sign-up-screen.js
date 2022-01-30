@@ -61,7 +61,7 @@ const SignUpScreen = ({ navigation }) => {
         }
     
         if (!phone.startsWith('+') || phone.length < 13) {
-            setError({ error, phone: "Phone should start with + and should be 13 characters long" });
+            setError({ error, phone: "Phone should start with + and iInclude country code" });
             return;
         } else {
             setError({ error, phone: null });

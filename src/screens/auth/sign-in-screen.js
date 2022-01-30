@@ -134,7 +134,7 @@ const SignInScreen = ({ navigation }) => {
                     autoComplete="email"
                     textContentType="emailAddress"
                     name="email"
-                    placeholderTextColor="primary.600"
+                    placeholderTextColor="primary.300"
                     keyboardType="email-address"
                     onChangeText={email => setEmail(email)}
                     color="gray.800"
@@ -185,7 +185,7 @@ const SignInScreen = ({ navigation }) => {
                     textContentType="newPassword"
                     name="password"
                     returnKeyType="next"
-                    placeholderTextColor="primary.600"
+                    placeholderTextColor="primary.300"
                     onChangeText={password => setPassword(password)}
                     color="gray.800"
                     borderColor="primary.100"
