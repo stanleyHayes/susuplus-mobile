@@ -18,7 +18,7 @@ const SusuMemberListItem = ({ index, member, showDelete, removeMember, addMember
             flexDirection="row"
             alignItems="center">
             <Box>
-                <Avatar size="sm" backgroundColor="primary.100">
+                <Avatar  size="sm" backgroundColor="primary.100">
                     <Text color="primary.600" fontSize="md">{index + 1}</Text>
                 </Avatar>
             </Box>

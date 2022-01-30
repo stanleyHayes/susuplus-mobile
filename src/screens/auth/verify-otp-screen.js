@@ -70,17 +70,20 @@ const VerifyOTPScreen = ({ navigation }) => {
                 borderTopLeftRadius={32}
                 borderTopRightRadius={32}>
     
-                <Text textAlign="center" color="darkText" mb={3}>
+                <Text textAlign="center" fontSize="xs" color="muted.500" mb={3}>
                     Enter OTP sent to the email you provided
                 </Text>
     
                 
                 <Input
                     mb={1}
-                    borderRadius={32}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
                     isFullWidth={true}
                     placeholder="Enter OTP"
-                    size="lg"
+                    size="md"
                     value={otp}
                     name="otp"
                     onChangeText={otp => setOTP(otp)}
@@ -89,7 +92,7 @@ const VerifyOTPScreen = ({ navigation }) => {
                     keyboardType="numeric"
                     placeholderTextColor="primary.600"
                     borderColor="primary.100"
-                    _focus={{borderColor: 'primary.100'}}
+                    _focus={{borderColor: 'primary.200'}}
                     borderWidth={1}
                     InputLeftElement={
                         <Icon
@@ -103,18 +106,20 @@ const VerifyOTPScreen = ({ navigation }) => {
                 
                 <Button
                     onPress={handleResetPassword}
-                    backgroundColor={authLoading ? 'primary.400' :'primary.800'}
+                    backgroundColor='primary.600'
                     mt={4}
-                    borderRadius={32}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
                     mb={4}
+                    isLoadingText="Verifying Account..."
                     isLoading={authLoading}
                     isDisabled={authLoading}
                     alignSelf="stretch"
-                    size="lg"
+                    _text={{fontSize: 'xs', color: 'white'}}
                     variant="solid">
-                    <Text color="white" fontSize="md">
-                        {authLoading ? 'Verifying Account...' :'Verify Account'}
-                    </Text>
+                    Verify Account
                 </Button>
             </Box>
         </Flex>

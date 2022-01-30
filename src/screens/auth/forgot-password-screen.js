@@ -93,8 +93,8 @@ const ForgotPasswordScreen = ({ navigation }) => {
                 <Text
                     mb={8}
                     width="100%"
-                    color="darkText"
-                    fontSize="md"
+                    color="muted.500"
+                    fontSize="sm"
                     fontFamily="body"
                     textAlign="center">
                     Please enter the email associated with your account to receive a reset link
@@ -103,8 +103,8 @@ const ForgotPasswordScreen = ({ navigation }) => {
                 <Text
                     mb={1}
                     width="100%"
-                    color="darkText"
-                    fontSize="sm"
+                    color="muted.400"
+                    fontSize="xs"
                     fontFamily="body">
                     Email
                 </Text>
@@ -119,7 +119,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
                     borderBottomRightRadius={16}
                     borderTopLeftRadius={16}
                     isFullWidth={true}
-                    size="lg"
+                    size="md"
                     value={email}
                     InputLeftElement={
                         <Icon
@@ -158,10 +158,10 @@ const ForgotPasswordScreen = ({ navigation }) => {
                     isLoading={authLoading}
                     isDisabled={authLoading}
                     isLoadingText="Sending Link..."
-                    backgroundColor={authLoading ? "primary.400": "primary.800"}
                     mb={4}
+                    backgroundColor="primary.600"
                     alignSelf="stretch"
-                    size="lg"
+                    _text={{fontSize: 'xs', color: 'white'}}
                     variant="solid">
                    Get Reset Link
                 </Button>

@@ -103,9 +103,12 @@ const ResetPasswordScreen = ({ navigation }) => {
                     mt={2}
                     mb={1}
                     px={4}
-                    borderRadius={32}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
                     isFullWidth={true}
-                    size="lg"
+                    size="md"
                     value={password}
                     InputLeftElement={
                         <Icon
@@ -129,7 +132,7 @@ const ResetPasswordScreen = ({ navigation }) => {
         
                     isInvalid={Boolean(error.password)}
                     placeholder="Enter password"
-                    variant="rounded"
+                    variant="outline"
                     width="100%"
                     isRequired={true}
                     autoComplete="password"
@@ -151,9 +154,12 @@ const ResetPasswordScreen = ({ navigation }) => {
                     mb={1}
                     borderWidth={1}
                     px={4}
-                    borderRadius={32}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
                     isFullWidth={true}
-                    size="lg"
+                    size="md"
                     value={confirmPassword}
                     InputLeftElement={
                         <Icon
@@ -176,7 +182,7 @@ const ResetPasswordScreen = ({ navigation }) => {
                     isInvalid={Boolean(error.confirmPassword)}
                     placeholder="Confirm Password"
                     placeholderTextColor="primary.600"
-                    variant="rounded"
+                    variant="outline"
                     width="100%"
                     isRequired={true}
                     autoComplete="password"
@@ -196,30 +202,33 @@ const ResetPasswordScreen = ({ navigation }) => {
                     backgroundColor={authLoading ? 'primary.400': 'primary.800'}
                     pt={2}
                     pb={2}
-                    borderRadius={32}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
+                    isLoadingText="Resetting Password..."
                     isLoading={authLoading}
                     isDisabled={authLoading}
                     mb={4}
                     width="100%"
-                    size="lg"
+                    _text={{color: 'white', fontSize: 'xs'}}
                     variant="solid">
-                    <Text color="white" fontSize="md">
-                        {authLoading ? 'Resetting Password...': 'Reset Password'}
-                    </Text>
+                    Reset Password
                 </Button>
                 
                 <Button
                     onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.SIGN_IN_SCREEN)}
                     pt={3}
                     pb={3}
-                    borderRadius={32}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
                     textColor="gray.400"
                     alignSelf="stretch"
-                    size="lg"
+                    _text={{fontSize: 'sm', color: 'muted.500'}}
                     variant="link">
-                    <Text fontSize="sm">
                         Go to Sign In
-                    </Text>
                 </Button>
             </Box>
         </Flex>

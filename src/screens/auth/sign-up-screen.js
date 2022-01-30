@@ -120,9 +120,12 @@ const SignUpScreen = ({ navigation }) => {
                         <Input
                             mb={1}
                             borderWidth={1}
-                            borderRadius={32}
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
                             isFullWidth={true}
-                            size="lg"
+                            size="md"
                             value={name}
                             InputLeftElement={
                                 <Icon
@@ -134,7 +137,7 @@ const SignUpScreen = ({ navigation }) => {
                             }
                             isInvalid={Boolean(error.name)}
                             placeholder="Enter full name e.g. Inigo Lopez"
-                            variant="rounded"
+                            variant="outline"
                             width="100%"
                             isRequired={true}
                             autoComplete="name"
@@ -155,9 +158,12 @@ const SignUpScreen = ({ navigation }) => {
                             mt={2}
                             mb={1}
                             borderWidth={1}
-                            borderRadius={32}
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
                             isFullWidth={true}
-                            size="lg"
+                            size="md"
                             value={email}
                             InputLeftElement={
                                 <Icon
@@ -169,7 +175,7 @@ const SignUpScreen = ({ navigation }) => {
                             }
                             isInvalid={Boolean(error.email)}
                             placeholder="e.g. user@server.com"
-                            variant="rounded"
+                            variant="outline"
                             width="100%"
                             isRequired={true}
                             returnKeyType="next"
@@ -191,9 +197,12 @@ const SignUpScreen = ({ navigation }) => {
                             mt={2}
                             mb={1}
                             borderWidth={1}
-                            borderRadius={32}
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
                             isFullWidth={true}
-                            size="lg"
+                            size="md"
                             value={phone}
                             InputLeftElement={
                                 <Icon
@@ -228,9 +237,12 @@ const SignUpScreen = ({ navigation }) => {
                             mt={2}
                             mb={1}
                             borderWidth={1}
-                            borderRadius={32}
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
                             isFullWidth={true}
-                            size="lg"
+                            size="md"
                             value={password}
                             InputLeftElement={
                                 <Icon
@@ -278,9 +290,12 @@ const SignUpScreen = ({ navigation }) => {
                             mt={2}
                             mb={1}
                             borderWidth={1}
-                            borderRadius={32}
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
                             isFullWidth={true}
-                            size="lg"
+                            size="md"
                             value={confirmPassword}
                             InputLeftElement={
                                 <Icon
@@ -324,28 +339,28 @@ const SignUpScreen = ({ navigation }) => {
                         <Button
                             mt={6}
                             onPress={handleSignUp}
-                            pt={2}
+                            pt={3}
                             isLoading={authLoading}
                             isDisabled={authLoading}
-                            backgroundColor={authLoading ? "primary.400" : "primary.800"}
-                            pb={2}
+                            isLoadingText="Creating Account..."
+                            pb={3}
                             mb={2}
-                            borderRadius={32}
+                            backgroundColor="primary.600"
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
                             width="100%"
                             variant="solid">
-                            <Text color="white" textColor="white" fontSize="md">
-                                {authLoading ? "Creating Account..." : "Create Account"}
-                            
-                            </Text>
+                                Create Account
                         </Button>
                         
                         <Button
                             onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.SIGN_IN_SCREEN)}
                             width="100%"
+                            _text={{color: 'muted.500', fontSize: 'sm'}}
                             variant="link">
-                            <Text fontSize="sm">
                                 Already have an account? Sign In
-                            </Text>
                         </Button>
                     </Flex>
                 </ScrollView>

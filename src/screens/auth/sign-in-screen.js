@@ -198,12 +198,10 @@ const SignInScreen = ({ navigation }) => {
                     pt={3}
                     pb={3}
                     width="100%"
-                    size="lg"
+                    _text={{color: 'muted.500'}}
                     mb={4}
                     variant="link">
-                    <Text color="darkText" fontSize="sm">
                         Forgot Password
-                    </Text>
                 </Button>
                 
                 <Button
@@ -214,13 +212,13 @@ const SignInScreen = ({ navigation }) => {
                     isLoading={authLoading}
                     isDisabled={authLoading}
                     isLoadingText='Signing In...'
-                    backgroundColor={authLoading ? "primary.400": "primary.800"}
                     borderBottomLeftRadius={0}
                     borderTopRightRadius={0}
                     borderBottomRightRadius={16}
                     borderTopLeftRadius={16}
                     width="100%"
-                    size="lg"
+                    backgroundColor="primary.600"
+                    _text={{color: 'white'}}
                     variant="solid">
                     Sign In
                 </Button>
@@ -231,11 +229,9 @@ const SignInScreen = ({ navigation }) => {
                     pb={3}
                     borderRadius={0}
                     alignSelf="stretch"
-                    size="lg"
+                    _text={{color: 'muted.500'}}
                     variant="link">
-                    <Text color="darkText" fontSize="sm">
                         Don't have an account? Register
-                    </Text>
                 </Button>
             </Box>
         </Flex>

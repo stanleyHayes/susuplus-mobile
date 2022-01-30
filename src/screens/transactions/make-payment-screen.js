@@ -59,7 +59,10 @@ const MakePaymentScreen = ({ navigation, route }) => {
     <Flex flex={1} width="100%" minHeight="100%" backgroundColor="gray.200">
       <ScrollView m={2}>
 
-        <Box shadow={0} p={4} m={2} backgroundColor="white" borderRadius={32}>
+        <Box shadow={0} p={4} m={2} backgroundColor="white" borderBottomLeftRadius={0}
+             borderTopRightRadius={0}
+             borderBottomRightRadius={16}
+             borderTopLeftRadius={16}>
           <Text fontSize="lg">Group Payment Account</Text>
           <Divider
             alignSelf="center"
@@ -73,7 +76,10 @@ const MakePaymentScreen = ({ navigation, route }) => {
           <Text mb={2}>Select Group Account</Text>
           <Select
             mb={2}
-            borderRadius={32}
+            borderBottomLeftRadius={0}
+            borderTopRightRadius={0}
+            borderBottomRightRadius={16}
+            borderTopLeftRadius={16}
             placeholder="Select Destination Payment Account"
             variant="outline"
             _selectedItem={{
@@ -105,7 +111,11 @@ const MakePaymentScreen = ({ navigation, route }) => {
           </Select>
         </Box>
 
-        <Box shadow={0} p={4} m={2} backgroundColor="white" borderRadius={32}>
+        <Box shadow={0} p={4} m={2} backgroundColor="white"
+             borderBottomLeftRadius={0}
+             borderTopRightRadius={0}
+             borderBottomRightRadius={16}
+             borderTopLeftRadius={16}>
           <Text fontSize="lg">Personal Payment Account</Text>
           <Divider
             alignSelf="center"
@@ -119,7 +129,10 @@ const MakePaymentScreen = ({ navigation, route }) => {
           <Text mb={2}>Select Personal Account</Text>
           <Select
             mb={2}
-            borderRadius={32}
+            borderBottomLeftRadius={0}
+            borderTopRightRadius={0}
+            borderBottomRightRadius={16}
+            borderTopLeftRadius={16}
             placeholder="Select Personal Payment Account"
             variant="outline"
             _selectedItem={{
@@ -153,7 +166,11 @@ const MakePaymentScreen = ({ navigation, route }) => {
 
         {sourceAccount && destinationAccount && (
           <Box>
-            <Box m={2} p={4} shadow={0} borderRadius={32} backgroundColor="white">
+            <Box m={2} p={4} shadow={0}
+                 borderBottomLeftRadius={0}
+                 borderTopRightRadius={0}
+                 borderBottomRightRadius={16}
+                 borderTopLeftRadius={16} backgroundColor="white">
               <Text fontSize="lg">Contribution Summary</Text>
               <Divider
                 alignSelf="center"
@@ -320,8 +337,11 @@ const MakePaymentScreen = ({ navigation, route }) => {
             onPress={makeContribution}
             variant="solid"
             py={4}
-            backgroundColor="primary.700"
-            borderRadius={32}>
+            backgroundColor="primary.600"
+            borderBottomLeftRadius={0}
+            borderTopRightRadius={0}
+            borderBottomRightRadius={16}
+            borderTopLeftRadius={16}>
             <Text fontSize="md" color="white">Make Contribution</Text>
           </Button>
         )}

@@ -85,29 +85,44 @@ const DashboardScreen = () => {
                         onRefresh={() => dispatch(DASHBOARD_ACTION_CREATORS.getDashboard(authToken))}
                     />
                 }>
-                <Box shadow={0} p={3} my={1} mx={2} backgroundColor="white" borderRadius={32}>
+                <Box shadow={0} p={3} my={1} mx={2} backgroundColor="white"
+                     borderBottomLeftRadius={0}
+                     borderTopRightRadius={0}
+                     borderBottomRightRadius={16}
+                     borderTopLeftRadius={16}>
                     <Flex flex={1} flexDirection="row" width="100%" alignItems="center">
-                        <Avatar backgroundColor="primary.50" size={12} borderRadius={100}>
+                        <Avatar backgroundColor="primary.50" size={12} borderBottomLeftRadius={0}
+                                borderTopRightRadius={0}
+                                borderBottomRightRadius={16}
+                                borderTopLeftRadius={16}>
                             <Text color="primary.600" fontSize="2xl">{UTILS.getInitials(userData.name)}</Text>
                         </Avatar>
                         <Box ml={2}>
                             <Text fontSize="xl">{`${generateGreeting()} ${userData.name.split(" ")[0]}`}</Text>
-                            <Text fontSize="md">Welcome Back!!!</Text>
+                            <Text fontSize="xs" color="muted.500">Welcome Back!!!</Text>
                         </Box>
                     </Flex>
                 </Box>
                 
                 {dashboard && !dashboardLoading && (
                     <Box>
-                        <Box shadow={0} p={3} my={1} mx={2} backgroundColor="white" borderRadius={32}>
+                        <Box shadow={0} p={3} my={1} mx={2} backgroundColor="white"
+                             borderBottomLeftRadius={0}
+                             borderTopRightRadius={0}
+                             borderBottomRightRadius={16}
+                             borderTopLeftRadius={16}>
                             <Flex flex={1} flexDirection="row" width="100%" alignItems="center">
-                                <Center size={16} borderRadius={100} backgroundColor="primary.50">
+                                <Center size={16} borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16} backgroundColor="primary.50">
                                     <Image size={10} source={contributionIcon} alt="Contribution Icon" />
                                 </Center>
                                 <Box ml={2} flex={1}>
                                     <Text fontSize="lg">Total Contributions</Text>
                                     <Text
-                                        fontSize="md">{`${dashboard.contributions.totalContributions} Contributions`}</Text>
+                                        fontSize="xs"
+                                        color="muted.500">{`${dashboard.contributions.totalContributions} Contributions`}</Text>
                                 </Box>
                                 <Box>
                                     <Text fontSize="xl">
@@ -117,11 +132,18 @@ const DashboardScreen = () => {
                             </Flex>
                         </Box>
                         
-                        <Box shadow={0} p={3} my={1} mx={2} backgroundColor="white" borderRadius={32}>
+                        <Box
+                            shadow={0} p={3} my={1} mx={2}
+                             backgroundColor="white"
+                             borderBottomLeftRadius={0}
+                             borderTopRightRadius={0}
+                             borderBottomRightRadius={16}
+                             borderTopLeftRadius={16}>
                             <Flex flex={1} flexDirection="row" alignItems="center" justifyContent="space-between">
                                 
                                 <Box mr={2}>
-                                    <Text fontSize="lg" mb={1}>
+                                    <Text fontSize="xs"
+                                          color="muted.500" mb={1}>
                                         Select Period
                                     </Text>
                                 </Box>
@@ -129,7 +151,10 @@ const DashboardScreen = () => {
                                 <Select
                                     flex={1}
                                     p={2}
-                                    borderRadius={32}
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}
                                     placeholder="Select Period"
                                     onValueChange={period => handlePeriodChange(period)}
                                     variant="outline"
@@ -143,7 +168,10 @@ const DashboardScreen = () => {
                         
                         {selectedPeriod && (
                             selectedPeriod === "week" ? (
-                                <Box pt={4} backgroundColor="white" mb={2} borderRadius={32} mx={2} shadow={0} flex={1}
+                                <Box pt={4} backgroundColor="white" mb={2}  borderBottomLeftRadius={0}
+                                     borderTopRightRadius={0}
+                                     borderBottomRightRadius={16}
+                                     borderTopLeftRadius={16} mx={2} shadow={0} flex={1}
                                      justifyContent="space-between" alignItems="center">
                                     <Flex px={2} direction="row" width="100%" justifyContent="space-between">
                                         <Text fontSize="xl" mb={1}>
@@ -183,7 +211,10 @@ const DashboardScreen = () => {
                                             }}
                                             bezier={true}
                                             style={{
-                                                borderRadius: 32,
+                                                borderBottomLeftRadius: 0,
+                                                borderTopRightRadius: 0,
+                                                borderBottomRightRadius: 16,
+                                                borderTopLeftRadius: 16,
                                                 paddingHorizontal: 8,
                                             }}
                                             data={{
@@ -201,7 +232,11 @@ const DashboardScreen = () => {
                                 </Box>
                             ) : selectedPeriod === "month" ? (
                                 <Box>
-                                    <Box pt={4} backgroundColor="white" borderRadius={32} mb={2} mx={2} shadow={0}
+                                    <Box pt={4} backgroundColor="white"
+                                         borderBottomLeftRadius={0}
+                                         borderTopRightRadius={0}
+                                         borderBottomRightRadius={16}
+                                         borderTopLeftRadius={16} mb={2} mx={2} shadow={0}
                                          flex={1}
                                          justifyContent="space-between" alignItems="center">
                                         <Flex px={2} direction="row" width="100%" justifyContent="space-between">
@@ -213,7 +248,8 @@ const DashboardScreen = () => {
                                                 mb={1}
                                                 textAlign="center"
                                                 fontFamily="body"
-                                                fontSize="xs">
+                                                fontSize="xs"
+                                                color="muted.500">
                                                 {`${dashboard?.contributions?.month?.lastMonthContributionsCount && NumberSuffix.format(dashboard?.contributions?.month?.lastMonthContributionsCount, { precision: 2 })} Contributions this month`}
                                             </Text>
                                         </Flex>
@@ -230,7 +266,10 @@ const DashboardScreen = () => {
                                                     color: (opacity = 1``) => `rgba(255, 255, 255, ${opacity})`,
                                                     labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                                                     style: {
-                                                        borderRadius: 32,
+                                                        borderBottomLeftRadius: 0,
+                                                        borderTopRightRadius: 0,
+                                                        borderBottomRightRadius: 16,
+                                                        borderTopLeftRadius: 16
                                                     },
                                                     propsForDots: {
                                                         r: "4",
@@ -242,7 +281,10 @@ const DashboardScreen = () => {
                                                 }}
                                                 bezier={true}
                                                 style={{
-                                                    borderRadius: 32,
+                                                    borderBottomLeftRadius: 0,
+                                                    borderTopRightRadius: 0,
+                                                    borderBottomRightRadius: 16,
+                                                    borderTopLeftRadius: 16,
                                                     paddingHorizontal: 8,
                                                 }}
                                                 data={{
@@ -262,15 +304,26 @@ const DashboardScreen = () => {
                             ) : null)}
                         
                         
-                        <Box shadow={0} p={3} my={1} mx={2} backgroundColor="white" borderRadius={32}>
+                        <Box shadow={0} p={3} my={1} mx={2}
+                             backgroundColor="white"
+                             borderBottomLeftRadius={0}
+                             borderTopRightRadius={0}
+                             borderBottomRightRadius={16}
+                             borderTopLeftRadius={16}>
                             <Flex flex={1} flexDirection="row" width="100%" alignItems="center">
-                                <Center size={16} borderRadius={100} backgroundColor="primary.50">
+                                <Center
+                                    size={16}
+                                        borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16} backgroundColor="primary.50">
                                     <Image size={10} source={disbursementIcon} alt="Disbursement Icon" />
                                 </Center>
                                 <Box ml={2} flex={1}>
                                     <Text fontSize="lg">Total Disbursements</Text>
                                     <Text
-                                        fontSize="md">{`${dashboard?.disbursements?.totalDisbursements && NumberSuffix.format(dashboard?.disbursements?.totalDisbursements, { precision: 2 })} Disbursements`}</Text>
+                                        fontSize="xs"
+                                        color="muted.500">{`${dashboard?.disbursements?.totalDisbursements && NumberSuffix.format(dashboard?.disbursements?.totalDisbursements, { precision: 2 })} Disbursements`}</Text>
                                 </Box>
                                 <Box>
                                     <Text fontSize="xl">
@@ -287,7 +340,10 @@ const DashboardScreen = () => {
                                     pt={4}
                                     mb={2}
                                     backgroundColor="white"
-                                    borderRadius={32}
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}
                                     mx={2}
                                     shadow={0}
                                     flex={1}
@@ -302,7 +358,8 @@ const DashboardScreen = () => {
                                             mb={1}
                                             textAlign="center"
                                             fontFamily="body"
-                                            fontSize="xs">
+                                            fontSize="xs"
+                                            color="muted.500">
                                             {`${dashboard?.disbursements?.week?.lastWeekDisbursementsCount && NumberSuffix.format(dashboard?.disbursements?.week?.lastWeekDisbursementsCount, { precision: 2 })} Disbursements this week`}
                                         </Text>
                                     </Flex>
@@ -319,7 +376,10 @@ const DashboardScreen = () => {
                                                 color: (opacity = 1``) => `rgba(255, 255, 255, ${opacity})`,
                                                 labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                                                 style: {
-                                                    borderRadius: 32,
+                                                    borderBottomLeftRadius: 0,
+                                                    borderTopRightRadius: 0,
+                                                    borderBottomRightRadius: 16,
+                                                    borderTopLeftRadius: 16
                                                 },
                                                 propsForDots: {
                                                     r: "4",
@@ -331,7 +391,10 @@ const DashboardScreen = () => {
                                             }}
                                             bezier={true}
                                             style={{
-                                                borderRadius: 32,
+                                                borderBottomLeftRadius: 0,
+                                                borderTopRightRadius: 0,
+                                                borderBottomRightRadius: 16,
+                                                borderTopLeftRadius: 16,
                                                 paddingHorizontal: 8,
                                             }}
                                             data={{
@@ -354,7 +417,10 @@ const DashboardScreen = () => {
                                         pt={4}
                                         mb={2}
                                         backgroundColor="white"
-                                        borderRadius={32}
+                                        borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16}
                                         mx={2}
                                         shadow={0}
                                         flex={1}
@@ -370,7 +436,8 @@ const DashboardScreen = () => {
                                                 mb={1}
                                                 textAlign="center"
                                                 fontFamily="body"
-                                                fontSize="xs">
+                                                fontSize="xs"
+                                                color="muted.500">
                                                 {`${dashboard?.disbursements?.month?.lastMonthDisbursementsCount && NumberSuffix.format(dashboard?.disbursements?.month?.lastMonthDisbursementsCount, { precision })} Disbursements this month`}
                                             </Text>
                                         </Flex>
@@ -387,7 +454,10 @@ const DashboardScreen = () => {
                                                     color: (opacity = 1``) => `rgba(255, 255, 255, ${opacity})`,
                                                     labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                                                     style: {
-                                                        borderRadius: 32,
+                                                        borderBottomLeftRadius: 0,
+                                                        borderTopRightRadius: 0,
+                                                        borderBottomRightRadius: 16,
+                                                        borderTopLeftRadius: 16
                                                     },
                                                     propsForDots: {
                                                         r: "4",
@@ -418,14 +488,24 @@ const DashboardScreen = () => {
                                 </Box>
                             ) : null)}
                         
-                        <Box shadow={0} p={3} my={1} mx={2} backgroundColor="white" borderRadius={32}>
+                        <Box shadow={0} p={3} my={1} mx={2} backgroundColor="white"
+                             borderBottomLeftRadius={0}
+                             borderTopRightRadius={0}
+                             borderBottomRightRadius={16}
+                             borderTopLeftRadius={16}>
                             <Flex flex={1} flexDirection="row" width="100%" alignItems="center">
-                                <Center size={16} borderRadius={100} backgroundColor="primary.50">
+                                <Center
+                                    size={16}
+                                        borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16} backgroundColor="primary.50">
                                     <Image size={10} source={disbursementIcon} alt="Disbursement Icon" />
                                 </Center>
                                 <Box ml={2} flex={1}>
                                     <Text fontSize="lg">Expired Invitations</Text>
-                                    <Text fontSize="md">
+                                    <Text fontSize="xs"
+                                          color="muted.500">
                                         {`${dashboard.invitations?.expiredInvitations?.expiredInvitationsCount && NumberSuffix.format(dashboard.invitations?.expiredInvitations?.expiredInvitationsCount)} Invitations`}
                                     </Text>
                                 </Box>
@@ -435,15 +515,24 @@ const DashboardScreen = () => {
                             </Flex>
                         </Box>
                         
-                        <Box shadow={0} p={3} my={1} mx={2} backgroundColor="white" borderRadius={32}>
+                        <Box shadow={0} p={3} my={1} mx={2}
+                             backgroundColor="white"
+                             borderBottomLeftRadius={0}
+                             borderTopRightRadius={0}
+                             borderBottomRightRadius={16}
+                             borderTopLeftRadius={16}>
                             <Flex flex={1} flexDirection="row" width="100%" alignItems="center">
-                                <Center size={16} borderRadius={100} backgroundColor="primary.50">
+                                <Center size={16}  borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16} backgroundColor="primary.50">
                                     <Image size={10} source={disbursementIcon} alt="Disbursement Icon" />
                                 </Center>
                                 <Box ml={2} flex={1}>
                                     <Text fontSize="lg">Rejected Invitations</Text>
-                                    <Text fontSize="md">
-                                        {`${dashboard.invitations?.rejectedInvitations?.rejectedInvitationsCount && NumberSuffix.format(dashboard.invitations?.rejectedInvitations?.rejectedInvitationsCount, { precision: 2 })} Invitations`}
+                                    <Text fontSize="xs"
+                                          color="muted.500">
+                                        {`${dashboard.invitations?.rejectedInvitations?.rejectedInvitationsCount && NumberSuffix.format(dashboard.invitations?.rejectedInvitations?.rejectedInvitationsCount, { precision: 0 })} Invitations`}
                                     </Text>
                                 </Box>
                                 <Box>
@@ -452,15 +541,28 @@ const DashboardScreen = () => {
                             </Flex>
                         </Box>
                         
-                        <Box shadow={0} p={3} my={1} mx={2} backgroundColor="white" borderRadius={32}>
+                        <Box
+                            shadow={0}
+                            p={3}
+                            my={1}
+                            mx={2}
+                            backgroundColor="white"
+                             borderBottomLeftRadius={0}
+                             borderTopRightRadius={0}
+                             borderBottomRightRadius={16}
+                             borderTopLeftRadius={16}>
                             <Flex flex={1} flexDirection="row" width="100%" alignItems="center">
-                                <Center size={16} borderRadius={100} backgroundColor="primary.50">
+                                <Center size={16}  borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16} backgroundColor="primary.50">
                                     <Image size={10} source={disbursementIcon} alt="Disbursement Icon" />
                                 </Center>
                                 <Box ml={2} flex={1}>
                                     <Text fontSize="lg">Accepted Invitations</Text>
-                                    <Text fontSize="md">
-                                        {`${dashboard.invitations?.acceptedInvitations?.acceptedInvitationsCount && NumberSuffix.format(dashboard.invitations?.acceptedInvitations?.acceptedInvitationsCount, { precision: 2 })} Invitations`}
+                                    <Text fontSize="xs"
+                                          color="muted.500">
+                                        {`${dashboard.invitations?.acceptedInvitations?.acceptedInvitationsCount && NumberSuffix.format(dashboard.invitations?.acceptedInvitations?.acceptedInvitationsCount, { precision: 0 })} Invitations`}
                                     </Text>
                                 </Box>
                                 <Box>
@@ -477,7 +579,10 @@ const DashboardScreen = () => {
                                     alignItems="center"
                                     flexGrow={1}
                                     shadow={0}
-                                    borderRadius={32}
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}
                                     backgroundColor="white">
                                     <Flex
                                         flex={1}
@@ -485,7 +590,10 @@ const DashboardScreen = () => {
                                         alignItems="center"
                                         backgroundColor="primary.100"
                                         px={3}
-                                        borderRadius={100}>
+                                        borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16}>
                                         <Image size={7} alt="Savings image" source={savingsImage} />
                                     </Flex>
                                     
@@ -510,13 +618,20 @@ const DashboardScreen = () => {
                                     alignItems="center"
                                     flexGrow={1}
                                     shadow={0}
-                                    borderRadius={32} backgroundColor="white">
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}
+                                    backgroundColor="white">
                                     <Flex
                                         flex={1}
                                         justifyContent="center"
                                         alignItems="center"
                                         backgroundColor="primary.100"
-                                        borderRadius={100}
+                                        borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16}
                                         py={2}
                                         px={3}>
                                         <Image size={30} alt="Investment image" source={investmentImage} />
@@ -536,8 +651,12 @@ const DashboardScreen = () => {
                             </Flex>
                         </Box>
                         
-                        <Box shadow={0} py={4} my={1} mx={2} backgroundColor="white" borderRadius={32}>
-                            <Text px={4}>Latest Contributions</Text>
+                        <Box shadow={0} py={4} my={1} mx={2} backgroundColor="white"
+                             borderBottomLeftRadius={0}
+                             borderTopRightRadius={0}
+                             borderBottomRightRadius={16}
+                             borderTopLeftRadius={16}>
+                            <Text px={4} color="muted.500">Latest Contributions</Text>
                             <Divider orientation="horizontal" width="100%" my={2} />
                             {
                                 dashboard?.contributions?.latestContributions?.length === 0 ? (
@@ -546,7 +665,10 @@ const DashboardScreen = () => {
                                             <Flex
                                                 flex={1}
                                                 flexDirection="row" backgroundColor="primary.50" py={2}
-                                                borderRadius={32}>
+                                                borderBottomLeftRadius={0}
+                                                borderTopRightRadius={0}
+                                                borderBottomRightRadius={16}
+                                                borderTopLeftRadius={16}>
                                                 <Text textAlign="center" color="primary.600" flex={1}>Group</Text>
                                                 <Text textAlign="center" color="primary.600" flex={1}>Amount</Text>
                                                 <Text textAlign="center" color="primary.600" flex={1}>Date</Text>
@@ -575,8 +697,17 @@ const DashboardScreen = () => {
                             }
                         </Box>
                         
-                        <Box shadow={0} py={4} my={1} mx={2} backgroundColor="white" borderRadius={32}>
-                            <Text px={4}>Latest Disbursements</Text>
+                        <Box
+                            shadow={0}
+                             py={4}
+                            my={1}
+                            mx={2}
+                            backgroundColor="white"
+                             borderBottomLeftRadius={0}
+                             borderTopRightRadius={0}
+                             borderBottomRightRadius={16}
+                             borderTopLeftRadius={16}>
+                            <Text px={4} color="muted.500">Latest Disbursements</Text>
                             <Divider orientation="horizontal" width="100%" my={2} />
                             {
                                 dashboard?.disbursements?.latestDisbursements?.length === 0 ? (
@@ -585,8 +716,12 @@ const DashboardScreen = () => {
                                             <Box mx={2}>
                                                 <Flex
                                                     flex={1}
-                                                    flexDirection="row" backgroundColor="primary.50" py={2}
-                                                    borderRadius={32}>
+                                                    flexDirection="row"
+                                                    backgroundColor="primary.50" py={2}
+                                                    borderBottomLeftRadius={0}
+                                                    borderTopRightRadius={0}
+                                                    borderBottomRightRadius={16}
+                                                    borderTopLeftRadius={16}>
                                                     <Text textAlign="center" color="primary.600" flex={1}>Group</Text>
                                                     <Text textAlign="center" color="primary.600" flex={1}>Amount</Text>
                                                     <Text textAlign="center" color="primary.600" flex={1}>Date</Text>
@@ -601,8 +736,13 @@ const DashboardScreen = () => {
                                             <Box mx={2}>
                                                 <Flex
                                                     flex={1}
-                                                    flexDirection="row" backgroundColor="primary.50" py={2}
-                                                    borderRadius={32}>
+                                                    flexDirection="row"
+                                                    backgroundColor="primary.50"
+                                                    py={2}
+                                                    borderBottomLeftRadius={0}
+                                                    borderTopRightRadius={0}
+                                                    borderBottomRightRadius={16}
+                                                    borderTopLeftRadius={16}>
                                                     <Text textAlign="center" color="primary.600" flex={1}>Group</Text>
                                                     <Text textAlign="center" color="primary.600" flex={1}>Amount</Text>
                                                     <Text textAlign="center" color="primary.600" flex={1}>Date</Text>

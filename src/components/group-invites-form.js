@@ -50,7 +50,7 @@ const GroupInvitesForm = () => {
     
     return (
         <Flex flex={1} px={2} py={4}>
-            <Text textAlign="center" fontSize="lg">Group Invitations ({selectedUsers.length})</Text>
+            <Text textAlign="center" fontSize="sm" color="muted.500">Group Invitations ({selectedUsers.length})</Text>
             
             <Divider width="100%" my={2} />
             
@@ -60,7 +60,7 @@ const GroupInvitesForm = () => {
                     isRequired={true}
                     mb={2}
                     width="100%"
-                    _focus={{ borderColor: "gray.200" }}
+                    _focus={{ borderColor: "gray.400" }}
                     value={searchUserQuery}
                     onChangeText={searchQuery => handleUserSearch(searchQuery)}
                     placeholder="Search name"
@@ -107,7 +107,7 @@ const GroupInvitesForm = () => {
                     borderBottomRightRadius={16}
                     borderTopLeftRadius={16}
                     backgroundColor="primary.600"
-                    _text={{ fontFamily: "body", color: "white" }}
+                    _text={{ fontFamily: "body", color: "white", fontSize: 'xs' }}
                     onPress={() => dispatch(GROUP_ACTION_CREATORS.groupGoToPreviousPage())}
                     variant="subtle">
                     Previous
@@ -123,7 +123,7 @@ const GroupInvitesForm = () => {
                         borderBottomRightRadius={16}
                         borderTopLeftRadius={16}
                         backgroundColor="primary.600"
-                        _text={{ fontFamily: "body", color: "white" }}
+                        _text={{ fontFamily: "body", color: "white", fontSize: 'xs' }}
                         onPress={handleGroupInvitationsSubmit}>
                         Next
                     </Button>

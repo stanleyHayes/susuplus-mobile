@@ -28,7 +28,7 @@ const SingleRegulationListItem = ({ index, regulation, showDelete, removeRegulat
                 </Avatar>
             </Box>
             <Box flexGrow={1} flex={1} px={2}>
-                <Text fontSize="sm">{regulation}</Text>
+                <Text fontSize="xs" color="muted.500">{regulation}</Text>
             </Box>
             {showDelete && (
                 <Pressable onPress={() => removeRegulation(index)}>

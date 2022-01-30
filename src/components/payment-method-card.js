@@ -43,15 +43,15 @@ const PaymentMethodCard = ({ paymentMethod }) => {
             shadow={0}>
             {paymentMethod.method === "Bank Account" ? (
                 <Box>
-                    <Text mb={2} fontSize="md" fontFamily="body">{paymentMethod.method}</Text>
+                    <Text mb={2} fontSize="sm" color="muted.500" fontFamily="body">{paymentMethod.method}</Text>
                     <Divider  mb={2} width="100%" />
                     <Icon size="sm" as={<MaterialIcons name="bank-account" size={10} />} />
-                    <Text mb={2} fontSize="md"
+                    <Text mb={2} fontSize="sm" color="muted.500"
                           fontFamily="body">{paymentMethod.bankAccount.bankName} ({paymentMethod.bankAccount.accountBranch})</Text>
-                    <Text mb={2} fontSize="md" fontFamily="body">{paymentMethod.bankAccount.accountName}</Text>
-                    <Text mb={2} fontSize="md" fontFamily="body">{paymentMethod.bankAccount.accountNumber}</Text>
+                    <Text mb={2} fontSize="sm" color="muted.500" fontFamily="body">{paymentMethod.bankAccount.accountName}</Text>
+                    <Text mb={2} fontSize="sm" color="muted.500" fontFamily="body">{paymentMethod.bankAccount.accountNumber}</Text>
                     <HStack justifyContent="flex-end">
-                        <Text mb={2} fontSize="md" fontFamily="body">
+                        <Text mb={2} fontSize="sm" color="muted.500" fontFamily="body">
                             {paymentMethod.bankAccount.mobileNumber}
                         </Text>
                     </HStack>
@@ -72,16 +72,16 @@ const PaymentMethodCard = ({ paymentMethod }) => {
                 </Box>
             ) : paymentMethod.method === "Mobile Money" ? (
                 <Box>
-                    <Text mb={2} fontSize="md" fontFamily="body">{paymentMethod.method}</Text>
+                    <Text mb={2} fontSize="sm" color="muted.500" fontFamily="body">{paymentMethod.method}</Text>
                     <Divider mb={2} width="100%" />
                     <Icon size="sm" as={<MaterialIcons name="credit-card" size={10} />} />
-                    <Text mb={2} fontSize="md"
+                    <Text mb={2} fontSize="sm" color="muted.500"
                           fontFamily="body">{renderProviderName(paymentMethod.mobileMoneyAccount.provider)}</Text>
-                    <Text mb={2} fontSize="md" fontFamily="body">{paymentMethod.mobileMoneyAccount.name}</Text>
-                    <Text mb={2} fontSize="md"
+                    <Text mb={2} fontSize="sm" color="muted.500" fontFamily="body">{paymentMethod.mobileMoneyAccount.name}</Text>
+                    <Text mb={2} fontSize="sm" color="muted.500"
                           fontFamily="body">{paymentMethod.mobileMoneyAccount.mobileMoneyNumber}</Text>
                     <HStack justifyContent="flex-end">
-                        <Text mb={2} fontSize="md" fontFamily="body">
+                        <Text mb={2} fontSize="sm" color="muted.500" fontFamily="body">
                             {renderProviderAccountName(paymentMethod.mobileMoneyAccount.provider)}
                         </Text>
                     </HStack>

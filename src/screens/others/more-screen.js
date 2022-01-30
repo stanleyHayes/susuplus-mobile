@@ -94,7 +94,7 @@ const MoreScreen = ({ navigation }) => {
                     <Divider
                         alignSelf="center"
                         width="100%"
-                        backgroundColor="muted.300"
+                        backgroundColor="muted.200"
                         orientation="horizontal"
                         thickness={1} />
                     
@@ -110,7 +110,10 @@ const MoreScreen = ({ navigation }) => {
                                 <Box
                                     backgroundColor="primary.100"
                                     p={2}
-                                    borderRadius={32}>
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}>
                                     <Icon
                                         color="primary.600"
                                         size="sm"
@@ -119,7 +122,7 @@ const MoreScreen = ({ navigation }) => {
                                     />
                                 </Box>
                                 <Text
-                                    fontSize="lg"
+                                    fontSize="md"
                                     fontFamily="body"
                                     textTransform="capitalize"
                                     color="muted.600">
@@ -133,7 +136,7 @@ const MoreScreen = ({ navigation }) => {
                     <Divider
                         alignSelf="center"
                         width="100%"
-                        backgroundColor="muted.300"
+                        backgroundColor="muted.200"
                         orientation="horizontal"
                         thickness={1} />
                     
@@ -148,7 +151,7 @@ const MoreScreen = ({ navigation }) => {
                     <Divider
                         alignSelf="center"
                         width="100%"
-                        backgroundColor="muted.300"
+                        backgroundColor="muted.200"
                         orientation="horizontal"
                         thickness={1} />
                     
@@ -193,7 +196,7 @@ const MoreScreen = ({ navigation }) => {
                     <Divider
                         alignSelf="center"
                         width="100%"
-                        backgroundColor="muted.300"
+                        backgroundColor="muted.200"
                         orientation="horizontal"
                         thickness={1} />
                     
@@ -208,7 +211,7 @@ const MoreScreen = ({ navigation }) => {
                     <Divider
                         alignSelf="center"
                         width="100%"
-                        backgroundColor="muted.300"
+                        backgroundColor="muted.200"
                         orientation="horizontal"
                         thickness={1} />
                     
@@ -223,7 +226,7 @@ const MoreScreen = ({ navigation }) => {
                     <Divider
                         alignSelf="center"
                         width="100%"
-                        backgroundColor="muted.300"
+                        backgroundColor="muted.200"
                         orientation="horizontal"
                         thickness={1} />
                     
@@ -238,7 +241,7 @@ const MoreScreen = ({ navigation }) => {
                     <Divider
                         alignSelf="center"
                         width="100%"
-                        backgroundColor="muted.300"
+                        backgroundColor="muted.200"
                         orientation="horizontal"
                         thickness={1} />
                     
@@ -253,7 +256,7 @@ const MoreScreen = ({ navigation }) => {
                     <Divider
                         alignSelf="center"
                         width="100%"
-                        backgroundColor="muted.300"
+                        backgroundColor="muted.200"
                         orientation="horizontal"
                         thickness={1} />
                     
@@ -270,7 +273,10 @@ const MoreScreen = ({ navigation }) => {
                                 <Box
                                     backgroundColor="primary.100"
                                     p={2}
-                                    borderRadius={32}>
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}>
                                     <Icon
                                         color="primary.600"
                                         size="sm"
@@ -279,7 +285,7 @@ const MoreScreen = ({ navigation }) => {
                                     />
                                 </Box>
                                 <Text
-                                    fontSize="lg"
+                                    fontSize="md"
                                     fontFamily="body"
                                     textTransform="capitalize"
                                     color="gray.600">
@@ -294,7 +300,7 @@ const MoreScreen = ({ navigation }) => {
                     <Divider
                         alignSelf="center"
                         width="100%"
-                        backgroundColor="muted.300"
+                        backgroundColor="muted.200"
                         orientation="horizontal"
                         thickness={1} />
                     
@@ -311,7 +317,10 @@ const MoreScreen = ({ navigation }) => {
                                 <Box
                                     backgroundColor="red.100"
                                     p={2}
-                                    borderRadius={32}>
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}>
                                     <Icon
                                         color="red.500"
                                         size="sm"
@@ -320,7 +329,7 @@ const MoreScreen = ({ navigation }) => {
                                     />
                                 </Box>
                                 <Text
-                                    fontSize="lg"
+                                    fontSize="md"
                                     fontFamily="body"
                                     textTransform="capitalize"
                                     color="red.600">

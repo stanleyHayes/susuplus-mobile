@@ -39,21 +39,25 @@ const CreateGroupSummary = ({ navigation,  }) => {
 
     return (
         <ScrollView flex={1} minHeight="100%">
-            <Box borderRadius={32} p={5} shadow={0} backgroundColor="white" m={2}>
-                <Text textAlign="center" fontSize="xl">Group Summary</Text>
+            <Box
+                borderBottomLeftRadius={0}
+                  borderTopRightRadius={0}
+                  borderBottomRightRadius={16}
+                  borderTopLeftRadius={16} p={5} shadow={0} backgroundColor="white" m={2}>
+                <Text textAlign="center" fontSize="sm" color="muted.500">Group Summary</Text>
 
                 <Divider width="100%" my={2} />
 
-                <Text mb={1} fontSize="lg">Group Basic Info</Text>
+                <Text mb={1} fontSize="xs" color="muted.400">Group Basic Info</Text>
 
                 <Divider width="100%" my={2} />
 
-                <Text mb={1} fontSize="sm">Name</Text>
+                <Text mb={1} fontSize="xs" color="muted.400">Name</Text>
                 <Text mb={2} fontSize="md">{createGroupBasicInfo.name}</Text>
 
                 <Divider width="100%" my={2} />
 
-                <Text mb={1} fontSize="sm">Percentages</Text>
+                <Text mb={1} fontSize="sm" color="muted.400">Percentages</Text>
                 <Box mt={2} mb={2}>
                     <Flex direction="row" width="100%" justifyContent="space-around">
                         <Box
@@ -82,13 +86,14 @@ const CreateGroupSummary = ({ navigation,  }) => {
                             <Text
                                 textAlign="center"
                                 fontFamily="body"
-                                fontSize="xl">
+                                fontSize="md">
                                 {createGroupBasicInfo.susuPercentage}%
                             </Text>
                             <Text
                                 textAlign="center"
                                 fontFamily="body"
-                                fontSize="md">
+                                color="muted.500"
+                                fontSize="sm">
                                 Susu
                             </Text>
                         </Box>
@@ -118,13 +123,15 @@ const CreateGroupSummary = ({ navigation,  }) => {
                             <Text
                                 textAlign="center"
                                 fontFamily="body"
-                                fontSize="xl">
+                                color="muted.500"
+                                fontSize="md">
                                 {createGroupBasicInfo.investmentPercentage}%
                             </Text>
                             <Text
                                 textAlign="center"
                                 fontFamily="body"
-                                fontSize="md">
+                                color="muted.500"
+                                fontSize="sm">
                                 Investment
                             </Text>
                         </Box>
@@ -133,12 +140,12 @@ const CreateGroupSummary = ({ navigation,  }) => {
 
                 <Divider width="100%" my={2} />
 
-                <Text mb={1} fontSize="sm">Description</Text>
-                <Text mb={2} fontSize="md">{createGroupBasicInfo.description}</Text>
+                <Text mb={1} fontSize="xs" color="muted.400">Description</Text>
+                <Text mb={2} fontSize="sm" color="muted.500">{createGroupBasicInfo.description}</Text>
 
                 <Divider width="100%" my={2} />
 
-                <Text mb={1} fontSize="sm">Group Regulations</Text>
+                <Text mb={1} fontSize="xs" color="muted.400">Group Regulations</Text>
                 <Box>
                     {createGroupRegulations && createGroupRegulations.map((instruction, index) => {
                         return (
@@ -154,7 +161,7 @@ const CreateGroupSummary = ({ navigation,  }) => {
 
                 <Divider width="100%" my={2} />
 
-                <Text mb={1} fontSize="sm">Group Invitations</Text>
+                <Text mb={1} fontSize="xs" color="muted.400">Group Invitations</Text>
                 
                 <Box>
                     {createGroupInvitations && createGroupInvitations.map((invitation, index) => {
@@ -170,7 +177,7 @@ const CreateGroupSummary = ({ navigation,  }) => {
 
                 <Divider width="100%" my={2} />
 
-                <Text mb={1} fontSize="sm">Group Payment Method</Text>
+                <Text mb={1} fontSize="xs" color="muted.400">Group Payment Method</Text>
                 <Box>
                     <PaymentMethodCard paymentMethod={createGroupPaymentMethod} />
                 </Box>
@@ -183,7 +190,7 @@ const CreateGroupSummary = ({ navigation,  }) => {
                     mt={2}
                     backgroundColor="primary.600"
                     py={3}
-                    _text={{color: 'white'}}
+                    _text={{color: 'white', fontSize: 'xs'}}
                     isLoading={groupLoading}
                     isLoadingText="Creating Group..."
                     onPress={handleCreateGroup}
@@ -202,7 +209,7 @@ const CreateGroupSummary = ({ navigation,  }) => {
                     borderTopLeftRadius={16}
                     backgroundColor="primary.600"
                     py={3}
-                    _text={{color: 'white'}}
+                    _text={{color: 'white', fontSize: 'xs'}}
                     onPress={() => dispatch(GROUP_ACTION_CREATORS.groupGoToPreviousPage())}
                     variant="subtle">
                     Previous

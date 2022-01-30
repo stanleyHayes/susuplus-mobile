@@ -45,11 +45,15 @@ const GroupRegulationsForm = () => {
     
     return (
         <ScrollView flex={1} minHeight="100%">
-            <Box borderBottomLeftRadius={0}
+            <Box
+                borderBottomLeftRadius={0}
                  borderTopRightRadius={0}
                  borderBottomRightRadius={16}
-                 borderTopLeftRadius={16} p={5} shadow={0} backgroundColor="white" m={2}>
-                <Text textAlign="center" fontSize="lg">Group Regulations</Text>
+                 borderTopLeftRadius={16}
+                 p={5}
+                 shadow={0}
+                 backgroundColor="white" m={2}>
+                <Text fontSize="sm" color="muted.400">Group Regulations</Text>
                 
                 <Divider width="100%" my={2} />
                 
@@ -79,7 +83,7 @@ const GroupRegulationsForm = () => {
                         mt={2}
                         backgroundColor="primary.600"
                         py={3}
-                        _text={{color: 'white'}}
+                        _text={{color: 'white', fontSize: 'xs'}}
                         borderBottomLeftRadius={0}
                         borderTopRightRadius={0}
                         borderBottomRightRadius={16}
@@ -90,8 +94,16 @@ const GroupRegulationsForm = () => {
                 </Box>
             </Box>
             
-            <Box borderRadius={32} p={4} shadow={0} backgroundColor="white" m={2}>
-                <Text textAlign="center" fontSize="lg">Group Regulations ({regulations.length})</Text>
+            <Box
+                borderBottomLeftRadius={0}
+                borderTopRightRadius={0}
+                borderBottomRightRadius={16}
+                borderTopLeftRadius={16}
+                p={4}
+                shadow={0}
+                backgroundColor="white"
+                m={2}>
+                <Text fontSize="sm" color="muted.400">Group Regulations ({regulations.length})</Text>
                 
                 <Divider width="100%" my={2} />
                 
@@ -126,7 +138,7 @@ const GroupRegulationsForm = () => {
                         borderBottomRightRadius={16}
                         borderTopLeftRadius={16}
                         py={3}
-                        _text={{color: 'white'}}
+                        _text={{color: 'white', fontSize: 'xs'}}
                         onPress={handleGroupRegulationsSubmit}
                         variant="solid">
                         Save Regulations
@@ -144,7 +156,7 @@ const GroupRegulationsForm = () => {
                     borderBottomRightRadius={16}
                     borderTopLeftRadius={16}
                     py={3}
-                    _text={{color: 'white'}}
+                    _text={{color: 'white', fontSize: 'xs'}}
                     onPress={() => dispatch(GROUP_ACTION_CREATORS.groupGoToPreviousPage())}
                     variant="solid">
                     Previous

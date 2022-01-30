@@ -62,7 +62,7 @@ const GroupDetailScreen = ({ navigation, route }) => {
                              borderTopRightRadius={0}
                              borderBottomRightRadius={16}
                              borderTopLeftRadius={16} backgroundColor="white" p={4}>
-                            <Text fontFamily="body" fontSize="md">
+                            <Text fontFamily="body" fontSize="sm" color="muted.400">
                                 About Group
                             </Text>
                             <Divider
@@ -73,7 +73,7 @@ const GroupDetailScreen = ({ navigation, route }) => {
                                 backgroundColor="muted.200"
                                 orientation="horizontal"
                                 thickness={1} />
-                            <Text mb={2} fontSize="2xl">{groupDetail.name}</Text>
+                            <Text mb={2} fontSize="lg">{groupDetail.name}</Text>
                             <Text mb={2}>
                                 {groupMembers && `${groupMembers.length} ${groupMembers.length === 1 ? "group member" : "group members"}`}
                             </Text>
@@ -114,7 +114,7 @@ const GroupDetailScreen = ({ navigation, route }) => {
                                 orientation="horizontal"
                                 thickness={1} />
                             
-                            <Text fontFamily="body" fontSize="sm">
+                            <Text fontFamily="body" fontSize="xs" color="muted.500">
                                 {groupDetail.description}
                             </Text>
                         </Box>
@@ -145,12 +145,14 @@ const GroupDetailScreen = ({ navigation, route }) => {
                                     </Flex>
                                     
                                     <Text
+                                        color="muted.500"
                                         textAlign="center"
                                         fontFamily="body"
-                                        fontSize="lg">
+                                        fontSize="md">
                                         {groupDetail && groupDetail.percentages && groupDetail.percentages.susu}%
                                     </Text>
                                     <Text
+                                        color="muted.400"
                                         textAlign="center"
                                         fontFamily="body">
                                         Susu
@@ -165,6 +167,10 @@ const GroupDetailScreen = ({ navigation, route }) => {
                                      backgroundColor="white">
                                     <Flex
                                         flex={1}
+                                        borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16}
                                         justifyContent="center"
                                         alignItems="center"
                                         backgroundColor="primary.100"
@@ -173,12 +179,14 @@ const GroupDetailScreen = ({ navigation, route }) => {
                                         <Image size={30} alt="Investment image" source={investmentImage} />
                                     </Flex>
                                     <Text
+                                        color="muted.500"
                                         textAlign="center"
                                         fontFamily="body"
                                         fontSize="lg">
                                         {groupDetail && groupDetail.percentages && groupDetail.percentages.investment}%
                                     </Text>
                                     <Text
+                                        color="muted.400"
                                         textAlign="center"
                                         fontFamily="body">
                                         Investment
@@ -194,7 +202,7 @@ const GroupDetailScreen = ({ navigation, route }) => {
                              borderBottomRightRadius={16}
                              borderTopLeftRadius={16}
                             backgroundColor="white" p={4}>
-                            <Text fontFamily="body" fontSize="md">
+                            <Text fontFamily="body" fontSize="sm" color="muted.400">
                                 Group Regulations
                             </Text>
                             <Divider

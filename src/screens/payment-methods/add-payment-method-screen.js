@@ -217,9 +217,12 @@ const AddPaymentMethodScreen = ({ navigation }) => {
             <ScrollView minHeight="100%" flex={1}>
                 <Box p={4}>
                     <Select
-                        borderRadius={32}
+                        borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}
                         px={2}
-                        py={2}
+                        py={3}
                         mb={3}
                         variant="outline"
                         accessibilityLabel="Select Payment Method"
@@ -240,7 +243,10 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                         <Box mb={4}>
                             <Select
                                 name="provider"
-                                borderRadius={32}
+                                borderBottomLeftRadius={0}
+                                borderTopRightRadius={0}
+                                borderBottomRightRadius={16}
+                                borderTopLeftRadius={16}
                                 accessibilityLabel="Select Provider"
                                 onValueChange={provider => setProvider(provider)}
                                 _selectedItem={{
@@ -248,7 +254,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     fontFamily: "body",
                                 }}
                                 px={4}
-                                py={2}
+                                py={3}
                                 mt={1}
                                 mb={2}
                                 variant="outline"
@@ -266,19 +272,22 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     isFullWidth={true}
                                     isRequired={true}
                                     mb={1}
-                                    py={4}
-                                    _focus={{ borderColor: "gray.50" }}
+                                    py={3}
+                                    _focus={{ borderColor: "gray.400" }}
                                     isInvalid={Boolean(error.name)}
                                     width="100%"
                                     value={name}
                                     autoComplete="name"
                                     name="name"
                                     placeholder="E.g. Stanley Hayford"
-                                    variant="filled"
+                                    variant="outline"
                                     size="lg"
-                                    borderRadius={32}
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}
                                     onChangeText={name => setName(name)}
-                                    backgroundColor="gray.50" />
+                                />
                             </Box>
                             {error.name && <Text color="red.600" textAlign="center">{error.name}</Text>}
                             
@@ -288,22 +297,25 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     isFullWidth={true}
                                     isRequired={true}
                                     mb={1}
-                                    _focus={{ borderColor: "gray.50" }}
+                                    _focus={{ borderColor: "gray.400" }}
                                     isInvalid={Boolean(error.mobileMoneyNumber)}
                                     width="100%"
-                                    py={4}
+                                    py={3}
                                     value={mobileMoneyNumber}
                                     onChange={event => setMobileMoneyNumber(event.target.value)}
                                     name="mobileMoneyNumber"
                                     placeholder="E.g. 0270048319"
-                                    variant="filled"
+                                    variant="outline"
                                     keyboardType="phone-pad"
                                     textContentType="telephoneNumber"
                                     size="lg"
                                     type="tel"
-                                    borderRadius={32}
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}
                                     onChangeText={mobileMoneyNumber => setMobileMoneyNumber(mobileMoneyNumber)}
-                                    backgroundColor="gray.50" />
+                                />
                             </Box>
                             {error.mobileMoneyNumber &&
                             <Text color="red.600" textAlign="center">{error.mobileMoneyNumber}</Text>}
@@ -311,9 +323,12 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                             <Button
                                 mt={8}
                                 onPress={handleMobileMoneyAccountAdd}
-                                borderRadius={32}
-                                py={4}
-                                backgroundColor="primary.800"
+                                borderBottomLeftRadius={0}
+                                borderTopRightRadius={0}
+                                borderBottomRightRadius={16}
+                                borderTopLeftRadius={16}
+                                py={3}
+                                backgroundColor="primary.600"
                                 _text={{ fontFamily: "body" }}>
                                 <Text fontSize="md" color="white">
                                     Add Mobile Money Account
@@ -329,23 +344,29 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                         isFullWidth={true}
                                         isRequired={true}
                                         mb={2}
-                                        py={4}
+                                        py={3}
                                         isReadOnly={true}
                                         isInvalid={Boolean(error.bankName)}
                                         width="100%"
-                                        _focus={{ borderColor: "gray.50" }}
+                                        _focus={{ borderColor: "gray.400" }}
                                         _readOnly={{ backgroundColor: "gray.100", color: "gray.600" }}
                                         value={bankName}
                                         name="bankName"
                                         placeholder="Enter Bank Name"
-                                        variant="filled"
+                                        variant="outline"
                                         size="lg"
-                                        borderRadius={32}
-                                        backgroundColor="gray.50" />
+                                        borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16}
+                                    />
                                     {error.bankName && <Text color="red.400" textAlign="center">{error.bankName}</Text>}
                                     <Button
                                         borderColor="primary.600"
-                                        borderRadius={32}
+                                        borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16}
                                         borderWidth={1}
                                         variant="outlined"
                                         backgroundColor="white"
@@ -360,7 +381,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                         isFullWidth={true}
                                         isRequired={true}
                                         mb={2}
-                                        py={4}
+                                        py={3}
                                         isReadOnly={true}
                                         isInvalid={Boolean(error.bankCode)}
                                         width="100%"
@@ -369,9 +390,12 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                         value={bankCode}
                                         name="bankCode"
                                         placeholder="Enter Bank Code"
-                                        variant="filled"
+                                        variant="outline"
                                         size="lg"
-                                        borderRadius={32}
+                                        borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16}
                                         backgroundColor="gray.50" />
                                     {error.bankCode && <Text color="red.400" textAlign="center">{error.bankCode}</Text>}
                                 </Box>
@@ -382,18 +406,21 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                         isFullWidth={true}
                                         isRequired={true}
                                         mb={2}
-                                        py={4}
-                                        _focus={{ borderColor: "gray.50" }}
+                                        py={3}
+                                        _focus={{ borderColor: "gray.400" }}
                                         value={accountBranch}
                                         onChangeText={accountBranch => setBankBranch(accountBranch)}
                                         isInvalid={Boolean(error.accountBranch)}
                                         width="100%"
                                         name="accountBranch"
                                         placeholder="E.g. Madina"
-                                        variant="filled"
+                                        variant="outline"
                                         size="lg"
-                                        borderRadius={32}
-                                        backgroundColor="gray.50" />
+                                        borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16}
+                                    />
                                 </Box>
                                 
                                 <Box mb={2}>
@@ -402,18 +429,21 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                         isFullWidth={true}
                                         isRequired={true}
                                         mb={2}
-                                        py={4}
-                                        _focus={{ borderColor: "gray.50" }}
+                                        py={3}
+                                        _focus={{ borderColor: "gray.400" }}
                                         value={accountName}
                                         onChangeText={accountName => setAccountName(accountName)}
                                         isInvalid={Boolean(error.accountName)}
                                         width="100%"
                                         name="accountName"
                                         placeholder="E.g. Stanley Hayford"
-                                        variant="filled"
+                                        variant="outline"
                                         size="lg"
-                                        borderRadius={32}
-                                        backgroundColor="gray.50" />
+                                        borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16}
+                                    />
                                 </Box>
                                 
                                 <Box mb={2}>
@@ -421,19 +451,22 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     <Input
                                         isFullWidth={true}
                                         isRequired={true}
-                                        py={4}
+                                        py={3}
                                         mb={2}
-                                        _focus={{ borderColor: "gray.50" }}
+                                        _focus={{ borderColor: "gray.400" }}
                                         value={accountNumber}
                                         onChangeText={accountNumber => setAccountNumber(accountNumber)}
                                         isInvalid={Boolean(error.accountNumber)}
                                         width="100%"
                                         name="accountNumber"
                                         placeholder="E.g. 1234567812345678"
-                                        variant="filled"
+                                        variant="outline"
                                         size="lg"
-                                        borderRadius={32}
-                                        backgroundColor="gray.50" />
+                                        borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16}
+                                    />
                                 </Box>
                                 
                                 <Box mb={2}>
@@ -442,25 +475,31 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                         isFullWidth={true}
                                         isRequired={true}
                                         mb={2}
-                                        py={4}
-                                        _focus={{ borderColor: "gray.50" }}
+                                        py={3}
+                                        _focus={{ borderColor: "gray.400" }}
                                         value={mobileNumber}
                                         onChangeText={mobileNumber => setMobileNumber(mobileNumber)}
                                         isInvalid={Boolean(error.mobileNumber)}
                                         width="100%"
                                         name="mobileNumber"
                                         placeholder="E.g. 0270048319"
-                                        variant="filled"
+                                        variant="outline"
                                         size="lg"
-                                        borderRadius={32}
-                                        backgroundColor="gray.50" />
+                                        borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16}
+                                    />
                                 </Box>
                                 
                                 <Box mb={2}>
                                     <Text mb={2}>Account Currency</Text>
                                     <Select
                                         name="bankCurrency"
-                                        borderRadius={32}
+                                        borderBottomLeftRadius={0}
+                                        borderTopRightRadius={0}
+                                        borderBottomRightRadius={16}
+                                        borderTopLeftRadius={16}
                                         isDisabled={true}
                                         accessibilityLabel="Select Account Currency"
                                         onValueChange={bankCurrency => setBankCurrency(bankCurrency)}
@@ -468,10 +507,10 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                             bg: "teal.200",
                                         }}
                                         px={4}
-                                        py={4}
+                                        py={3}
                                         mt={1}
                                         mb={2}
-                                        variant="rounded"
+                                        variant="outline"
                                         backgroundColor="white"
                                         placeholder="Select Currency"
                                         selectedValue={bankCurrency}>
@@ -485,13 +524,17 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                 
                                 <Button
                                     onPress={handleBankAccountAdd}
-                                    borderRadius={32}
-                                    py={4}
-                                    backgroundColor="primary.800"
-                                    _text={{ fontFamily: "body" }}>
-                                    <Text fontSize="md" color="white">
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}
+                                    py={3}
+                                    backgroundColor="primary.600"
+                                    isLoading={paymentMethodLoading}
+                                    isDisabled={paymentMethodLoading}
+                                    isLoadingText={"Adding Account..."}
+                                    _text={{ fontFamily: "body", color: 'white' }}>
                                         Add Bank Account
-                                    </Text>
                                 </Button>
                             </Box>
                         </Box>
@@ -506,16 +549,18 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     isInvalid={Boolean(error.bankIssuer)}
                                     width="100%"
                                     value={bankIssuer}
-                                    _focus={{ borderColor: "gray.50" }}
+                                    _focus={{ borderColor: "gray.400" }}
                                     onChangeText={bankIssuer => setBankIssuer(bankIssuer)}
                                     name="issuingNetwork"
                                     placeholder="E.g. Barclays Bank"
-                                    variant="rounded"
-                                    py={4}
-                                    borderWidth={0}
+                                    variant="outline"
+                                    py={3}
                                     size="lg"
-                                    borderRadius={32}
-                                    backgroundColor="gray.50" />
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}
+                                />
                             </Box>
                             
                             <Box mb={2}>
@@ -524,19 +569,21 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     isFullWidth={true}
                                     isRequired={true}
                                     mb={2}
-                                    _focus={{ borderColor: "gray.50" }}
+                                    _focus={{ borderColor: "gray.400" }}
                                     isInvalid={Boolean(error.cardHolderName)}
                                     width="100%"
                                     value={cardHolderName}
                                     onChangeText={cardHolderName => setCardHolderName(cardHolderName)}
                                     name="cardHolderName"
                                     placeholder="E.g. Stanley Hayford"
-                                    variant="rounded"
-                                    py={4}
-                                    borderWidth={0}
+                                    variant="outline"
+                                    py={3}
                                     size="lg"
-                                    borderRadius={32}
-                                    backgroundColor="gray.50" />
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}
+                                />
                             </Box>
                             
                             <Box mb={2}>
@@ -545,19 +592,21 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     isFullWidth={true}
                                     isRequired={true}
                                     mb={2}
-                                    _focus={{ borderColor: "gray.50" }}
+                                    _focus={{ borderColor: "gray.400" }}
                                     isInvalid={Boolean(error.cardNumber)}
                                     width="100%"
                                     value={cardNumber}
                                     onChangeText={cardNumber => setCardNumber(cardNumber)}
                                     name="cardNumber"
                                     placeholder="E.g. 1234567812345678"
-                                    variant="rounded"
-                                    py={4}
-                                    borderWidth={0}
+                                    variant="outline"
+                                    py={3}
                                     size="lg"
-                                    borderRadius={32}
-                                    backgroundColor="gray.50" />
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}
+                                />
                             </Box>
                             
                             <Box mb={2}>
@@ -566,19 +615,21 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     isFullWidth={true}
                                     isRequired={true}
                                     mb={2}
-                                    _focus={{ borderColor: "gray.50" }}
+                                    _focus={{ borderColor: "gray.400" }}
                                     isInvalid={Boolean(error.cvv)}
                                     width="100%"
                                     value={cvv}
                                     onChangeText={cvv => setCVV(cvv)}
                                     name="cvv"
                                     placeholder="E.g. 123"
-                                    variant="rounded"
-                                    py={4}
-                                    borderWidth={0}
+                                    variant="outline"
+                                    py={3}
                                     size="lg"
-                                    borderRadius={32}
-                                    backgroundColor="gray.50" />
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}
+                                />
                             </Box>
                             
                             <Box mb={4}>
@@ -589,34 +640,38 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     mb={2}
                                     isInvalid={Boolean(error.expiryDate)}
                                     width="100%"
-                                    _focus={{ borderColor: "gray.50" }}
+                                    _focus={{ borderColor: "gray.400" }}
                                     value={expiryDate}
                                     onChangeText={expiryDate => setExpiryDate(expiryDate)}
                                     name="expiryDate"
                                     placeholder="E.g. MM/YYYY"
-                                    variant="rounded"
-                                    py={4}
-                                    borderWidth={0}
+                                    variant="outline"
+                                    py={3}
                                     size="lg"
-                                    borderRadius={32}
-                                    backgroundColor="gray.50" />
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}
+                                />
                             </Box>
                             <Box mb={2}>
                                 <Text mb={2}>Account Currency</Text>
                                 <Select
                                     name="cardCurrency"
-                                    borderRadius={32}
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16}
                                     accessibilityLabel="Select Account Currency"
                                     onValueChange={cardCurrency => setCardCurrency(cardCurrency)}
                                     _selectedItem={{
                                         bg: "teal.200",
                                     }}
                                     px={4}
-                                    py={4}
+                                    py={3}
                                     mt={1}
                                     mb={2}
-                                    variant="rounded"
-                                    backgroundColor="white"
+                                    variant="outline"
                                     placeholder="Select Card Currency"
                                     selectedValue={cardCurrency}>
                                     <Select.Item label="Select Currency" value="" />
@@ -629,13 +684,17 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                             
                             <Button
                                 onPress={handleDebitCardAdd}
-                                borderRadius={32}
-                                py={4}
-                                backgroundColor="primary.800"
-                                _text={{ fontFamily: "body" }}>
-                                <Text fontSize="md" color="white">
+                                borderBottomLeftRadius={0}
+                                borderTopRightRadius={0}
+                                borderBottomRightRadius={16}
+                                borderTopLeftRadius={16}
+                                py={3}
+                                backgroundColor="primary.600"
+                                isLoading={paymentMethodLoading}
+                                isDisabled={paymentMethodLoading}
+                                isLoadingText={"Adding Card..."}
+                                _text={{ fontFamily: "body", color: 'white' }}>
                                     Add Card Details
-                                </Text>
                             </Button>
                         </Box>
                     ) : null}

@@ -70,18 +70,20 @@ const ChangePasswordScreen = ({ navigation }) => {
         <Input
           mb={1}
           isFullWidth={true}
-          size="lg"
+          size="md"
           width="100%"
           value={currentPassword}
           placeholder="Enter current password"
-          variant="filled"
+          variant="outline"
           alignSelf="stretch"
           isRequired={true}
-          backgroundColor="gray.50"
           pt={3}
           pb={3}
           type="password"
-          borderRadius={32}
+          borderBottomLeftRadius={0}
+          borderTopRightRadius={0}
+          borderBottomRightRadius={16}
+          borderTopLeftRadius={16}
           name="currentPassword"
           onChangeText={currentPassword => setCurrentPassword(currentPassword)}
         />
@@ -91,13 +93,15 @@ const ChangePasswordScreen = ({ navigation }) => {
           mb={1}
           mt={2}
           isFullWidth={true}
-          size="lg"
+          size="md"
           width="100%"
-          borderRadius={32}
+          borderBottomLeftRadius={0}
+          borderTopRightRadius={0}
+          borderBottomRightRadius={16}
+          borderTopLeftRadius={16}
           value={password}
           placeholder="Enter new password"
-          variant="filled"
-          backgroundColor="gray.50"
+          variant="outline"
           alignSelf="stretch"
           isRequired={true}
           pt={3}
@@ -111,18 +115,20 @@ const ChangePasswordScreen = ({ navigation }) => {
         <Input
           mb={1}
           isFullWidth={true}
-          size="lg"
+          size="md"
           width="100%"
           value={confirmPassword}
           placeholder="Confirm password"
-          variant="filled"
+          variant="outline"
           alignSelf="stretch"
-          backgroundColor="gray.50"
           isRequired={true}
           pt={3}
           mt={2}
           pb={3}
-          borderRadius={32}
+          borderBottomLeftRadius={0}
+          borderTopRightRadius={0}
+          borderBottomRightRadius={16}
+          borderTopLeftRadius={16}
           type="password"
           name="confirmPassword"
           onChangeText={confirmPassword => setConfirmPassword(confirmPassword)}
@@ -134,21 +140,18 @@ const ChangePasswordScreen = ({ navigation }) => {
           pt={3}
           isLoading={authLoading}
           isLoadingText="Updating Password..."
-          _loading={{
-            backgroundColor: "primary.200",
-          }}
           pb={3}
           mt={8}
           width="100%"
-          backgroundColor="primary.800"
-          borderRadius={32}
-          _text={{ fontFamily: "body", textTransform: "uppercase", fontSize: "lg", color: "white" }}
+          backgroundColor="primary.600"
+          borderBottomLeftRadius={0}
+          borderTopRightRadius={0}
+          borderBottomRightRadius={16}
+          borderTopLeftRadius={16}
+          _text={{ fontFamily: "body", fontSize: "xs", color: "white" }}
           alignSelf="stretch"
-          size="lg"
           variant="solid">
-          <Text fontSize="md" color="white">
             Update Profile
-          </Text>
         </Button>
       </ScrollView>
     </Flex>

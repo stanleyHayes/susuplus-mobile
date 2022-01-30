@@ -95,18 +95,20 @@ const EditProfileScreen = ({ navigation }) => {
                             mt={2}
                             isFullWidth={true}
                             size="lg"
-                            _focus={{ borderColor: "gray.100" }}
-                            borderRadius={32}
+                            _focus={{ borderColor: "gray.400" }}
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
                             value={email}
                             placeholder="Enter email"
-                            variant="filled"
+                            variant="outline"
                             alignSelf="stretch"
                             isRequired={true}
-                            p={4}
+                            p={3}
                             keyboardType="email-address"
                             textContentType="emailAddress"
                             returnKeyType="next"
-                            backgroundColor="gray.50"
                             name="email"
                             onChangeText={email => setEmail(email)}
                         />
@@ -121,19 +123,21 @@ const EditProfileScreen = ({ navigation }) => {
                             mb={1}
                             mt={2}
                             isFullWidth={true}
-                            size="lg"
-                            _focus={{ borderColor: "gray.100" }}
-                            borderRadius={32}
+                            size="md"
+                            _focus={{ borderColor: "gray.400" }}
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
                             value={name}
                             placeholder="Enter name"
-                            variant="filled"
+                            variant="outline"
                             alignSelf="stretch"
                             isRequired={true}
-                            p={4}
+                            p={3}
                             returnKeyType="next"
                             keyboardType="default"
                             textContentType="name"
-                            backgroundColor="gray.50"
                             name="name"
                             onChangeText={name => setName(name)}
                         />
@@ -147,20 +151,22 @@ const EditProfileScreen = ({ navigation }) => {
                             mb={1}
                             mt={2}
                             isFullWidth={true}
-                            size="lg"
-                            _focus={{ borderColor: "gray.100" }}
-                            borderRadius={32}
+                            size="md"
+                            _focus={{ borderColor: "gray.400" }}
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
                             value={phone}
                             placeholder="Enter phone"
-                            variant="filled"
+                            variant="outline"
                             alignSelf="stretch"
                             isRequired={true}
-                            p={4}
+                            p={3}
                             keyboardType="phone-pad"
                             dataDetectorType="phoneNumber"
                             returnKeyType="send"
                             textContentType="telephoneNumber"
-                            backgroundColor="gray.50"
                             name="phone"
                             onChangeText={phone => setPhone(phone)}
                         />
@@ -175,15 +181,15 @@ const EditProfileScreen = ({ navigation }) => {
                             pb={3}
                             mt={8}
                             shadow={1}
-                            borderRadius={32}
-                            backgroundColor="primary.800"
-                            _text={{ textTransform: "uppercase", fontSize: "lg", color: "white" }}
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
+                            backgroundColor="primary.600"
+                            _text={{ fontSize: "xs", color: "white" }}
                             alignSelf="stretch"
-                            size="md"
                             variant="solid">
-                            <Text fontSize="md" color="white">
-                                {authLoading ? 'Updating Profile...': 'Update Profile'}
-                            </Text>
+                                Update Profile
                         </Button>
                     </Box>
                 </Flex>

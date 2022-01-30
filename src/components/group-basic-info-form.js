@@ -63,7 +63,7 @@ const GroupBasicInfoForm = () => {
                  borderTopRightRadius={0}
                  borderBottomRightRadius={16}
                  borderTopLeftRadius={16} p={5} shadow={0} backgroundColor="white" m={2}>
-                <Text textAlign="center" fontSize="lg">Group Basic Info</Text>
+                <Text fontSize="sm" color="muted.400">Group Basic Info</Text>
 
                 <Divider width="100%" my={2} />
 
@@ -170,7 +170,7 @@ const GroupBasicInfoForm = () => {
                     borderTopRightRadius={0}
                     borderBottomRightRadius={16}
                     borderTopLeftRadius={16}
-                    _text={{color: 'white'}}
+                    _text={{color: 'white', fontSize: 'xs'}}
                     py={3}
                     backgroundColor="primary.600"
                     variant="solid">

@@ -118,24 +118,29 @@ const UpdateGroupDetailScreen = ({ navigation, route }) => {
             </Center>)}
             <Flex flex={1} m={2}>
                 <Box
-                    borderRadius={32}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
                     p={4}
                     shadow={0}
                     backgroundColor="white">
                     <Box mb={2}>
-                        <Text mb={1} fontSize="xs">Group Name</Text>
+                        <Text mb={1} fontSize="xs" color="muted.400">Group Name</Text>
                         <Input
                             placeholder="Name"
-                            variant="filled"
-                            borderRadius={32}
-                            py={4}
+                            variant="outline"
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
+                            py={3}
                             px={4}
                             isInvalid={Boolean(error.name)}
-                            _focus={{ borderColor: "gray.50" }}
+                            _focus={{ borderColor: "gray.400" }}
                             _invalid={{ borderColor: "red.400", borderWidth: 1, borderStyle: "solid" }}
                             isFullWidth={true}
-                            backgroundColor="gray.50"
-                            size="lg"
+                            size="md"
                             mb={1}
                             value={name}
                             name="name"
@@ -150,17 +155,19 @@ const UpdateGroupDetailScreen = ({ navigation, route }) => {
                         <Text mb={1} fontSize="xs">Susu Percentage</Text>
                         <Input
                             placeholder="What percentage goes to susu?"
-                            variant="filled"
-                            borderRadius={32}
-                            py={4}
-                            size="lg"
+                            variant="outline"
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
+                            py={3}
+                            size="md"
                             keyboardType="number-pad"
                             px={4}
                             isInvalid={Boolean(error.susuPercentage)}
-                            _focus={{ borderColor: "gray.50" }}
+                            _focus={{ borderColor: "gray.400" }}
                             _invalid={{ borderColor: "red.400", borderWidth: 1, borderStyle: "solid" }}
                             isFullWidth={true}
-                            backgroundColor="gray.50"
                             mb={1}
                             value={susuPercentage}
                             name="susuPercentage"
@@ -171,20 +178,22 @@ const UpdateGroupDetailScreen = ({ navigation, route }) => {
                     </Box>
                     
                     <Box mb={2}>
-                        <Text mb={1} fontSize="xs">Investment Percentage</Text>
+                        <Text mb={1} fontSize="xs" color="muted.400">Investment Percentage</Text>
                         <Input
                             placeholder="What percentage goes to investment?"
-                            variant="filled"
-                            borderRadius={32}
-                            py={4}
+                            variant="outline"
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
+                            py={3}
                             px={4}
-                            size="lg"
+                            size="md"
                             keyboardType="number-pad"
                             isInvalid={Boolean(error.investmentPercentage)}
                             _focus={{ borderColor: "gray.50" }}
                             _invalid={{ borderColor: "red.400", borderWidth: 1, borderStyle: "solid" }}
                             isFullWidth={true}
-                            backgroundColor="gray.50"
                             mb={1}
                             value={investmentPercentage}
                             name="investmentPercentage"
@@ -195,17 +204,19 @@ const UpdateGroupDetailScreen = ({ navigation, route }) => {
                     </Box>
                     
                     <Box>
-                        <Text mb={1} fontSize="xs">Group Description</Text>
+                        <Text mb={1} fontSize="xs" color="muted.400">Group Description</Text>
                         <Input
                             placeholder="What is the group about?"
-                            variant="filled"
-                            borderRadius={32}
-                            py={4}
+                            variant="outline"
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
+                            py={3}
                             px={4}
-                            size="lg"
-                            backgroundColor="gray.50"
+                            size="md"
                             isInvalid={Boolean(error.description)}
-                            _focus={{ borderColor: "gray.50" }}
+                            _focus={{ borderColor: "gray.400" }}
                             _invalid={{ borderColor: "red.400", borderWidth: 1, borderStyle: "solid" }}
                             isFullWidth={true}
                             mb={1}
@@ -220,29 +231,34 @@ const UpdateGroupDetailScreen = ({ navigation, route }) => {
                 </Box>
                 
                 <Box
-                    borderRadius={32}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
                     p={4}
                     shadow={0}
                     backgroundColor="white"
                     my={2}>
-                    <Text textAlign="center" fontSize="lg">Group Regulations</Text>
+                    <Text textAlign="center" fontSize="xs" color="muted.400">Group Regulations</Text>
                     
                     <Divider width="100%" my={2} />
                     
                     <Box mb={2}>
                         <Input
                             placeholder="Type regulation"
-                            variant="filled"
-                            borderRadius={32}
-                            py={4}
+                            variant="outline"
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
+                            py={3}
                             px={4}
                             isInvalid={Boolean(error.regulation)}
-                            _focus={{ borderColor: "gray.50" }}
+                            _focus={{ borderColor: "gray.400" }}
                             _invalid={{ borderColor: "red.400", borderWidth: 1, borderStyle: "solid" }}
                             isFullWidth={true}
-                            backgroundColor="gray.50"
                             mb={1}
-                            size="lg"
+                            size="md"
                             multiline={true}
                             value={regulation}
                             name="regulation"
@@ -257,22 +273,29 @@ const UpdateGroupDetailScreen = ({ navigation, route }) => {
                             borderWidth={1}
                             borderColor="primary.600"
                             backgroundColor="white"
-                            py={2}
-                            borderRadius={32}
+                            py={3}
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}
                             onPress={addRegulation}
+                            _text={{fontSize: 'xs', color: 'primary.600'}}
                             variant="subtle">
-                            <Text color="primary.600" fontSize="md">Add</Text>
+                            Add
                         </Button>
                     </Box>
                 </Box>
                 
                 <Box
-                    borderRadius={32}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
                     p={4}
                     shadow={0}
                     my={4}
                     backgroundColor="white">
-                    <Text textAlign="center" fontSize="lg">Group Regulations ({regulations.length})</Text>
+                    <Text textAlign="center" fontSize="xs" color="muted.400">Group Regulations ({regulations.length})</Text>
                     
                     <Divider width="100%" my={2} />
                     
@@ -280,7 +303,9 @@ const UpdateGroupDetailScreen = ({ navigation, route }) => {
                         {
                             regulations && regulations.length === 0 ? (
                                 <Box>
-                                    <Empty description="No regulations yet" title="Group Regulations" />
+                                    <Empty
+                                        description="No regulations yet"
+                                        title="Group Regulations" />
                                 </Box>
                             ) : (
                                 regulations.map((regulation, index) => {
@@ -301,11 +326,18 @@ const UpdateGroupDetailScreen = ({ navigation, route }) => {
                 
                 <Button
                     onPress={handleSaveGroupBasicInfo}
-                    borderRadius={32}
-                    py={2}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
+                    py={3}
+                    isDisabled={groupLoading}
+                    isLoadingText="Updating Group..."
+                    isLoading={groupLoading}
                     backgroundColor="primary.600"
+                    _text={{color: 'white', fontSize: 'xs'}}
                     variant="solid">
-                    <Text color="white" fontSize="md">Update Group Info</Text>
+                    Update Group Info
                 </Button>
             </Flex>
         </ScrollView>

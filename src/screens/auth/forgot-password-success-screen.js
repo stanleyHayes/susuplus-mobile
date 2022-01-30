@@ -30,16 +30,20 @@ const ForgotPasswordSuccessScreen = ({ navigation }) => {
           Susu Plus
         </Text>
         
-        <Text mb={6} fontSize="md" textAlign="center" color="darkText">
+        <Text mb={6} fontSize="sm" textAlign="center" color="muted.500">
           A resent link has been sent to the email you provided together with an OTP
         </Text>
         <Button
             width="100%"
-            backgroundColor="primary.800"
+            backgroundColor="primary.600"
             py={2}
-            borderRadius={32}
+            borderBottomLeftRadius={0}
+            borderTopRightRadius={0}
+            borderBottomRightRadius={16}
+            borderTopLeftRadius={16}
+            _text={{color: 'white', fontSize: 'xs'}}
             onPress={() => navigation.navigate(SCREEN_NAME_CONSTANTS.RESET_PASSWORD_SCREEN)}>
-          <Text color="white" fontSize="md">Go to Password Reset</Text>
+          Go to Password Reset
         </Button>
       </Center>
     </Flex>

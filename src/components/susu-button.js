@@ -16,7 +16,10 @@ const SusuButton = ({ navigation, destination, iconName, label, as }) => {
           <Box
             backgroundColor="primary.100"
             p={2}
-            borderRadius={32}>
+            borderBottomLeftRadius={0}
+            borderTopRightRadius={0}
+            borderBottomRightRadius={16}
+            borderTopLeftRadius={16}>
             <Icon
               color="primary.600"
               size="sm"
@@ -25,10 +28,10 @@ const SusuButton = ({ navigation, destination, iconName, label, as }) => {
             />
           </Box>
           <Text
-            fontSize="lg"
+            fontSize="md"
             fontFamily="body"
             textTransform="capitalize"
-            color="muted.600">
+            color="muted.500">
             {label}
           </Text>
         </HStack>
