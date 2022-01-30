@@ -125,7 +125,7 @@ const MoreScreen = ({ navigation }) => {
                                     fontSize="md"
                                     fontFamily="body"
                                     textTransform="capitalize"
-                                    color="muted.600">
+                                    color="muted.500">
                                     Invite Friends
                                 </Text>
                             </HStack>
@@ -288,7 +288,7 @@ const MoreScreen = ({ navigation }) => {
                                     fontSize="md"
                                     fontFamily="body"
                                     textTransform="capitalize"
-                                    color="gray.600">
+                                    color="gray.500">
                                     Logout
                                 </Text>
                             </HStack>
@@ -332,7 +332,7 @@ const MoreScreen = ({ navigation }) => {
                                     fontSize="md"
                                     fontFamily="body"
                                     textTransform="capitalize"
-                                    color="red.600">
+                                    color="red.500">
                                     Disable Account
                                 </Text>
                             </HStack>

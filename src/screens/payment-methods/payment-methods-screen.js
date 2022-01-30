@@ -54,7 +54,10 @@ const PaymentMethodsScreen = ({ navigation }) => {
     
             <IconButton
                 icon={<Icon color="primary.800" as={MaterialIcons} name="add" />}
-                borderRadius="full"
+                borderBottomLeftRadius={0}
+                borderTopRightRadius={0}
+                borderBottomRightRadius={16}
+                borderTopLeftRadius={16}
                 variant="solid"
                 placement="bottom-right"
                 position="absolute"

@@ -491,9 +491,9 @@ const MainBottomTabsNavigator = () => {
                 backgroundColor: "#155e75",
                 zIndex: 10,
                 borderBottomWidth: 1,
-                borderBottomColor: '#0891b2',
+                borderBottomColor: '#0e7490',
                 borderTopWidth: 1,
-                borderTopColor: '#0891b2'
+                borderTopColor: '#0e7490'
         }}
             shifting={false}
             labeled={true}

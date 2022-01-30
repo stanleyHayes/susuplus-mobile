@@ -9,7 +9,7 @@ import { AUTH_ACTION_CREATORS } from "./src/redux/auth/auth-action-creators";
 
 const App = () => {
     const dispatch = useDispatch();
-    const { authToken, authLoading } = useSelector(selectAuth);
+    const { authToken, authLoading, splashLoading } = useSelector(selectAuth);
     
     const StackNavigator = createNativeStackNavigator();
     
@@ -17,7 +17,7 @@ const App = () => {
         dispatch(AUTH_ACTION_CREATORS.restoreToken());
     }, []);
     
-    if (authLoading)
+    if (splashLoading)
         return <SplashScreen />;
     
     return (

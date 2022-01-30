@@ -2,11 +2,12 @@ import { AUTH_ACTION_TYPES } from "./auth-action-types";
 
 const INITIAL_STATE = {
   authToken: null,
-  authLoading: true,
+  authLoading: false,
   authError: null,
   userData: {},
   resetPasswordToken: null,
-  signUpToken: null
+  signUpToken: null,
+  splashLoading: true
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
@@ -14,13 +15,13 @@ const authReducer = (state = INITIAL_STATE, action) => {
     case AUTH_ACTION_TYPES.RESTORE_TOKEN_REQUEST:
       return {
         ...state,
-        authLoading: true
+        splashLoading: true
       }
 
     case AUTH_ACTION_TYPES.RESTORE_TOKEN_SUCCESS:
       return {
         ...state,
-        authLoading: false,
+        splashLoading: false,
         authError: null,
         authToken: action.payload.authToken,
         userData: action.payload.userData
@@ -29,7 +30,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
     case AUTH_ACTION_TYPES.RESTORE_TOKEN_FAILURE:
       return {
         ...state,
-        authLoading: false,
+        splashLoading: false,
         authError: action.payload,
         authToken: null,
         userData: {}
@@ -166,6 +167,27 @@ const authReducer = (state = INITIAL_STATE, action) => {
       }
   
     case AUTH_ACTION_TYPES.GET_PROFILE_FAILURE:
+      return {
+        ...state,
+        authLoading: false,
+        authError: action.payload
+      }
+  
+    case AUTH_ACTION_TYPES.LOGOUT_REQUEST:
+      return {
+        ...state,
+        authLoading: true,
+        authError: null
+      }
+  
+    case AUTH_ACTION_TYPES.LOGOUT_SUCCESS:
+      return {
+        ...state,
+        authLoading: false,
+        authError: null
+      }
+  
+    case AUTH_ACTION_TYPES.LOGOUT_FAILURE:
       return {
         ...state,
         authLoading: false,

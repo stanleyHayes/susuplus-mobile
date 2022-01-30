@@ -113,6 +113,7 @@ const VerifyOTPScreen = ({ navigation }) => {
                     borderBottomRightRadius={16}
                     borderTopLeftRadius={16}
                     mb={4}
+                    py={3}
                     isLoadingText="Verifying Account..."
                     isLoading={authLoading}
                     isDisabled={authLoading}
