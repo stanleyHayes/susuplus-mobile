@@ -45,6 +45,27 @@ const SignUpScreen = ({ navigation }) => {
         } else {
             setError({ error, email: null });
         }
+    
+        if (!phone) {
+            setError({ error, phone: "Field required" });
+            return;
+        } else {
+            setError({ error, phone: null });
+        }
+    
+        if (!validator.isMobilePhone(phone)) {
+            setError({ error, phone: "Invalid phone number" });
+            return;
+        } else {
+            setError({ error, phone: null });
+        }
+    
+        if (!phone.startsWith('+') || phone.length < 13) {
+            setError({ error, phone: "Phone should start with + and should be 13 characters long" });
+            return;
+        } else {
+            setError({ error, phone: null });
+        }
         
         if (!password) {
             setError({ error, password: "Field required" });
@@ -144,7 +165,7 @@ const SignUpScreen = ({ navigation }) => {
                             textContentType="name"
                             returnKeyType="next"
                             name="name"
-                            placeholderTextColor="primary.600"
+                            placeholderTextColor="primary.300"
                             onChangeText={name => setName(name)}
                             color="darkText"
                             _focus={{ borderColor: "primary.100" }}
@@ -182,7 +203,7 @@ const SignUpScreen = ({ navigation }) => {
                             autoComplete="email"
                             textContentType="emailAddress"
                             name="email"
-                            placeholderTextColor="primary.600"
+                            placeholderTextColor="primary.300"
                             keyboardType="email-address"
                             onChangeText={email => setEmail(email)}
                             color="gray.800"
@@ -214,12 +235,12 @@ const SignUpScreen = ({ navigation }) => {
                             }
                             isInvalid={Boolean(error.phone)}
                             placeholder="e.g. +233270000000"
-                            variant="rounded"
+                            variant="outline"
                             width="100%"
                             isRequired={true}
                             returnKeyType="next"
                             autoComplete="tel"
-                            placeholderTextColor="primary.600"
+                            placeholderTextColor="primary.300"
                             textContentType="telephoneNumber"
                             name="phone"
                             keyboardType="phone-pad"
@@ -269,7 +290,7 @@ const SignUpScreen = ({ navigation }) => {
                             placeholder="Enter password"
                             variant="rounded"
                             width="100%"
-                            placeholderTextColor="primary.600"
+                            placeholderTextColor="primary.300"
                             isRequired={true}
                             autoComplete="password"
                             secureTextEntry={isPasswordVisible}
@@ -318,7 +339,7 @@ const SignUpScreen = ({ navigation }) => {
                             }
                             isInvalid={Boolean(error.confirmPassword)}
                             placeholder="Confirm Password"
-                            placeholderTextColor="primary.600"
+                            placeholderTextColor="primary.300"
                             variant="rounded"
                             width="100%"
                             isRequired={true}
