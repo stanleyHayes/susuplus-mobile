@@ -67,7 +67,7 @@ const GroupRegulationsForm = () => {
                         borderTopLeftRadius={16}
                         py={3}
                         isInvalid={Boolean(error.regulation)}
-                        _focus={{ borderColor: "gray.50" }}
+                        _focus={{ borderColor: "gray.400" }}
                         _invalid={{ borderColor: "red.400", borderWidth: 1, borderStyle: "solid" }}
                         isFullWidth={true}
                         mb={1}
@@ -128,10 +128,30 @@ const GroupRegulationsForm = () => {
                         )
                     }
                 </Box>
-                
+            </Box>
+            
+            <Box p={5} mt={2} flexDirection="row">
+                <Button
+                    mr={1}
+                    flexGrow={1}
+                    backgroundColor="white"
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
+                    py={3}
+                    borderColor="primary.600"
+                    borderWidth={1}
+                    _text={{color: 'primary.600', fontSize: 'xs'}}
+                    onPress={() => dispatch(GROUP_ACTION_CREATORS.groupGoToPreviousPage())}
+                    variant="solid">
+                    Previous
+                </Button>
+    
                 {regulations.length > 0 && (
                     <Button
-                        mt={5}
+                        flexGrow={1}
+                        ml={1}
                         backgroundColor="primary.600"
                         borderBottomLeftRadius={0}
                         borderTopRightRadius={0}
@@ -141,26 +161,9 @@ const GroupRegulationsForm = () => {
                         _text={{color: 'white', fontSize: 'xs'}}
                         onPress={handleGroupRegulationsSubmit}
                         variant="solid">
-                        Save Regulations
+                        Next
                     </Button>
                 )}
-            
-            </Box>
-            
-            <Box p={5}>
-                <Button
-                    mt={2}
-                    backgroundColor="primary.600"
-                    borderBottomLeftRadius={0}
-                    borderTopRightRadius={0}
-                    borderBottomRightRadius={16}
-                    borderTopLeftRadius={16}
-                    py={3}
-                    _text={{color: 'white', fontSize: 'xs'}}
-                    onPress={() => dispatch(GROUP_ACTION_CREATORS.groupGoToPreviousPage())}
-                    variant="solid">
-                    Previous
-                </Button>
             </Box>
         </ScrollView>
     );

@@ -84,15 +84,14 @@ const VerifyOTPScreen = ({ navigation }) => {
                     isFullWidth={true}
                     placeholder="Enter OTP"
                     size="md"
+                    py={3}
                     value={otp}
                     name="otp"
                     onChangeText={otp => setOTP(otp)}
                     isRequired={true}
                     variant="outline"
                     keyboardType="numeric"
-                    placeholderTextColor="primary.600"
-                    borderColor="primary.100"
-                    _focus={{borderColor: 'primary.200'}}
+                    _focus={{borderColor: 'muted.400'}}
                     borderWidth={1}
                     InputLeftElement={
                         <Icon
@@ -118,7 +117,7 @@ const VerifyOTPScreen = ({ navigation }) => {
                     isLoading={authLoading}
                     isDisabled={authLoading}
                     alignSelf="stretch"
-                    _text={{fontSize: 'xs', color: 'white'}}
+                    _text={{fontSize: 'sm', color: 'white'}}
                     variant="solid">
                     Verify Account
                 </Button>

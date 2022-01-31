@@ -34,7 +34,8 @@ const GroupContributionsScreen = ({navigation}) => {
 
       {groupContributions && groupContributions.length === 0 ? (
         <Flex backgroundColor="primary.100" width="100%" height="100%" justifyContent="center" alignItems="center">
-          <Empty description="Group has no contributions" title="Contributions" />
+          <Empty
+              description="Group has no contributions" title="Contributions" />
         </Flex>
       ) : (
         <FlatList

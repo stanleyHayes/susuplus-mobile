@@ -11,9 +11,28 @@ const INITIAL_STATE = {
   createGroupRegulations: [],
   createGroupInvitations: [],
   createGroupPaymentMethod: {
-    mobileMoneyAccount: {},
-    bankAccount: {},
-    card: {}
+    mobileMoneyAccount: {
+      provider: '',
+      mobileMoneyNumber: '',
+      name: ''
+    },
+    bankAccount: {
+      bankName: '',
+      bankCode:  '',
+      accountBranch: '',
+      accountNumber: '',
+      mobileNumber: '',
+      accountName: '',
+      currency: ''
+    },
+    card: {
+      bankIssuer: '',
+      cardHolderName: '',
+      cardNumber: '',
+      cvv: '',
+      expiryDate: new Date(),
+      cardCurrency: ''
+    }
   }
 };
 

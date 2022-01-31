@@ -18,15 +18,18 @@ const SusuMemberListItem = ({ index, member, showDelete, removeMember, addMember
             flexDirection="row"
             alignItems="center">
             <Box>
-                <Avatar  size="sm" backgroundColor="primary.100">
+                <Avatar borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}  size="sm" backgroundColor="primary.100">
                     <Text color="primary.600" fontSize="md">{index + 1}</Text>
                 </Avatar>
             </Box>
             
             <Box flex={1} px={2}>
                 <Pressable onPress={() => addMember(member)}>
-                    <Text fontSize="md">{member.user.name}</Text>
-                    {showMessage && (<Text fontSize={10}>Click to select member</Text>)}
+                    <Text fontSize="sm" color="muted.500">{member.user.name}</Text>
+                    {showMessage && (<Text fontSize="2xs" color="muted.400">Click to select member</Text>)}
                 </Pressable>
             </Box>
             

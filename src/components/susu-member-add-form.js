@@ -58,7 +58,11 @@ const AddSusuMembersForm = ({ groupDetail }) => {
             <Box borderBottomLeftRadius={0}
                  borderTopRightRadius={0}
                  borderBottomRightRadius={16}
-                 borderTopLeftRadius={16} p={5} shadow={0} backgroundColor="white" m={2}>
+                 borderTopLeftRadius={16}
+                 p={5}
+                 shadow={0}
+                 backgroundColor="white"
+                 m={2}>
                 <Text textAlign="center" fontSize="md">Group Members</Text>
                 
                 <Divider width="100%" my={2} />
@@ -86,10 +90,16 @@ const AddSusuMembersForm = ({ groupDetail }) => {
                 </Box>
             </Box>
             
-            <Box borderRadius={32} p={4} shadow={0} backgroundColor="white" m={2}>
+            <Box  borderBottomLeftRadius={0}
+                  borderTopRightRadius={0}
+                  borderBottomRightRadius={16}
+                  borderTopLeftRadius={16}
+                  p={4}
+                  shadow={0} backgroundColor="white" m={2}>
                 <Text
+                    color="muted.500"
                     textAlign="center"
-                    fontSize="md">
+                    fontSize="sm">
                     Selected Group Members ({selectedSusuMembers.length})
                 </Text>
                 
@@ -116,26 +126,38 @@ const AddSusuMembersForm = ({ groupDetail }) => {
                 </Box>
             </Box>
             
-            <Box borderRadius={32} p={4} shadow={0} backgroundColor="white" m={2}>
+           
+            <Box px={4} mt={3} flexDirection="row">
                 <Button
-                    mt={2}
-                    backgroundColor="primary.600"
-                    py={2}
-                    borderRadius={32}
+                    borderColor="primary.600"
+                    borderWidth={1}
+                    backgroundColor="white"
+                    py={3}
+                    flexGrow={1}
+                    mr={1}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
+                    _text={{color: 'primary.600', fontSize: 'xs'}}
                     onPress={() => dispatch(SUSU_ACTION_CREATORS.susuGoToPreviousPage())}
                     variant="subtle">
-                    <Text color="white" fontSize="md">Previous</Text>
+                    Previous
                 </Button>
-                
                 {selectedSusuMembers.length > 0 && (
                     <Button
-                        mt={2}
+                        flexGrow={1}
                         backgroundColor="primary.600"
-                        py={2}
-                        borderRadius={32}
+                        py={3}
+                        ml={1}
+                        borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}
                         onPress={handleGroupMembersSubmit}
+                        _text={{color: 'white', fontSize: 'xs'}}
                         variant="subtle">
-                        <Text color="white" fontSize="md">Save Members</Text>
+                        Next
                     </Button>
                 )}
             </Box>

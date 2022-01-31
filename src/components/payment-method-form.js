@@ -13,24 +13,24 @@ const PaymentMethodForm = () => {
     
     const [error, setError] = useState({});
     
-    const [provider, setProvider] = useState(createGroupPaymentMethod.mobileMoneyAccount.provider);
-    const [mobileMoneyNumber, setMobileMoneyNumber] = useState(createGroupPaymentMethod.mobileMoneyAccount.mobileMoneyNumber);
-    const [name, setName] = useState(createGroupPaymentMethod.mobileMoneyAccount.name);
+    const [provider, setProvider] = useState(createGroupPaymentMethod?.mobileMoneyAccount?.provider);
+    const [mobileMoneyNumber, setMobileMoneyNumber] = useState(createGroupPaymentMethod?.mobileMoneyAccount?.mobileMoneyNumber);
+    const [name, setName] = useState(createGroupPaymentMethod?.mobileMoneyAccount?.name);
     
-    const [bankName, setBankName] = useState(createGroupPaymentMethod.bankAccount.bankName);
-    const [bankCode, setBankCode] = useState(createGroupPaymentMethod.bankAccount.bankCode);
-    const [accountBranch, setBankBranch] = useState(createGroupPaymentMethod.bankAccount.accountBranch);
-    const [accountNumber, setAccountNumber] = useState(createGroupPaymentMethod.bankAccount.accountNumber);
-    const [mobileNumber, setMobileNumber] = useState(createGroupPaymentMethod.bankAccount.mobileNumber);
-    const [accountName, setAccountName] = useState(createGroupPaymentMethod.bankAccount.accountName);
-    const [bankCurrency, setBankCurrency] = useState(createGroupPaymentMethod.bankAccount.currency);
+    const [bankName, setBankName] = useState(createGroupPaymentMethod?.bankAccount?.bankName);
+    const [bankCode, setBankCode] = useState(createGroupPaymentMethod?.bankAccount?.bankCode);
+    const [accountBranch, setBankBranch] = useState(createGroupPaymentMethod?.bankAccount?.accountBranch);
+    const [accountNumber, setAccountNumber] = useState(createGroupPaymentMethod?.bankAccount?.accountNumber);
+    const [mobileNumber, setMobileNumber] = useState(createGroupPaymentMethod?.bankAccount?.mobileNumber);
+    const [accountName, setAccountName] = useState(createGroupPaymentMethod?.bankAccount?.accountName);
+    const [bankCurrency, setBankCurrency] = useState(createGroupPaymentMethod?.bankAccount?.currency);
     
-    const [bankIssuer, setBankIssuer] = useState(createGroupPaymentMethod.card.bankIssuer);
-    const [cardHolderName, setCardHolderName] = useState(createGroupPaymentMethod.card.cardHolderName);
-    const [cardNumber, setCardNumber] = useState(createGroupPaymentMethod.card.cardNumber);
-    const [cvv, setCVV] = useState(createGroupPaymentMethod.card.cvv);
-    const [expiryDate, setExpiryDate] = useState(createGroupPaymentMethod.card.expiryDate);
-    const [cardCurrency, setCardCurrency] = useState(createGroupPaymentMethod.card.cardCurrency);
+    const [bankIssuer, setBankIssuer] = useState(createGroupPaymentMethod?.card?.bankIssuer);
+    const [cardHolderName, setCardHolderName] = useState(createGroupPaymentMethod?.card?.cardHolderName);
+    const [cardNumber, setCardNumber] = useState(createGroupPaymentMethod?.card?.cardNumber);
+    const [cvv, setCVV] = useState(createGroupPaymentMethod?.card?.cvv);
+    const [expiryDate, setExpiryDate] = useState(createGroupPaymentMethod?.card?.expiryDate);
+    const [cardCurrency, setCardCurrency] = useState(createGroupPaymentMethod?.card?.cardCurrency);
     
     const [suggestedBanks, setSuggestedBanks] = useState([...transformedBanks]);
     const [searchQuery, setSearchQuery] = useState("");

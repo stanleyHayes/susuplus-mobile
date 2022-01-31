@@ -106,8 +106,10 @@ const GroupInvitesForm = () => {
                     borderTopRightRadius={0}
                     borderBottomRightRadius={16}
                     borderTopLeftRadius={16}
-                    backgroundColor="primary.600"
-                    _text={{ fontFamily: "body", color: "white", fontSize: 'xs' }}
+                    borderColor="primary.600"
+                    borderWidth={1}
+                    backgroundColor="white"
+                    _text={{ fontFamily: "body", color: "primary.600", fontSize: 'xs' }}
                     onPress={() => dispatch(GROUP_ACTION_CREATORS.groupGoToPreviousPage())}
                     variant="subtle">
                     Previous

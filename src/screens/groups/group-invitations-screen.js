@@ -43,6 +43,7 @@ const GroupInvitationsScreen = ({ route }) => {
             {invites && invites.length === 0 ? (
                 <Flex backgroundColor="white" width="100%" height="100%" justifyContent="center" alignItems="center">
                     <Empty
+                        hasRefresh={true}
                         description="You have no pending invites"
                         title="Group Invites"
                         refresh={() => dispatch(INVITATION_ACTION_CREATORS.getInvitations(authToken, `group=${groupID}`))}

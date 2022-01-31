@@ -143,11 +143,9 @@ const GroupInvite = ({ groupInvite, showButtons }) => {
                                 variant="outlined"
                                 borderWidth={2}
                                 backgroundColor="red.600"
-                                _text={{ color: "red.400" }}
+                                _text={{ color: "white", fontSize: 'xs' }}
                                 borderColor="red.500">
-                                <Text color="white" fontSize="md">
                                     Decline
-                                </Text>
                             </Button>
                             
                             <Button
@@ -161,10 +159,9 @@ const GroupInvite = ({ groupInvite, showButtons }) => {
                                 borderBottomLeftRadius={0}
                                 borderTopRightRadius={0}
                                 borderBottomRightRadius={16}
+                                _text={{ color: "white", fontSize: 'xs' }}
                                 borderTopLeftRadius={16}>
-                                <Text color="white" fontSize="md">
                                     Accept
-                                </Text>
                             </Button>
                         </Flex>
                     </Box>

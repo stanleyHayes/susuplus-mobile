@@ -41,7 +41,7 @@ const ForgotPasswordSuccessScreen = ({ navigation }) => {
             borderTopRightRadius={0}
             borderBottomRightRadius={16}
             borderTopLeftRadius={16}
-            _text={{color: 'white', fontSize: 'xs'}}
+            _text={{color: 'white', fontSize: 'sm'}}
             onPress={() => navigation.navigate(SCREEN_NAME_CONSTANTS.RESET_PASSWORD_SCREEN)}>
           Go to Password Reset
         </Button>

@@ -38,6 +38,7 @@ const SusuScreen = ({ navigation }) => {
                     justifyContent="center"
                     alignItems="center">
                     <Empty
+                        hasRefresh={true}
                         description="You belong to no susu groups"
                         title="Susu Groups"
                         refresh={() => dispatch(SUSU_MEMBERS_ACTION_CREATORS.getGroupsOfUser(authToken, userData._id))}

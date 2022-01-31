@@ -110,10 +110,8 @@ const ForgotPasswordScreen = ({ navigation }) => {
                 </Text>
                 <Input
                     mb={1}
-                    borderWidth={1}
-                    borderColor="primary.100"
                     px={4}
-                    py={2}
+                    py={3}
                     borderBottomLeftRadius={0}
                     borderTopRightRadius={0}
                     borderBottomRightRadius={16}
@@ -131,17 +129,16 @@ const ForgotPasswordScreen = ({ navigation }) => {
                     }
                     isInvalid={Boolean(error.email)}
                     placeholder="e.g. user@server.com"
-                    variant="rounded"
+                    variant="outline"
                     width="100%"
                     isRequired={true}
                     returnKeyType="next"
                     autoComplete="email"
+                    _focus={{borderColor: 'muted.400'}}
                     textContentType="emailAddress"
                     name="email"
-                    placeholderTextColor="primary.600"
                     keyboardType="email-address"
                     onChangeText={email => setEmail(email)}
-                    color="gray.800"
                 />
                 {error.email && <Text color="red.600">{error.email}</Text>}
     
@@ -161,7 +158,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
                     mb={4}
                     backgroundColor="primary.600"
                     alignSelf="stretch"
-                    _text={{fontSize: 'xs', color: 'white'}}
+                    _text={{fontSize: 'sm', color: 'white'}}
                     variant="solid">
                    Get Reset Link
                 </Button>

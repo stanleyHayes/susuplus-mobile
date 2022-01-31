@@ -45,6 +45,7 @@ const GroupPaymentMethodScreen = ({ navigation, route }) => {
                         justifyContent="center"
                         alignItems="center">
                         <Empty
+                            hasRefresh={true}
                             description="This group has no payment methods"
                             title="Group Payment Methods"
                             refresh={() => dispatch(GROUP_PAYMENT_METHOD_ACTION_CREATORS.getGroupPaymentMethods(authToken, groupID))}

@@ -39,6 +39,7 @@ const PaymentMethodsScreen = ({ navigation }) => {
             {paymentMethods && paymentMethods.length === 0 ? (
                 <Flex backgroundColor="white" width="100%" height="100%" justifyContent="center" alignItems="center">
                     <Empty
+                        hasRefresh={true}
                         description="You have no payment methods"
                         title="Payment Methods"
                         refresh={() => dispatch(PAYMENT_METHOD_ACTION_CREATORS.getPaymentMethods(authToken))}

@@ -1,7 +1,7 @@
 import { SUSU_ACTION_TYPES } from "./susu-action-types";
 
 const INITIAL_STATE = {
-    susuLoading: true,
+    susuLoading: false,
     susus: [],
     susuError: null,
     susuDetail: null,
@@ -113,6 +113,18 @@ const susuReducer = (state = INITIAL_STATE, action) => {
                 createSusuRegulations: [],
             }
     
+        case SUSU_ACTION_TYPES.SUSU_CANCEL_CREATION:
+            return {
+                ...state,
+                susuLoading: false,
+                susuError: null,
+                createSusuPage: 0,
+                createSusuBasicInfo: {
+                    startDate: new Date()
+                },
+                createSusuMembers: [],
+                createSusuRegulations: [],
+            }
     
         case SUSU_ACTION_TYPES.CREATE_SUSU_FAILURE:
             return {

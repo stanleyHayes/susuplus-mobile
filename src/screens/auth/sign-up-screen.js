@@ -140,7 +140,6 @@ const SignUpScreen = ({ navigation }) => {
                     <Flex flex={1} justifyContent="flex-end">
                         <Input
                             mb={1}
-                            borderWidth={1}
                             borderBottomLeftRadius={0}
                             borderTopRightRadius={0}
                             borderBottomRightRadius={16}
@@ -165,13 +164,10 @@ const SignUpScreen = ({ navigation }) => {
                             textContentType="name"
                             returnKeyType="next"
                             name="name"
-                            placeholderTextColor="primary.300"
                             onChangeText={name => setName(name)}
-                            color="darkText"
-                            _focus={{ borderColor: "primary.100" }}
-                            borderColor="primary.100"
+                            _focus={{ borderColor: "muted.400" }}
                             px={4}
-                            py={2}
+                            py={3}
                         />
                         {error.name && <Text color="red.600">{error.name}</Text>}
                         
@@ -203,14 +199,11 @@ const SignUpScreen = ({ navigation }) => {
                             autoComplete="email"
                             textContentType="emailAddress"
                             name="email"
-                            placeholderTextColor="primary.300"
                             keyboardType="email-address"
                             onChangeText={email => setEmail(email)}
-                            color="gray.800"
-                            _focus={{ borderColor: "primary.100" }}
-                            borderColor="primary.100"
+                            _focus={{ borderColor: "muted.400" }}
                             px={4}
-                            py={2}
+                            py={3}
                         />
                         {error.email && <Text color="red.600">{error.email}</Text>}
                         
@@ -240,16 +233,13 @@ const SignUpScreen = ({ navigation }) => {
                             isRequired={true}
                             returnKeyType="next"
                             autoComplete="tel"
-                            placeholderTextColor="primary.300"
                             textContentType="telephoneNumber"
                             name="phone"
                             keyboardType="phone-pad"
                             onChangeText={phone => setPhone(phone)}
-                            color="gray.800"
-                            _focus={{ borderColor: "primary.100" }}
-                            borderColor="primary.100"
+                            _focus={{ borderColor: "muted.400" }}
                             px={4}
-                            py={2}
+                            py={3}
                         />
                         {error.phone && <Text color="red.600">{error.phone}</Text>}
                         
@@ -288,9 +278,8 @@ const SignUpScreen = ({ navigation }) => {
                             
                             isInvalid={Boolean(error.password)}
                             placeholder="Enter password"
-                            variant="rounded"
+                            variant="outline"
                             width="100%"
-                            placeholderTextColor="primary.300"
                             isRequired={true}
                             autoComplete="password"
                             secureTextEntry={isPasswordVisible}
@@ -298,11 +287,9 @@ const SignUpScreen = ({ navigation }) => {
                             name="password"
                             returnKeyType="next"
                             onChangeText={password => setPassword(password)}
-                            color="gray.800"
-                            _focus={{ borderColor: "primary.100" }}
-                            borderColor="primary.100"
+                            _focus={{ borderColor: "muted.400" }}
                             px={4}
-                            py={2}
+                            py={3}
                         />
                         {error.password && <Text color="red.600">{error.password}</Text>}
                         
@@ -339,8 +326,7 @@ const SignUpScreen = ({ navigation }) => {
                             }
                             isInvalid={Boolean(error.confirmPassword)}
                             placeholder="Confirm Password"
-                            placeholderTextColor="primary.300"
-                            variant="rounded"
+                            variant="outline"
                             width="100%"
                             isRequired={true}
                             autoComplete="password"
@@ -350,10 +336,9 @@ const SignUpScreen = ({ navigation }) => {
                             returnKeyType="next"
                             onChangeText={confirmPassword => setConfirmPassword(confirmPassword)}
                             color="gray.800"
-                            _focus={{ borderColor: "primary.100" }}
-                            borderColor="primary.100"
+                            _focus={{ borderColor: "muted.400" }}
                             px={4}
-                            py={2}
+                            py={3}
                         />
                         {error.confirmPassword && <Text color="red.400">{error.confirmPassword}</Text>}
                         
@@ -371,6 +356,7 @@ const SignUpScreen = ({ navigation }) => {
                             borderTopRightRadius={0}
                             borderBottomRightRadius={16}
                             borderTopLeftRadius={16}
+                            _text={{color: 'white', fontSize: 'sm'}}
                             width="100%"
                             variant="solid">
                                 Create Account

@@ -44,6 +44,7 @@ const GroupDisbursementsScreen = ({navigation, route}) => {
       {groupDisbursements && groupDisbursements.length === 0 ? (
         <Flex backgroundColor="primary.100" width="100%" height="100%" justifyContent="center" alignItems="center">
           <Empty
+              hasRefresh={true}
               description="Group has no disbursements"
               title="Disbursements"
               refresh={() => dispatch(GROUP_DISBURSEMENTS_ACTION_CREATORS.getGroupDisbursements(authToken, disbursementID))}

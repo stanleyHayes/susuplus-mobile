@@ -71,44 +71,60 @@ const GroupSusuBasicInfoForm = ({ groupDetail }) => {
         setShowStartDateDialog(false);
         setStartDate(date);
     };
-  
+    
     return (
         <ScrollView>
             <Box borderBottomLeftRadius={0}
                  borderTopRightRadius={0}
                  borderBottomRightRadius={16}
-                 borderTopLeftRadius={16} mb={2} py={3} px={5} shadow={0} backgroundColor="white" m={2}>
-                <Text fontSize="md">Group Info</Text>
+                 borderTopLeftRadius={16}
+                 mb={2}
+                 py={3}
+                 px={5}
+                 shadow={0}
+                 backgroundColor="white"
+                 m={2}>
+                <Text fontSize="xs" color="muted.400">Group Info</Text>
                 
                 <Divider width="100%" my={1} />
                 
-                <Text mb={1}>Name</Text>
-                <Text fontSize="md">{groupDetail.name}</Text>
+                <Text mb={1} color="muted.400">Name</Text>
+                <Text fontSize="sm" color="muted.500">{groupDetail.name}</Text>
             </Box>
             
-            <Box borderRadius={32} py={3} px={5} shadow={0} backgroundColor="white" m={2}>
+            <Box
+                borderBottomLeftRadius={0}
+                borderTopRightRadius={0}
+                borderBottomRightRadius={16}
+                borderTopLeftRadius={16}
+                py={3}
+                px={5}
+                shadow={0}
+                backgroundColor="white"
+                m={2}>
                 
-                <Text fontSize="md">Payment Plan</Text>
+                <Text fontSize="xs" color="muted.400">Payment Plan</Text>
                 
                 <Divider width="100%" my={2} />
                 
                 <Box mb={1}>
-                    <Text mb={1}>Payment Amount</Text>
+                    <Text mb={1} fontSize="xs" color="muted.400">Payment Amount</Text>
                     
                     <Input
                         placeholder="Payment Amount"
-                        variant="filled"
-                        borderRadius={32}
-                        py={4}
+                        variant="outline"
+                        borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}
+                        py={3}
                         px={4}
-                        borderWidth={1}
-                        borderColor="gray.50"
                         isInvalid={Boolean(error.name)}
-                        _focus={{ borderColor: "gray.50" }}
+                        _focus={{ borderColor: "gray.400" }}
                         _invalid={{ borderColor: "red.400", borderWidth: 1, borderStyle: "solid" }}
                         isFullWidth={true}
-                        backgroundColor="gray.50"
                         mb={1}
+                        size="md"
                         value={paymentAmount}
                         name="paymentAmount"
                         keyboardType="number-pad"
@@ -118,18 +134,20 @@ const GroupSusuBasicInfoForm = ({ groupDetail }) => {
                     {error.paymentAmount && <Text color="error.400">{error.paymentAmount}</Text>}
                 </Box>
                 <Box>
-                    <Text mb={1}>Payment Currency</Text>
+                    <Text mb={1} color="muted.400" fontSize="xs">Payment Currency</Text>
                     <Select
-                        p={4}
+                        py={3}
+                        px={4}
                         mb={1}
                         variant="outline"
-                        borderRadius={32}
-                        backgroundColor="white"
+                        borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}
                         name="paymentCurrency"
                         placeholder="Payment Currency"
                         onValueChange={paymentCurrency => setPaymentCurrency(paymentCurrency)}
                         selectedValue={paymentCurrency}>
-                        <Select.Item label="Select Payment Currency" value="" />
                         <Select.Item label="Cedis" value="GHS" />
                         <Select.Item label="Dollars" value="USD" />
                     </Select>
@@ -138,25 +156,28 @@ const GroupSusuBasicInfoForm = ({ groupDetail }) => {
                 
                 <Divider width="100%" my={2} />
                 
-                <Text fontSize="md">Contribution Plan</Text>
+                <Text color="muted.400" fontSize="xs">Contribution Plan</Text>
                 
                 <Divider width="100%" my={2} />
                 
                 <Box mb={2}>
-                    <Text mb={1}>Interval</Text>
+                    <Text mb={1} color="muted.400" fontSize="xs">Interval</Text>
                     <Input
                         placeholder="Contribution interval"
                         variant="outline"
                         borderWidth={1}
-                        borderRadius={32}
-                        py={4}
+                        borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}
+                        py={3}
                         keyboardType="number-pad"
                         px={4}
+                        size="md"
                         isInvalid={Boolean(error.intervalUnit)}
-                        _focus={{ borderColor: "gray.50" }}
+                        _focus={{ borderColor: "gray.400" }}
                         _invalid={{ borderColor: "red.400", borderWidth: 1, borderStyle: "solid" }}
                         isFullWidth={true}
-                        backgroundColor="white"
                         mb={1}
                         value={intervalAmount}
                         name="intervalAmount"
@@ -167,19 +188,20 @@ const GroupSusuBasicInfoForm = ({ groupDetail }) => {
                 </Box>
                 
                 <Box mb={2}>
-                    <Text mb={1}>Period</Text>
+                    <Text mb={1} color="muted.400" fontSize="xs">Period</Text>
                     <Select
-                        p={4}
+                        px={4}
+                        py={3}
                         variant="outline"
                         borderWidth={1}
-                        borderRadius={32}
-                        borderColor="gray.50"
-                        backgroundColor="gray.50"
+                        borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}
                         name="intervalUnit"
-                        placeholder="Contribution interval"
+                        placeholder="Contribution interval UNIT"
                         onValueChange={intervalUnit => setIntervalUnit(intervalUnit)}
                         selectedValue={intervalUnit}>
-                        <Select.Item label="Select interval unit" value="" />
                         <Select.Item label="Day" value="day" />
                         <Select.Item label="Week" value="week" />
                         <Select.Item label="Month" value="month" />
@@ -190,9 +212,9 @@ const GroupSusuBasicInfoForm = ({ groupDetail }) => {
                 <Divider width="100%" my={2} />
                 
                 <Box mb={4}>
-                    <Text mb={1}>Start Date</Text>
+                    <Text mb={1} color="muted.400" fontSize="xs">Start Date</Text>
                     
-                    <Text fontSize="md">{moment(startDate).format("dddd, Do MMM YYYY")}</Text>
+                    <Text color="muted.500" fontSize="sm">{moment(startDate).format("dddd, Do MMM YYYY")}</Text>
                     
                     <Divider width="100%" my={2} />
                     
@@ -209,22 +231,31 @@ const GroupSusuBasicInfoForm = ({ groupDetail }) => {
                     
                     <Button
                         mb={1}
-                        borderRadius={32}
+                        borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}
                         onPress={() => setShowStartDateDialog(true)}
                         variant="solid"
+                        py={3}
+                        _text={{ color: "primary.600", fontSize: "xs" }}
                         backgroundColor="primary.100">
-                        <Text color="primary.800">Select Start Date</Text>
+                        Select Start Date
                     </Button>
                     {error.startDate && <Text textAlign="center" color="error.400">{error.startDate}</Text>}
                 </Box>
                 
                 <Button
                     onPress={handleSaveGroupBasicInfo}
-                    borderRadius={32}
-                    py={2}
-                    backgroundColor="primary.700"
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
+                    py={3}
+                    _text={{ color: "white", fontSize: "xs" }}
+                    backgroundColor="primary.600"
                     variant="solid">
-                    <Text color="white" fontSize="md">Save Basic Info</Text>
+                    Save Basic Info
                 </Button>
             </Box>
         </ScrollView>

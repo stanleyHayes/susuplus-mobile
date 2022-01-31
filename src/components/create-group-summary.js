@@ -181,8 +181,29 @@ const CreateGroupSummary = ({ navigation,  }) => {
                 <Box>
                     <PaymentMethodCard paymentMethod={createGroupPaymentMethod} />
                 </Box>
-
+            </Box>
+    
+            <Box p={5} flexDirection="row">
                 <Button
+                    flexGrow={1}
+                    mt={2}
+                    mr={1}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
+                    borderColor="primary.600"
+                    borderWidth={1}
+                    backgroundColor="white"
+                    py={3}
+                    _text={{color: 'primary.600', fontSize: 'xs'}}
+                    onPress={() => dispatch(GROUP_ACTION_CREATORS.groupGoToPreviousPage())}
+                    variant="subtle">
+                    Previous
+                </Button>
+                <Button
+                    ml={1}
+                    flexGrow={1}
                     borderBottomLeftRadius={0}
                     borderTopRightRadius={0}
                     borderBottomRightRadius={16}
@@ -197,22 +218,6 @@ const CreateGroupSummary = ({ navigation,  }) => {
                     isDisabled={groupLoading}
                     variant="solid">
                     Create Group
-                </Button>
-            </Box>
-    
-            <Box p={5}>
-                <Button
-                    mt={2}
-                    borderBottomLeftRadius={0}
-                    borderTopRightRadius={0}
-                    borderBottomRightRadius={16}
-                    borderTopLeftRadius={16}
-                    backgroundColor="primary.600"
-                    py={3}
-                    _text={{color: 'white', fontSize: 'xs'}}
-                    onPress={() => dispatch(GROUP_ACTION_CREATORS.groupGoToPreviousPage())}
-                    variant="subtle">
-                    Previous
                 </Button>
             </Box>
         </ScrollView>

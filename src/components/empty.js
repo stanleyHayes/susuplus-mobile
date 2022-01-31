@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button, Center, Image, Stack, Text } from "native-base";
 import emptyImage from "../assets/images/empty.png";
 
-const Empty = ({ title, description, refresh }) => {
+const Empty = ({ title, description, refresh, hasRefresh = false }) => {
     return (
         <Box>
             <Stack direction="column">
@@ -27,19 +27,22 @@ const Empty = ({ title, description, refresh }) => {
                     textAlign="center">
                     {description}
                 </Text>
+    
+                {hasRefresh && (
+                    <Button
+                        alignSelf="center"
+                        onPress={refresh}
+                        mt={2}
+                        _text={{fontSize: 'xs'}}
+                        borderBottomLeftRadius={0}
+                        borderTopRightRadius={0}
+                        borderBottomRightRadius={16}
+                        borderTopLeftRadius={16}
+                        backgroundColor="primary.600">
+                        Refresh
+                    </Button>
+                )}
                 
-                <Button
-                    alignSelf="center"
-                    onPress={refresh}
-                    mt={2}
-                    _text={{fontSize: 'xs'}}
-                    borderBottomLeftRadius={0}
-                    borderTopRightRadius={0}
-                    borderBottomRightRadius={16}
-                    borderTopLeftRadius={16}
-                    backgroundColor="primary.600">
-                    Refresh
-                </Button>
             </Stack>
         </Box>
     );

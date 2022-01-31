@@ -40,6 +40,7 @@ const GroupsScreen = ({ navigation }) => {
                     justifyContent="center"
                     alignItems="center">
                     <Empty
+                        hasRefresh={true}
                         description="You belong to no groups"
                         title="User Groups"
                         refresh={() => dispatch(GROUP_MEMBERS_ACTION_CREATORS.getGroupsOfUser(authToken, userData._id))}

@@ -10,7 +10,7 @@ import SusuMemberListItem from "./susu-member-list-item";
 
 const CreateSusuSummary = ({ navigation, groupDetail }) => {
     
-    const { createSusuBasicInfo, createSusuMembers, createSusuRegulations } = useSelector(selectSusu);
+    const { createSusuBasicInfo, createSusuMembers, createSusuRegulations, susuLoading } = useSelector(selectSusu);
     
     const { authToken, userData } = useSelector(selectAuth);
     
@@ -35,24 +35,24 @@ const CreateSusuSummary = ({ navigation, groupDetail }) => {
                  borderTopRightRadius={0}
                  borderBottomRightRadius={16}
                  borderTopLeftRadius={16} p={5} shadow={0} backgroundColor="white" m={2}>
-                <Text textAlign="center" fontSize="xl">Susu Summary</Text>
+                <Text textAlign="center" fontSize="md" color="muted.500">Susu Summary</Text>
                 
                 <Divider width="100%" my={2} />
                 
-                <Text mb={1} fontSize="lg">Susu Basic Info</Text>
+                <Text mb={1} fontSize="sm" color="muted.400">Susu Basic Info</Text>
                 
                 <Divider width="100%" my={2} />
                 
-                <Text mb={1} fontSize="sm">Group Name</Text>
+                <Text mb={1} fontSize="xs" color="muted.400">Group Name</Text>
                 
-                <Text mb={2} fontSize="md">{groupDetail.name}</Text>
+                <Text mb={2} fontSize="sm" color="muted.500">{groupDetail.name}</Text>
                 
                 <Divider width="100%" my={2} />
                 
                 <Box>
                     <Box mb={2}>
-                        <Text mb={1}>Payment Plan</Text>
-                        <Text fontSize="md">
+                        <Text mb={1} fontSize="xs" color="muted.400">Payment Plan</Text>
+                        <Text fontSize="sm" color="muted.500">
                             {`${createSusuBasicInfo.paymentAmount} ${createSusuBasicInfo.paymentCurrency}`}
                         </Text>
                     </Box>
@@ -60,8 +60,8 @@ const CreateSusuSummary = ({ navigation, groupDetail }) => {
                     <Divider width="100%" my={2} />
                     
                     <Box>
-                        <Text mb={1}>Contribution Plan</Text>
-                        <Text fontSize="md">
+                        <Text fontSize="xs" color="muted.400" mb={1}>Contribution Plan</Text>
+                        <Text fontSize="sm" color="muted.500">
                             {`${createSusuBasicInfo.intervalAmount} ${createSusuBasicInfo.intervalUnit}`}
                         </Text>
                     </Box>
@@ -69,9 +69,9 @@ const CreateSusuSummary = ({ navigation, groupDetail }) => {
                     <Divider width="100%" my={2} />
                     
                     <Box mb={4}>
-                        <Text mb={1}>Start Date</Text>
+                        <Text mb={1} fontSize="xs" color="muted.400">Start Date</Text>
                         
-                        <Text fontSize="md">{moment(createSusuBasicInfo.startDate).format("dddd, Do MMM YYYY")}</Text>
+                        <Text fontSize="sm" color="muted.500">{moment(createSusuBasicInfo.startDate).format("dddd, Do MMM YYYY")}</Text>
                     
                     </Box>
                  </Box>
@@ -79,7 +79,7 @@ const CreateSusuSummary = ({ navigation, groupDetail }) => {
                 <Divider width="100%" my={2} />
                 
                 <Box>
-                    <Text mb={1} fontSize="sm">Group Regulations</Text>
+                    <Text mb={1} fontSize="xs" color="muted.400">Group Regulations</Text>
                     <Box>
                         {createSusuRegulations.map((regulation, index) => {
                             return (
@@ -97,7 +97,7 @@ const CreateSusuSummary = ({ navigation, groupDetail }) => {
                 <Divider width="100%" my={2} />
                 
                 <Box>
-                    <Text mb={1} fontSize="sm">Susu Members</Text>
+                    <Text mb={1} fontSize="xs" color="muted.400">Susu Members</Text>
                     <Box>
                         {createSusuMembers.map((member, index) => {
                             return (
@@ -115,28 +115,58 @@ const CreateSusuSummary = ({ navigation, groupDetail }) => {
                 
                 <Divider width="100%" my={2} />
                 
+                
                 <Button
                     mt={2}
                     backgroundColor="primary.600"
-                    py={2}
-                    borderRadius={32}
-                    onPress={() => dispatch(SUSU_ACTION_CREATORS.susuGoToPreviousPage())}
-                    variant="subtle">
-                    <Text color="white" fontSize="md">Previous</Text>
-                </Button>
-                
-                <Button
-                    mt={2}
-                    backgroundColor="primary.700"
                     py={3}
-                    borderRadius={32}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
+                    isLoading={susuLoading}
+                    isDisabled={susuLoading}
+                    isLoadingText="Creating Susu..."
                     onPress={handleCreateSusu}
-                    variant="subtle">
-                    <Text color="white" fontSize="md">Create Susu</Text>
-                
+                    _text={{color: 'white', fontSize: 'xs'}}
+                    variant="solid">
+                    Create Susu
                 </Button>
             </Box>
         
+            <Box px={4} mt={3} flexDirection="row">
+                <Button
+                    mt={2}
+                    flexGrow={1}
+                    borderColor="primary.600"
+                    borderWidth={1}
+                    backgroundColor="white"
+                    py={3}
+                    mr={2}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
+                    _text={{color: 'primary.600', fontSize: 'xs'}}
+                    onPress={() => dispatch(SUSU_ACTION_CREATORS.susuGoToPreviousPage())}
+                    variant="subtle">
+                    Previous
+                </Button>
+                <Button
+                    mt={2}
+                    backgroundColor="red.600"
+                    py={3}
+                    flexGrow={1}
+                    borderBottomLeftRadius={0}
+                    borderTopRightRadius={0}
+                    borderBottomRightRadius={16}
+                    borderTopLeftRadius={16}
+                    _text={{color: 'white', fontSize: 'xs'}}
+                    onPress={() => dispatch(SUSU_ACTION_CREATORS.cancelSusuCreation(navigation))}
+                    variant="subtle">
+                    Cancel
+                </Button>
+            </Box>
         </ScrollView>
     );
 };

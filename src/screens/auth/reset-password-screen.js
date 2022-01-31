@@ -103,6 +103,7 @@ const ResetPasswordScreen = ({ navigation }) => {
                     mt={2}
                     mb={1}
                     px={4}
+                    py={3}
                     borderBottomLeftRadius={0}
                     borderTopRightRadius={0}
                     borderBottomRightRadius={16}
@@ -139,12 +140,9 @@ const ResetPasswordScreen = ({ navigation }) => {
                     secureTextEntry={!isPasswordVisible}
                     textContentType="newPassword"
                     name="password"
+                    _focus={{borderColor: 'muted.400'}}
                     returnKeyType="next"
                     onChangeText={password => setPassword(password)}
-                    color="gray.800"
-                    placeholderTextColor="primary.600"
-                    borderColor="primary.100"
-                    borderWidth={1}
                 />
                 {error.password && <Text color="red.600">{error.password}</Text>}
     
@@ -152,7 +150,7 @@ const ResetPasswordScreen = ({ navigation }) => {
                 <Input
                     mt={2}
                     mb={1}
-                    borderWidth={1}
+                    _focus={{borderColor: 'muted.400'}}
                     px={4}
                     borderBottomLeftRadius={0}
                     borderTopRightRadius={0}
@@ -181,7 +179,6 @@ const ResetPasswordScreen = ({ navigation }) => {
                     }
                     isInvalid={Boolean(error.confirmPassword)}
                     placeholder="Confirm Password"
-                    placeholderTextColor="primary.600"
                     variant="outline"
                     width="100%"
                     isRequired={true}
@@ -191,8 +188,6 @@ const ResetPasswordScreen = ({ navigation }) => {
                     name="confirmPassword"
                     returnKeyType="next"
                     onChangeText={confirmPassword => setConfirmPassword(confirmPassword)}
-                    color="gray.800"
-                    borderColor="primary.100"
                 />
                 {error.confirmPassword && <Text color="red.400">{error.confirmPassword}</Text>}
     
@@ -200,8 +195,7 @@ const ResetPasswordScreen = ({ navigation }) => {
                     mt={4}
                     onPress={handleResetPassword}
                     backgroundColor={authLoading ? 'primary.400': 'primary.800'}
-                    pt={2}
-                    pb={2}
+                    py={3}
                     borderBottomLeftRadius={0}
                     borderTopRightRadius={0}
                     borderBottomRightRadius={16}
@@ -224,7 +218,6 @@ const ResetPasswordScreen = ({ navigation }) => {
                     borderTopRightRadius={0}
                     borderBottomRightRadius={16}
                     borderTopLeftRadius={16}
-                    textColor="gray.400"
                     alignSelf="stretch"
                     _text={{fontSize: 'sm', color: 'muted.500'}}
                     variant="link">

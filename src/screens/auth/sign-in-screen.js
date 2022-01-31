@@ -105,17 +105,15 @@ const SignInScreen = ({ navigation }) => {
                 <Input
                     mt={2}
                     mb={1}
-                    borderWidth={1}
-                    borderColor="primary.100"
-                    _focus={{borderColor: "primary.100"}}
-                    py={2}
+                    _focus={{borderColor: "muted.400"}}
+                    py={3}
                     px={4}
                     borderBottomLeftRadius={0}
                     borderTopRightRadius={0}
                     borderBottomRightRadius={16}
                     borderTopLeftRadius={16}
                     isFullWidth={true}
-                    size="lg"
+                    size="md"
                     value={email}
                     InputLeftElement={
                         <Icon
@@ -127,33 +125,30 @@ const SignInScreen = ({ navigation }) => {
                     }
                     isInvalid={Boolean(error.email)}
                     placeholder="e.g. user@server.com"
-                    variant="rounded"
+                    variant="outline"
                     width="100%"
                     isRequired={true}
                     returnKeyType="next"
                     autoComplete="email"
                     textContentType="emailAddress"
                     name="email"
-                    placeholderTextColor="primary.300"
                     keyboardType="email-address"
                     onChangeText={email => setEmail(email)}
-                    color="gray.800"
                 />
                 {error.email && <Text color="red.600">{error.email}</Text>}
                 
                 <Input
                     mt={2}
                     mb={1}
-                    borderWidth={1}
                     px={4}
-                    py={2}
+                    py={3}
                     borderBottomLeftRadius={0}
                     borderTopRightRadius={0}
                     borderBottomRightRadius={16}
                     borderTopLeftRadius={16}
                     isFullWidth={true}
-                    size="lg"
-                    _focus={{borderColor: "primary.100"}}
+                    size="md"
+                    _focus={{borderColor: "muted.400"}}
                     value={password}
                     InputLeftElement={
                         <Icon
@@ -177,7 +172,7 @@ const SignInScreen = ({ navigation }) => {
                     
                     isInvalid={Boolean(error.password)}
                     placeholder="Enter password"
-                    variant="rounded"
+                    variant="outline"
                     width="100%"
                     isRequired={true}
                     autoComplete="password"
@@ -185,10 +180,7 @@ const SignInScreen = ({ navigation }) => {
                     textContentType="newPassword"
                     name="password"
                     returnKeyType="next"
-                    placeholderTextColor="primary.300"
                     onChangeText={password => setPassword(password)}
-                    color="gray.800"
-                    borderColor="primary.100"
                 />
                 {error.password && <Text color="red.600">{error.password}</Text>}
                 
@@ -198,7 +190,7 @@ const SignInScreen = ({ navigation }) => {
                     pt={3}
                     pb={3}
                     width="100%"
-                    _text={{color: 'muted.500'}}
+                    _text={{color: 'muted.500', fontSize: 'sm'}}
                     mb={4}
                     variant="link">
                         Forgot Password
@@ -218,7 +210,7 @@ const SignInScreen = ({ navigation }) => {
                     borderTopLeftRadius={16}
                     width="100%"
                     backgroundColor="primary.600"
-                    _text={{color: 'white'}}
+                    _text={{color: 'white', fontSize: 'sm'}}
                     variant="solid">
                     Sign In
                 </Button>
@@ -227,7 +219,6 @@ const SignInScreen = ({ navigation }) => {
                     onPress={() => navigation.push(SCREEN_NAME_CONSTANTS.SIGN_UP_SCREEN)}
                     pt={3}
                     pb={3}
-                    borderRadius={0}
                     alignSelf="stretch"
                     _text={{color: 'muted.500'}}
                     variant="link">

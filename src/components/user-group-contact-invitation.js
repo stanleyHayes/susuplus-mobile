@@ -1,6 +1,8 @@
 import React from "react";
 import { Avatar, Box, Button, Text } from "native-base";
 import { UTILS } from "../utils/utils";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../redux/auth/auth-reducer";
 
 const UserGroupContactInvitation = ({ contact, addContact, isAdded, removeContact, showDelete }) => {
     
@@ -10,6 +12,11 @@ const UserGroupContactInvitation = ({ contact, addContact, isAdded, removeContac
     
     const handleContactRemove = contact => {
         removeContact(contact);
+    }
+    
+    const {userData} = useSelector(selectAuth);
+    const isSelf = () => {
+        return contact.email === userData.email;
     }
     
     return (
@@ -40,32 +47,34 @@ const UserGroupContactInvitation = ({ contact, addContact, isAdded, removeContac
                     {contact.isContact && <Text color="muted.400" fontSize="xs">In your contacts</Text>}
                 </Box>
             </Box>
-            {showDelete && (
-                <Box>
-                    {isAdded ? (
-                        <Button
-                            _text={{fontSize: 'xs'}}
-                            onPress={() => handleContactRemove(contact)}
-                            borderBottomLeftRadius={0}
-                            borderTopRightRadius={0}
-                            borderBottomRightRadius={16}
-                            borderTopLeftRadius={16}
-                            backgroundColor="red.600">
-                            Remove
-                        </Button>
-                    ): (
-                        <Button
-                            _text={{fontSize: 'xs'}}
-                            onPress={() => handleContactSelected(contact)}
-                            borderBottomLeftRadius={0}
-                            borderTopRightRadius={0}
-                            borderBottomRightRadius={16}
-                            borderTopLeftRadius={16}
-                            backgroundColor="primary.600">
-                            Add
-                        </Button>
-                    )}
-                </Box>
+            {!isSelf() && (
+                showDelete && (
+                    <Box>
+                        {isAdded ? (
+                            <Button
+                                _text={{fontSize: 'xs'}}
+                                onPress={() => handleContactRemove(contact)}
+                                borderBottomLeftRadius={0}
+                                borderTopRightRadius={0}
+                                borderBottomRightRadius={16}
+                                borderTopLeftRadius={16}
+                                backgroundColor="red.600">
+                                Remove
+                            </Button>
+                        ): (
+                            <Button
+                                _text={{fontSize: 'xs'}}
+                                onPress={() => handleContactSelected(contact)}
+                                borderBottomLeftRadius={0}
+                                borderTopRightRadius={0}
+                                borderBottomRightRadius={16}
+                                borderTopLeftRadius={16}
+                                backgroundColor="primary.600">
+                                Add
+                            </Button>
+                        )}
+                    </Box>
+                )
             )}
         </Box>
     );

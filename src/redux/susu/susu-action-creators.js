@@ -129,6 +129,14 @@ const susuGoToNextPage = () => {
     };
 };
 
+
+const cancelSusuCreation = navigation => {
+    navigation.navigate(SCREEN_NAME_CONSTANTS.SUSU_STACK_NAVIGATOR);
+    return {
+        type: SUSU_ACTION_TYPES.SUSU_CANCEL_CREATION
+    };
+};
+
 const susuGoToPreviousPage = () => {
     return {
         type: SUSU_ACTION_TYPES.SUSU_GO_TO_PREVIOUS_PAGE,
@@ -178,8 +186,7 @@ const createSusu = (token, susu, userID, navigation) => {
                 message,
                 'success',
                 5000);
-            dispatch(SUSU_MEMBERS_ACTION_CREATORS.getGroupsOfUser(token, userID));
-            navigation.push(SCREEN_NAME_CONSTANTS.SUSU_SCREEN);
+            navigation.navigate(SCREEN_NAME_CONSTANTS.SUSU_STACK_NAVIGATOR);
         } catch (e) {
             const { message } = e.response.data;
     
@@ -196,6 +203,7 @@ const createSusu = (token, susu, userID, navigation) => {
 
 
 export const SUSU_ACTION_CREATORS = {
+    cancelSusuCreation,
     getSusuGroup,
     createSusu,
     saveSusuBasicInfo,
