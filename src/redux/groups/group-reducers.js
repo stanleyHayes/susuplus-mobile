@@ -11,27 +11,27 @@ const INITIAL_STATE = {
   createGroupRegulations: [],
   createGroupInvitations: [],
   createGroupPaymentMethod: {
-    mobileMoneyAccount: {
-      provider: '',
-      mobileMoneyNumber: '',
-      name: ''
-    },
+    type: '',
     bankAccount: {
       bankName: '',
-      bankCode:  '',
-      accountBranch: '',
+      routingNumber:  '',
+      accountHolderType: '',
       accountNumber: '',
-      mobileNumber: '',
-      accountName: '',
-      currency: ''
+      accountType: '',
+      accountHolderName: '',
+      bankCurrency: ''
     },
     card: {
-      bankIssuer: '',
+      funding: '',
       cardHolderName: '',
       cardNumber: '',
       cvv: '',
       expiryDate: new Date(),
-      cardCurrency: ''
+      country: '',
+      state: '',
+      city: '',
+      addressLine1: '',
+      addressLine2: '',
     }
   }
 };
