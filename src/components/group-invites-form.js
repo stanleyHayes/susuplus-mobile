@@ -11,10 +11,13 @@ const GroupInvitesForm = () => {
     const { createGroupInvitations } = useSelector(selectGroups);
     const { users, userLoading } = useSelector(selectUsers);
     
+    console.log('createGroupInvitations', 'createGroupInvitations')
     const [error, setError] = useState({});
     const [searchUserQuery, setSearchUserQuery] = useState("");
     const [selectedUsers, setSelectedUsers] = useState([...createGroupInvitations]);
     const [suggestedUsers, setSuggestedUsers] = useState([]);
+    
+    console.log('selectedUsers', 'selectedUsers')
     
     const addUser = user => {
         setSelectedUsers([...selectedUsers, user]);
@@ -27,12 +30,6 @@ const GroupInvitesForm = () => {
     const dispatch = useDispatch();
     
     const handleGroupInvitationsSubmit = () => {
-        if (selectedUsers.length <= 0) {
-            setError({ error, invitations: "Invite at least one user" });
-            return;
-        } else {
-            setError({ error, invitations: null });
-        }
         dispatch(GROUP_ACTION_CREATORS.saveGroupInvites(selectedUsers));
         dispatch(GROUP_ACTION_CREATORS.groupGoToNextPage());
     };
@@ -48,9 +45,12 @@ const GroupInvitesForm = () => {
         }
     }, []);
     
+    
     return (
         <Flex flex={1} px={2} py={4}>
-            <Text textAlign="center" fontSize="sm" color="muted.500">Group Invitations ({selectedUsers.length})</Text>
+            <Text textAlign="center" fontSize="sm" color="muted.500">
+                Group Invitations ({selectedUsers.length})
+            </Text>
             
             <Divider width="100%" my={2} />
             
@@ -114,7 +114,7 @@ const GroupInvitesForm = () => {
                     variant="subtle">
                     Previous
                 </Button>
-                {selectedUsers.length > 0 && (
+                {(selectedUsers.length === 0 || selectedUsers.length > 0 )  && (
                     <Button
                         flexGrow={1}
                         px={3}

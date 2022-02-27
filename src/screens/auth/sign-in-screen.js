@@ -119,7 +119,7 @@ const SignInScreen = ({ navigation }) => {
                         <Icon
                             size={6}
                             ml={2}
-                            color="primary.400"
+                            color="muted.400"
                             as={<MaterialIcons name="mail-outline" />}
                         />
                     }
@@ -154,14 +154,14 @@ const SignInScreen = ({ navigation }) => {
                         <Icon
                             size={6}
                             ml={2}
-                            color="primary.400"
+                            color="muted.400"
                             as={<MaterialIcons name="lock-outline" />}
                         />
                     }
                     
                     InputRightElement={
                         <Icon
-                            color="primary.400"
+                            color="muted.400"
                             as={<MaterialIcons name={isVisible ? "visibility" : "visibility-off"} />}
                             mr={4}
                             size={25}

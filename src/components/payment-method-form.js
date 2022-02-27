@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Box, Button, Flex, Input, ScrollView, Select, Text } from "native-base";
+import CreditCard from "credit-card";
 import { useDispatch, useSelector } from "react-redux";
 import { GROUP_ACTION_CREATORS } from "../redux/groups/group-action-creators";
 import { selectGroups } from "../redux/groups/group-reducers";
@@ -144,36 +145,35 @@ const PaymentMethodForm = () => {
             setError({ error, country: null });
         }
         
-        if (!state) {
-            setError({ error, state: "Field Required" });
-            return;
-        } else {
-            setError({ error, state: null });
-        }
+        const brand = CreditCard.determineCardType(cardNumber);
+        const [expiryMonth, expiryYear] = expiryDate.split("/");
+        const validatedCard = CreditCard.validate({
+            cardType: brand,
+            number: cardNumber,
+            expiryMonth,
+            expiryYear,
+            cvv,
+        });
         
-        if (!city) {
-            setError({ error, city: "Field Required" });
-            return;
-        } else {
-            setError({ error, city: null });
-        }
         
-        if (!addressLine1) {
-            setError({ error, addressLine1: "Field Required" });
+        if (validatedCard.isExpired) {
+            setError({ error, expiryDate: "Card Expired" });
             return;
         } else {
-            setError({ error, addressLine1: null });
+            setError({ error, expiryDate: null });
         }
         
         dispatch(GROUP_ACTION_CREATORS.saveGroupPaymentInfo({
             ownership: "Group",
-            method,
+            type,
             card: {
+                funding,
                 type,
                 cardHolderName,
                 cardNumber,
                 cvv,
                 expiryDate,
+                brand,
                 address: { country, state, city, addressLine1, addressLine2 },
             },
         }));
@@ -204,10 +204,10 @@ const PaymentMethodForm = () => {
                         mt={1}
                         placeholder="Select Payment Type"
                         selectedValue={type}>
-                        <Select.Item label="Bank Account" value="Bank Account" />
-                        <Select.Item label="Card" value="Card" />
+                        <Select.Item label="Bank Account" value="bank_account" />
+                        <Select.Item label="Card" value="card" />
                     </Select>
-                    {type === "Bank Account" ? (
+                    {type === "bank_account" ? (
                         <Box>
                             <Box mb={4}>
                                 <Box mb={2}>
@@ -386,7 +386,7 @@ const PaymentMethodForm = () => {
                                     </Select>
                                     {error.currency && <Text color="red.400" textAlign="center">{error.currency}</Text>}
                                 </Box>
-    
+                                
                                 <Button
                                     onPress={handleBankAccountAdd}
                                     borderBottomLeftRadius={0}
@@ -395,12 +395,12 @@ const PaymentMethodForm = () => {
                                     borderTopLeftRadius={16}
                                     py={3}
                                     backgroundColor="primary.600"
-                                    _text={{ fontFamily: "body", color: "white", fontSize: 'xs' }}>
+                                    _text={{ fontFamily: "body", color: "white", fontSize: "xs" }}>
                                     Add Bank Account
                                 </Button>
                             </Box>
                         </Box>
-                    ) : type === "Card" ? (
+                    ) : type === "card" ? (
                         <Box>
                             <Box mb={2}>
                                 <Text fontSize="xs" color="muted.400" mb={2}>Funding</Text>
@@ -420,7 +420,7 @@ const PaymentMethodForm = () => {
                                         bg: "primary.200",
                                     }}
                                     mt={1}
-                                    placeholder="Select Account Type"
+                                    placeholder="Select Funding"
                                     selectedValue={funding}>
                                     <Select.Item label="Credit" value="credit" />
                                     <Select.Item label="Debit" value="debit" />
@@ -444,13 +444,17 @@ const PaymentMethodForm = () => {
                                     placeholder="E.g. Stanley Hayford"
                                     variant="outline"
                                     py={3}
-                                    size="lg"
+                                    size="md"
+                                    autoComplete="name"
                                     borderBottomLeftRadius={0}
                                     borderTopRightRadius={0}
                                     borderBottomRightRadius={16}
                                     borderTopLeftRadius={16}
                                 />
                             </Box>
+                            {error.cardHolderName &&
+                                <Text color="red.400" textAlign="center">{error.cardHolderName}</Text>}
+                            
                             
                             <Box mb={2}>
                                 <Text fontSize="xs" color="muted.400" mb={2}>Card Number</Text>
@@ -467,12 +471,16 @@ const PaymentMethodForm = () => {
                                     placeholder="E.g. 1234567812345678"
                                     variant="outline"
                                     py={3}
-                                    size="lg"
+                                    size="md"
+                                    keyboardType="number-pad"
+                                    autoComplete="cc-number"
                                     borderBottomLeftRadius={0}
                                     borderTopRightRadius={0}
                                     borderBottomRightRadius={16}
                                     borderTopLeftRadius={16}
                                 />
+                                {error.cardNumber && <Text color="red.400" textAlign="center">{error.cardNumber}</Text>}
+                            
                             </Box>
                             
                             <Box mb={2}>
@@ -487,15 +495,20 @@ const PaymentMethodForm = () => {
                                     value={cvv}
                                     onChangeText={cvv => setCVV(cvv)}
                                     name="cvv"
-                                    placeholder="E.g. 123"
+                                    placeholder="Enter CVV"
                                     variant="outline"
                                     py={3}
-                                    size="lg"
+                                    autoComplete="cc-csc"
+                                    keyboardType="phone-pad"
+                                    size="md"
+                                    maxLength={3}
                                     borderBottomLeftRadius={0}
                                     borderTopRightRadius={0}
                                     borderBottomRightRadius={16}
                                     borderTopLeftRadius={16}
                                 />
+                                {error.cvv && <Text color="red.400" textAlign="center">{error.cvv}</Text>}
+                            
                             </Box>
                             
                             <Box mb={4}>
@@ -512,13 +525,16 @@ const PaymentMethodForm = () => {
                                     name="expiryDate"
                                     placeholder="E.g. MM/YYYY"
                                     variant="outline"
+                                    keyboardType="phone-pad"
                                     py={3}
-                                    size="lg"
+                                    size="md"
                                     borderBottomLeftRadius={0}
                                     borderTopRightRadius={0}
                                     borderBottomRightRadius={16}
                                     borderTopLeftRadius={16}
                                 />
+                                {error.expiryDate && <Text color="red.400" textAlign="center">{error.expiryDate}</Text>}
+                            
                             </Box>
                             <Box mb={2}>
                                 <Text fontSize="xs" color="muted.400" mb={2}>Country</Text>
@@ -541,7 +557,7 @@ const PaymentMethodForm = () => {
                                     placeholder="Select Country"
                                     selectedValue={country}>
                                     <Select.Item label="USA" value="US" />
-                                    <Select.Item label="US Dollars" value="USD" />
+                                    <Select.Item label="UK" value="GB" />
                                 </Select>
                                 {error.country && <Text color="red.400" textAlign="center">{error.country}</Text>}
                             </Box>
@@ -553,15 +569,15 @@ const PaymentMethodForm = () => {
                                     isRequired={true}
                                     mb={2}
                                     _focus={{ borderColor: "gray.400" }}
-                                    isInvalid={Boolean(error.cvv)}
+                                    isInvalid={Boolean(error.state)}
                                     width="100%"
-                                    value={cvv}
+                                    value={state}
                                     onChangeText={state => setState(state)}
-                                    name="cvv"
-                                    placeholder="DC"
+                                    name="state"
+                                    placeholder="Enter State"
                                     variant="outline"
                                     py={3}
-                                    size="lg"
+                                    size="md"
                                     borderBottomLeftRadius={0}
                                     borderTopRightRadius={0}
                                     borderBottomRightRadius={16}
@@ -581,11 +597,11 @@ const PaymentMethodForm = () => {
                                     width="100%"
                                     value={city}
                                     onChangeText={city => setCity(city)}
-                                    name="cvv"
-                                    placeholder="New York"
+                                    name="city"
+                                    placeholder="Enter City"
                                     variant="outline"
                                     py={3}
-                                    size="lg"
+                                    size="md"
                                     borderBottomLeftRadius={0}
                                     borderTopRightRadius={0}
                                     borderBottomRightRadius={16}
@@ -609,7 +625,7 @@ const PaymentMethodForm = () => {
                                     placeholder="Enter Address"
                                     variant="outline"
                                     py={3}
-                                    size="lg"
+                                    size="md"
                                     borderBottomLeftRadius={0}
                                     borderTopRightRadius={0}
                                     borderBottomRightRadius={16}
@@ -634,7 +650,7 @@ const PaymentMethodForm = () => {
                                     placeholder="Enter Address"
                                     variant="outline"
                                     py={3}
-                                    size="lg"
+                                    size="md"
                                     borderBottomLeftRadius={0}
                                     borderTopRightRadius={0}
                                     borderBottomRightRadius={16}
@@ -643,7 +659,7 @@ const PaymentMethodForm = () => {
                                 {error.addressLine2 &&
                                     <Text color="red.400" textAlign="center">{error.addressLine2}</Text>}
                             </Box>
-    
+                            
                             <Button
                                 onPress={handleDebitCardAdd}
                                 py={3}
@@ -653,7 +669,7 @@ const PaymentMethodForm = () => {
                                 borderBottomRightRadius={16}
                                 borderTopLeftRadius={16}
                                 backgroundColor="primary.600"
-                                _text={{ fontFamily: "body", fontSize: 'xs' }}>
+                                _text={{ fontFamily: "body", fontSize: "xs" }}>
                                 Add Card Details
                             </Button>
                         </Box>
@@ -669,7 +685,7 @@ const PaymentMethodForm = () => {
                         py={3}
                         borderColor="primary.600"
                         borderWidth={1}
-                        _text={{color: 'primary.600', fontSize: 'xs'}}
+                        _text={{ color: "primary.600", fontSize: "xs" }}
                         px={4}
                         onPress={() => dispatch(GROUP_ACTION_CREATORS.groupGoToPreviousPage())}
                         variant="subtle">

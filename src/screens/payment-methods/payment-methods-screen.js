@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Center, Fab, FlatList, Flex, Icon, IconButton, Spinner } from "native-base";
+import { Center, FlatList, Flex, Icon, IconButton, Spinner } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Empty from "../../components/empty";

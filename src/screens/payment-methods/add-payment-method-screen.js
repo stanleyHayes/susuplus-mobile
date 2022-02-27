@@ -135,34 +135,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
             setError({ error, expiryDate: null });
         }
         
-        if (!country) {
-            setError({ error, country: "Field Required" });
-            return;
-        } else {
-            setError({ error, country: null });
-        }
-        
-        if (!state) {
-            setError({ error, state: "Field Required" });
-            return;
-        } else {
-            setError({ error, state: null });
-        }
-        
-        if (!city) {
-            setError({ error, city: "Field Required" });
-            return;
-        } else {
-            setError({ error, city: null });
-        }
-        
-        if (!addressLine1) {
-            setError({ error, addressLine1: "Field Required" });
-            return;
-        } else {
-            setError({ error, addressLine1: null });
-        }
-        
+      
         dispatch(PAYMENT_METHOD_ACTION_CREATORS.addPaymentMethod({
             ownership: "Individual",
             type,
@@ -170,6 +143,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
             cardNumber,
             cvv,
             expiryDate,
+            funding,
             address: { country, state, city, addressLine1, addressLine2 },
         }, authToken, navigation));
         
@@ -209,10 +183,10 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                         mt={1}
                         placeholder="Select Payment Type"
                         selectedValue={type}>
-                        <Select.Item label="Bank Account" value="Bank Account" />
-                        <Select.Item label="Card" value="Card" />
+                        <Select.Item label="Bank Account" value="bank_account" />
+                        <Select.Item label="Card" value="card" />
                     </Select>
-                    {type === "Bank Account" ? (
+                    {type === "bank_account" ? (
                         <Box>
                             <Box mb={4}>
                                 <Box mb={2}>
@@ -230,7 +204,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                         name="bankName"
                                         placeholder="Enter Bank Name"
                                         variant="outline"
-                                        size="lg"
+                                        size="md"
                                         borderBottomLeftRadius={0}
                                         borderTopRightRadius={0}
                                         borderBottomRightRadius={16}
@@ -307,7 +281,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                         name="accountName"
                                         placeholder="E.g. Stanley Hayford"
                                         variant="outline"
-                                        size="lg"
+                                        size="md"
                                         borderBottomLeftRadius={0}
                                         borderTopRightRadius={0}
                                         borderBottomRightRadius={16}
@@ -332,7 +306,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                         name="accountNumber"
                                         placeholder="Enter account number"
                                         variant="outline"
-                                        size="lg"
+                                        size="md"
                                         borderBottomLeftRadius={0}
                                         borderTopRightRadius={0}
                                         borderBottomRightRadius={16}
@@ -357,7 +331,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                         name="routingNumber"
                                         placeholder="Enter routing number"
                                         variant="outline"
-                                        size="lg"
+                                        size="md"
                                         borderBottomLeftRadius={0}
                                         borderTopRightRadius={0}
                                         borderBottomRightRadius={16}
@@ -408,7 +382,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                 </Button>
                             </Box>
                         </Box>
-                    ) : type === "Card" ? (
+                    ) : type === "card" ? (
                         <Box>
                             <Box mb={2}>
                                 <Text fontSize="xs" color="muted.400" mb={2}>Funding</Text>
@@ -449,15 +423,18 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     value={cardHolderName}
                                     onChangeText={cardHolderName => setCardHolderName(cardHolderName)}
                                     name="cardHolderName"
-                                    placeholder="E.g. Stanley Hayford"
+                                    autoComplete="name"
+                                    placeholder="Enter card holder name"
                                     variant="outline"
                                     py={3}
-                                    size="lg"
+                                    size="md"
                                     borderBottomLeftRadius={0}
                                     borderTopRightRadius={0}
                                     borderBottomRightRadius={16}
                                     borderTopLeftRadius={16}
                                 />
+                                {error.cardHolderName && <Text color="red.400" textAlign="center">{error.cardHolderName}</Text>}
+
                             </Box>
                             
                             <Box mb={2}>
@@ -474,13 +451,17 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     name="cardNumber"
                                     placeholder="E.g. 1234567812345678"
                                     variant="outline"
+                                    keyboardType="number-pad"
+                                    autoComplete="cc-number"
                                     py={3}
-                                    size="lg"
+                                    size="md"
                                     borderBottomLeftRadius={0}
                                     borderTopRightRadius={0}
                                     borderBottomRightRadius={16}
                                     borderTopLeftRadius={16}
                                 />
+                                {error.cardNumber && <Text color="red.400" textAlign="center">{error.cardNumber}</Text>}
+
                             </Box>
                             
                             <Box mb={2}>
@@ -495,15 +476,19 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     value={cvv}
                                     onChangeText={cvv => setCVV(cvv)}
                                     name="cvv"
-                                    placeholder="E.g. 123"
+                                    placeholder="Enter cvv"
                                     variant="outline"
+                                    keyboardType="phone-pad"
                                     py={3}
-                                    size="lg"
+                                    size="md"
+                                    maxLength={3}
                                     borderBottomLeftRadius={0}
                                     borderTopRightRadius={0}
                                     borderBottomRightRadius={16}
                                     borderTopLeftRadius={16}
                                 />
+                                {error.cvv && <Text color="red.400" textAlign="center">{error.cvv}</Text>}
+
                             </Box>
                             
                             <Box mb={4}>
@@ -514,6 +499,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     mb={2}
                                     isInvalid={Boolean(error.expiryDate)}
                                     width="100%"
+                                    keyboardType="phone-pad"
                                     _focus={{ borderColor: "gray.400" }}
                                     value={expiryDate}
                                     onChangeText={expiryDate => setExpiryDate(expiryDate)}
@@ -521,12 +507,14 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     placeholder="E.g. MM/YYYY"
                                     variant="outline"
                                     py={3}
-                                    size="lg"
+                                    size="md"
                                     borderBottomLeftRadius={0}
                                     borderTopRightRadius={0}
                                     borderBottomRightRadius={16}
                                     borderTopLeftRadius={16}
                                 />
+                                {error.expiryDate && <Text color="red.400" textAlign="center">{error.expiryDate}</Text>}
+
                             </Box>
                             <Box mb={2}>
                                 <Text fontSize="xs" color="muted.400" mb={2}>Country</Text>
@@ -549,7 +537,6 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     placeholder="Select Country"
                                     selectedValue={country}>
                                     <Select.Item label="USA" value="US" />
-                                    <Select.Item label="US Dollars" value="USD" />
                                 </Select>
                                 {error.country && <Text color="red.400" textAlign="center">{error.country}</Text>}
                             </Box>
@@ -563,13 +550,13 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     _focus={{ borderColor: "gray.400" }}
                                     isInvalid={Boolean(error.cvv)}
                                     width="100%"
-                                    value={cvv}
+                                    value={state}
                                     onChangeText={state => setState(state)}
-                                    name="cvv"
-                                    placeholder="DC"
+                                    name="state"
+                                    placeholder="Enter state"
                                     variant="outline"
                                     py={3}
-                                    size="lg"
+                                    size="md"
                                     borderBottomLeftRadius={0}
                                     borderTopRightRadius={0}
                                     borderBottomRightRadius={16}
@@ -589,11 +576,11 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     width="100%"
                                     value={city}
                                     onChangeText={city => setCity(city)}
-                                    name="cvv"
-                                    placeholder="New York"
+                                    name="city"
+                                    placeholder="Enter city"
                                     variant="outline"
                                     py={3}
-                                    size="lg"
+                                    size="md"
                                     borderBottomLeftRadius={0}
                                     borderTopRightRadius={0}
                                     borderBottomRightRadius={16}
@@ -617,7 +604,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     placeholder="Enter Address"
                                     variant="outline"
                                     py={3}
-                                    size="lg"
+                                    size="md"
                                     borderBottomLeftRadius={0}
                                     borderTopRightRadius={0}
                                     borderBottomRightRadius={16}
@@ -642,7 +629,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     placeholder="Enter Address"
                                     variant="outline"
                                     py={3}
-                                    size="lg"
+                                    size="md"
                                     borderBottomLeftRadius={0}
                                     borderTopRightRadius={0}
                                     borderBottomRightRadius={16}
@@ -663,7 +650,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                 isLoading={paymentMethodLoading}
                                 isDisabled={paymentMethodLoading}
                                 isLoadingText={"Adding Card..."}
-                                _text={{ fontFamily: "body", color: "white" }}>
+                                _text={{ fontFamily: "body", color: "white", fontSize: 'sm' }}>
                                 Add Card Details
                             </Button>
                         </Box>

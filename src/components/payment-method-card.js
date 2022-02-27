@@ -1,37 +1,26 @@
 import React from "react";
 import { Box, Divider, HStack, Icon, Text } from "native-base";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import Fontisto from "react-native-vector-icons/Fontisto";
 
 const PaymentMethodCard = ({ paymentMethod }) => {
-
-    const renderProviderName = code => {
-        switch (code) {
-            case "mtn":
-                return "MTN";
-            case "vod":
-                return "Vodafone";
-            case "tgo":
-                return "Airtel Tigo";
-
+    const getBrandLogo = brand => {
+        switch (brand){
+            case 'AMERICANEXPRESS':
+                return 'american-express';
+                case 'VISA':
+                return 'visa';
+                case 'MASTERCARD':
+                return 'mastercard';
+                case 'DINERSCLUB':
+                return 'dinners-club';
+                case 'DISCOVER':
+                return 'discover';
+                case 'JCB':
+                return 'jcb';
             default:
-                return "Unknown Provider";
+                return 'credit-card';
         }
-    };
-
-    const renderProviderAccountName = code => {
-        switch (code) {
-            case "mtn":
-                return "MOMO";
-            case "vod":
-                return "Vodafone Cash";
-            case "tgo":
-                return "Airtel Tigo Money";
-
-            default:
-                return "Unknown Provider";
-        }
-    };
-
+    }
     return (
         <Box
             borderBottomLeftRadius={0}
@@ -40,49 +29,37 @@ const PaymentMethodCard = ({ paymentMethod }) => {
             borderTopLeftRadius={16}
             backgroundColor="white"
             p={4}
+            mx={2}
+            mb={1}
             shadow={0}>
-            {paymentMethod.method === "Bank Account" ? (
+            {paymentMethod.type === "bank_account" ? (
                 <Box>
-                    <Text mb={2} fontSize="sm" color="muted.500" fontFamily="body">{paymentMethod.method}</Text>
+                    <Text mb={2} fontSize="sm" color="muted.500" fontFamily="body">{paymentMethod.type}</Text>
                     <Divider  mb={2} width="100%" />
-                    <Icon size="sm" as={<MaterialIcons name="bank-account" size={10} />} />
+                    <Icon size="sm" as={<Fontisto name="bank-account" />} />
                     <Text mb={2} fontSize="sm" color="muted.500"
-                          fontFamily="body">{paymentMethod.bankAccount.bankName} ({paymentMethod.bankAccount.accountBranch})</Text>
-                    <Text mb={2} fontSize="sm" color="muted.500" fontFamily="body">{paymentMethod.bankAccount.accountName}</Text>
+                          fontFamily="body">{paymentMethod.bankAccount.bankName} ({paymentMethod.bankAccount.accountType})</Text>
+                    <Text mb={2} fontSize="sm" color="muted.500" fontFamily="body">{paymentMethod.bankAccount.accountHolderName}</Text>
                     <Text mb={2} fontSize="sm" color="muted.500" fontFamily="body">{paymentMethod.bankAccount.accountNumber}</Text>
                     <HStack justifyContent="flex-end">
                         <Text mb={2} fontSize="sm" color="muted.500" fontFamily="body">
-                            {paymentMethod.bankAccount.mobileNumber}
+                            {paymentMethod.bankAccount.routingNumber}
                         </Text>
                     </HStack>
                 </Box>
-            ) : paymentMethod.method === "Card" ? (
+            ) : paymentMethod.type === "card" ? (
                 <Box>
-                    <Text mb={2} fontSize="md" fontFamily="body">{paymentMethod.method}</Text>
+                    <Text mb={2} color="muted.500" fontSize="md" fontFamily="body">{paymentMethod.type}</Text>
                     <Divider  mb={2} width="100%" />
-                    <Icon size="sm" as={<MaterialIcons name="bank-account" size={10} />} />
-                    <Text mb={2} fontSize="md" fontFamily="body">{paymentMethod.card.bankIssuer}</Text>
-                    <Text mb={2} fontSize="md" fontFamily="body">{paymentMethod.card.cardHolderName}</Text>
-                    <Text mb={2} fontSize="md" fontFamily="body">{paymentMethod.card.number}</Text>
-                    <HStack justifyContent="flex-end">
-                        <Text mb={2} fontSize="md" fontFamily="body">
+                    <Icon mb={2} size="md" as={<Fontis
+                        to name={getBrandLogo(paymentMethod.card.brand)} />} />
+                    <Text mb={2} color="muted.500" fontSize="sm" fontFamily="body">{paymentMethod.card.brand}</Text>
+                    <Text mb={2} color="muted.500" fontSize="sm" fontFamily="body">{paymentMethod.card.cardHolderName}</Text>
+                    <Text mb={2} color="muted.500" fontSize="sm" fontFamily="body">{paymentMethod.card.cardNumber}</Text>
+                    <HStack justifyContent="space-between">
+                        <Text mb={2} color="muted.500" fontSize="sm" fontFamily="body">{paymentMethod.card.cvv}</Text>
+                        <Text mb={2} color="muted.500" fontSize="sm" fontFamily="body">
                             {paymentMethod.card.expiryDate}
-                        </Text>
-                    </HStack>
-                </Box>
-            ) : paymentMethod.method === "Mobile Money" ? (
-                <Box>
-                    <Text mb={2} fontSize="sm" color="muted.500" fontFamily="body">{paymentMethod.method}</Text>
-                    <Divider mb={2} width="100%" />
-                    <Icon size="sm" as={<MaterialIcons name="credit-card" size={10} />} />
-                    <Text mb={2} fontSize="sm" color="muted.500"
-                          fontFamily="body">{renderProviderName(paymentMethod.mobileMoneyAccount.provider)}</Text>
-                    <Text mb={2} fontSize="sm" color="muted.500" fontFamily="body">{paymentMethod.mobileMoneyAccount.name}</Text>
-                    <Text mb={2} fontSize="sm" color="muted.500"
-                          fontFamily="body">{paymentMethod.mobileMoneyAccount.mobileMoneyNumber}</Text>
-                    <HStack justifyContent="flex-end">
-                        <Text mb={2} fontSize="sm" color="muted.500" fontFamily="body">
-                            {renderProviderAccountName(paymentMethod.mobileMoneyAccount.provider)}
                         </Text>
                     </HStack>
                 </Box>

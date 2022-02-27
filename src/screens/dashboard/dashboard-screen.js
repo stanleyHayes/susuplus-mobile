@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Box, Center, Divider, Flex, Image, ScrollView, Select, StatusBar, Text } from "native-base";
+import { Avatar, Box, Center, Divider, Flex, Image, ScrollView, Select, Spinner, StatusBar, Text } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { selectDashboard } from "../../redux/dashboard/dashboard-reducer";
 import { DASHBOARD_ACTION_CREATORS } from "../../redux/dashboard/dashboard-action-creators";
 import { selectAuth } from "../../redux/auth/auth-reducer";
-import { Dimensions, PermissionsAndroid, Platform, RefreshControl } from "react-native";
+import { Dimensions, RefreshControl } from "react-native";
 import moment from "moment";
 import { UTILS } from "../../utils/utils";
 
@@ -16,7 +16,6 @@ import Empty from "../../components/empty";
 import { LineChart } from "react-native-chart-kit";
 import NumberSuffix from "number-suffix";
 import NavigationBar from "react-native-navbar-color";
-import Contacts from "react-native-contacts";
 import { USER_ACTION_CREATORS } from "../../redux/users/user-action-creators";
 
 const DashboardScreen = () => {
@@ -66,16 +65,24 @@ const DashboardScreen = () => {
     
     
     useEffect(() => {
-       dispatch(USER_ACTION_CREATORS.getUserContacts());
+        dispatch(USER_ACTION_CREATORS.getUserContacts());
     }, []);
     
     useEffect(() => {
-       dispatch(USER_ACTION_CREATORS.getUsers(authToken));
+        dispatch(USER_ACTION_CREATORS.getUsers(authToken));
     }, []);
     
     return (
         <React.Fragment>
             <StatusBar backgroundColor="#155e75" />
+            {dashboardLoading &&
+                <Center width="100%" height="100%">
+                    <Spinner
+                        position="absolute"
+                        size={50}
+                        color="primary.800"
+                    />
+                </Center>}
             <ScrollView
                 flex={1}
                 backgroundColor="#FFF9ED"
@@ -134,11 +141,11 @@ const DashboardScreen = () => {
                         
                         <Box
                             shadow={0} p={3} my={1} mx={2}
-                             backgroundColor="white"
-                             borderBottomLeftRadius={0}
-                             borderTopRightRadius={0}
-                             borderBottomRightRadius={16}
-                             borderTopLeftRadius={16}>
+                            backgroundColor="white"
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}>
                             <Flex flex={1} flexDirection="row" alignItems="center" justifyContent="space-between">
                                 
                                 <Box mr={2}>
@@ -168,7 +175,7 @@ const DashboardScreen = () => {
                         
                         {selectedPeriod && (
                             selectedPeriod === "week" ? (
-                                <Box pt={4} backgroundColor="white" mb={2}  borderBottomLeftRadius={0}
+                                <Box pt={4} backgroundColor="white" mb={2} borderBottomLeftRadius={0}
                                      borderTopRightRadius={0}
                                      borderBottomRightRadius={16}
                                      borderTopLeftRadius={16} mx={2} shadow={0} flex={1}
@@ -269,7 +276,7 @@ const DashboardScreen = () => {
                                                         borderBottomLeftRadius: 0,
                                                         borderTopRightRadius: 0,
                                                         borderBottomRightRadius: 16,
-                                                        borderTopLeftRadius: 16
+                                                        borderTopLeftRadius: 16,
                                                     },
                                                     propsForDots: {
                                                         r: "4",
@@ -313,10 +320,10 @@ const DashboardScreen = () => {
                             <Flex flex={1} flexDirection="row" width="100%" alignItems="center">
                                 <Center
                                     size={16}
-                                        borderBottomLeftRadius={0}
-                                        borderTopRightRadius={0}
-                                        borderBottomRightRadius={16}
-                                        borderTopLeftRadius={16} backgroundColor="primary.50">
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16} backgroundColor="primary.50">
                                     <Image size={10} source={disbursementIcon} alt="Disbursement Icon" />
                                 </Center>
                                 <Box ml={2} flex={1}>
@@ -379,7 +386,7 @@ const DashboardScreen = () => {
                                                     borderBottomLeftRadius: 0,
                                                     borderTopRightRadius: 0,
                                                     borderBottomRightRadius: 16,
-                                                    borderTopLeftRadius: 16
+                                                    borderTopLeftRadius: 16,
                                                 },
                                                 propsForDots: {
                                                     r: "4",
@@ -457,7 +464,7 @@ const DashboardScreen = () => {
                                                         borderBottomLeftRadius: 0,
                                                         borderTopRightRadius: 0,
                                                         borderBottomRightRadius: 16,
-                                                        borderTopLeftRadius: 16
+                                                        borderTopLeftRadius: 16,
                                                     },
                                                     propsForDots: {
                                                         r: "4",
@@ -496,10 +503,10 @@ const DashboardScreen = () => {
                             <Flex flex={1} flexDirection="row" width="100%" alignItems="center">
                                 <Center
                                     size={16}
-                                        borderBottomLeftRadius={0}
-                                        borderTopRightRadius={0}
-                                        borderBottomRightRadius={16}
-                                        borderTopLeftRadius={16} backgroundColor="primary.50">
+                                    borderBottomLeftRadius={0}
+                                    borderTopRightRadius={0}
+                                    borderBottomRightRadius={16}
+                                    borderTopLeftRadius={16} backgroundColor="primary.50">
                                     <Image size={10} source={disbursementIcon} alt="Disbursement Icon" />
                                 </Center>
                                 <Box ml={2} flex={1}>
@@ -522,7 +529,7 @@ const DashboardScreen = () => {
                              borderBottomRightRadius={16}
                              borderTopLeftRadius={16}>
                             <Flex flex={1} flexDirection="row" width="100%" alignItems="center">
-                                <Center size={16}  borderBottomLeftRadius={0}
+                                <Center size={16} borderBottomLeftRadius={0}
                                         borderTopRightRadius={0}
                                         borderBottomRightRadius={16}
                                         borderTopLeftRadius={16} backgroundColor="primary.50">
@@ -547,12 +554,12 @@ const DashboardScreen = () => {
                             my={1}
                             mx={2}
                             backgroundColor="white"
-                             borderBottomLeftRadius={0}
-                             borderTopRightRadius={0}
-                             borderBottomRightRadius={16}
-                             borderTopLeftRadius={16}>
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}>
                             <Flex flex={1} flexDirection="row" width="100%" alignItems="center">
-                                <Center size={16}  borderBottomLeftRadius={0}
+                                <Center size={16} borderBottomLeftRadius={0}
                                         borderTopRightRadius={0}
                                         borderBottomRightRadius={16}
                                         borderTopLeftRadius={16} backgroundColor="primary.50">
@@ -699,14 +706,14 @@ const DashboardScreen = () => {
                         
                         <Box
                             shadow={0}
-                             py={4}
+                            py={4}
                             my={1}
                             mx={2}
                             backgroundColor="white"
-                             borderBottomLeftRadius={0}
-                             borderTopRightRadius={0}
-                             borderBottomRightRadius={16}
-                             borderTopLeftRadius={16}>
+                            borderBottomLeftRadius={0}
+                            borderTopRightRadius={0}
+                            borderBottomRightRadius={16}
+                            borderTopLeftRadius={16}>
                             <Text px={4} color="muted.500">Latest Disbursements</Text>
                             <Divider orientation="horizontal" width="100%" my={2} />
                             {

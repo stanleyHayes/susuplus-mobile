@@ -53,7 +53,7 @@ const CreateGroupSummary = ({ navigation,  }) => {
                 <Divider width="100%" my={2} />
 
                 <Text mb={1} fontSize="xs" color="muted.400">Name</Text>
-                <Text mb={2} fontSize="md">{createGroupBasicInfo.name}</Text>
+                <Text mb={2} fontSize="md" color="muted.500">{createGroupBasicInfo.name}</Text>
 
                 <Divider width="100%" my={2} />
 
@@ -86,6 +86,7 @@ const CreateGroupSummary = ({ navigation,  }) => {
                             <Text
                                 textAlign="center"
                                 fontFamily="body"
+                                color="muted.500"
                                 fontSize="md">
                                 {createGroupBasicInfo.susuPercentage}%
                             </Text>
@@ -164,7 +165,7 @@ const CreateGroupSummary = ({ navigation,  }) => {
                 <Text mb={1} fontSize="xs" color="muted.400">Group Invitations</Text>
                 
                 <Box>
-                    {createGroupInvitations && createGroupInvitations.map((invitation, index) => {
+                    {createGroupInvitations && createGroupInvitations.length > 0 ? createGroupInvitations.map((invitation, index) => {
                         return (
                             <UserGroupContactInvitation
                                 key={index}
@@ -172,7 +173,17 @@ const CreateGroupSummary = ({ navigation,  }) => {
                                 contact={invitation}
                             />
                         )
-                    })}
+                    }): (
+                        <Box>
+                            <Text
+                                mb={1}
+                                textAlign="center"
+                                fontSize="md"
+                                color="muted.400">
+                                No Group Invitations
+                            </Text>
+                        </Box>
+                    )}
                 </Box>
 
                 <Divider width="100%" my={2} />

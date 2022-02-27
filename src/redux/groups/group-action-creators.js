@@ -122,7 +122,6 @@ const createGroupFailure = message => {
 };
 
 const createGroup = (token, group, navigation) => {
-    console.log(group);
     return async dispatch => {
         dispatch(createGroupRequest());
         try {

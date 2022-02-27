@@ -46,6 +46,7 @@ const getInvitations = (token, query) => {
         dispatch(AUTH_ACTION_CREATORS.restoreToken());
       }
       dispatch(getInvitationsFailure(message));
+      console.log(e.message)
       UTILS.showToast('Error', message, 'error', 5000);
     }
   }

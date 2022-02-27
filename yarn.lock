@@ -3359,6 +3359,14 @@
     "loose-envify" "^1.3.1"
     "object-assign" "^4.1.1"
 
+"credit-card@^3.0.2":
+  "integrity" "sha512-PrG9Fk9coG1SXMLubia3m6Y097Ec3bix2yv7PV4sOpvEFgz+cfUZTl9jgxvQzwRSvDeo07D1q9nbp4EKgZIJsg=="
+  "resolved" "https://registry.npmjs.org/credit-card/-/credit-card-3.0.2.tgz"
+  "version" "3.0.2"
+  dependencies:
+    "lodash.merge" "4.6.x"
+    "reach" "1.x.x"
+
 "cross-fetch@^3.0.4":
   "integrity" "sha512-1eAtFWdIubi6T4XPy6ei9iUFoKpUkIF971QLN8lIvvvwueI65+Nw5haMNKUwfJxabqlIIDODJKGrQ66gxC0PbQ=="
   "resolved" "https://registry.npmjs.org/cross-fetch/-/cross-fetch-3.1.4.tgz"
@@ -5807,7 +5815,7 @@
   "resolved" "https://registry.npmjs.org/lodash.isstring/-/lodash.isstring-4.0.1.tgz"
   "version" "4.0.1"
 
-"lodash.merge@^4.6.2":
+"lodash.merge@^4.6.2", "lodash.merge@4.6.x":
   "integrity" "sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ=="
   "resolved" "https://registry.npmjs.org/lodash.merge/-/lodash.merge-4.6.2.tgz"
   "version" "4.6.2"
@@ -7074,6 +7082,11 @@
   "integrity" "sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg=="
   "resolved" "https://registry.npmjs.org/range-parser/-/range-parser-1.2.1.tgz"
   "version" "1.2.1"
+
+"reach@1.x.x":
+  "integrity" "sha512-TyINp42lj7idWA7/twiZhpokruUPpj6YS1HJ0hDt8L+9upXtK0knjlC2bZigQyg2/okcHJl35Ngxw6ydougFjg=="
+  "resolved" "https://registry.npmjs.org/reach/-/reach-1.0.1.tgz"
+  "version" "1.0.1"
 
 "react-devtools-core@^4.13.0":
   "integrity" "sha512-2wJiGffPWK0KggBjVwnTaAk+Z3MSxKInHmdzPTrBh1mAarexsa93Kw+WMX88+XjN+TtYgAiLe9xeTqcO5FfJTw=="

@@ -26,7 +26,7 @@ const INITIAL_STATE = {
       cardHolderName: '',
       cardNumber: '',
       cvv: '',
-      expiryDate: new Date(),
+      expiryDate: '',
       country: '',
       state: '',
       city: '',

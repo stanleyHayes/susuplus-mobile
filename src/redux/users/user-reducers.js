@@ -60,7 +60,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
 };
 
 export const selectUsers = state => {
-    if(state.users.users.length > 1 && state.users.contacts.length > 1){
+    if(state.users.users && state.users.users.length > 1 && state.users.contacts.length > 1){
         const contacts = state.users.contacts.map(contact => {
             const number = contact.phoneNumbers && contact.phoneNumbers[1] && contact.phoneNumbers[1].number;
             if(number){
@@ -88,6 +88,7 @@ export const selectUsers = state => {
         });
         return {userLoading: state.users.userLoading, users, userError: state.users.userError};
     }
+    else return  {userLoading: state.users.userLoading, users: [], userError: state.users.userError}
 };
 
 

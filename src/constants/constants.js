@@ -62,9 +62,9 @@ const GROUP_PAYMENT_METHODS = 'GROUP_PAYMENT_METHODS';
 const GROUP_ADD_PAYMENT_METHOD_SCREEN = 'GROUP_ADD_PAYMENT_METHOD_SCREEN';
 let BASE_SERVER_URL;
 if (process.env.NODE_ENV === "development") {
-  BASE_SERVER_URL = `https://susuplus.herokuapp.com/api/v1`;
+  BASE_SERVER_URL = `https://susuplus-dev.herokuapp.com/api/v1`;
 } else {
-  BASE_SERVER_URL = `https://susuplus.herokuapp.com/api/v1`;
+  BASE_SERVER_URL = `https://susuplus-dev.herokuapp.com/api/v1`;
 }
 
 export const API_URL_CONSTANTS = {

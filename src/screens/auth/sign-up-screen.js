@@ -151,7 +151,7 @@ const SignUpScreen = ({ navigation }) => {
                                 <Icon
                                     size={6}
                                     ml={2}
-                                    color="primary.400"
+                                    color="muted.400"
                                     as={<MaterialIcons name="person-outline" />}
                                 />
                             }
@@ -186,7 +186,7 @@ const SignUpScreen = ({ navigation }) => {
                                 <Icon
                                     size={6}
                                     ml={2}
-                                    color="primary.400"
+                                    color="muted.400"
                                     as={<MaterialIcons name="mail-outline" />}
                                 />
                             }
@@ -222,7 +222,7 @@ const SignUpScreen = ({ navigation }) => {
                                 <Icon
                                     size={6}
                                     ml={2}
-                                    color="primary.400"
+                                    color="muted.400"
                                     as={<MaterialIcons name="call" />}
                                 />
                             }
@@ -259,14 +259,14 @@ const SignUpScreen = ({ navigation }) => {
                                 <Icon
                                     size={6}
                                     ml={2}
-                                    color="primary.400"
+                                    color="muted.400"
                                     as={<MaterialIcons name="lock-outline" />}
                                 />
                             }
                             
                             InputRightElement={
                                 <Icon
-                                    color="primary.400"
+                                    color="muted.400"
                                     as={<MaterialIcons
                                         name={isPasswordVisible ? "visibility" : "visibility-off"} />}
                                     mr={4}
@@ -309,14 +309,14 @@ const SignUpScreen = ({ navigation }) => {
                                 <Icon
                                     size={6}
                                     ml={2}
-                                    color="primary.400"
+                                    color="muted.400"
                                     as={<MaterialIcons name="lock-outline" />}
                                 />
                             }
                             
                             InputRightElement={
                                 <Icon
-                                    color="primary.400"
+                                    color="muted.400"
                                     as={<MaterialIcons
                                         name={isConfirmPasswordVisible ? "visibility" : "visibility-off"} />}
                                     mr={4}
@@ -335,7 +335,6 @@ const SignUpScreen = ({ navigation }) => {
                             name="confirmPassword"
                             returnKeyType="next"
                             onChangeText={confirmPassword => setConfirmPassword(confirmPassword)}
-                            color="gray.800"
                             _focus={{ borderColor: "muted.400" }}
                             px={4}
                             py={3}
