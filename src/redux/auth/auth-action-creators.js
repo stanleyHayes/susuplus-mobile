@@ -123,9 +123,14 @@ export const signIn = (user) => {
             UTILS.showToast("Sign In successful", "Welcome back to susu plus. Enjoy", "success", 5000);
             dispatch(signInSuccess(token, data));
         } catch (e) {
-            const { message } = e.response.data;
-            UTILS.showToast("Sign up failed", message, "error", 5000);
-            dispatch(signInFailure(message));
+            if(e){
+                const { message } = e?.response?.data;
+                UTILS.showToast("Sign in failed", message, "error", 5000);
+                dispatch(signInFailure(message));
+            }else {
+                UTILS.showToast("Error", "Something went wrong", "error", 5000);
+                dispatch(signInFailure("Something went wrong"));
+            }
         }
     };
 };

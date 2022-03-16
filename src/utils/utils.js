@@ -26,5 +26,9 @@ const showToast = (title, description, variant, duration) => {
     })
 }
 
+export const navigate = (navigation, path) => {
+    navigation.navigate(path);
+}
 
-export const UTILS = { getInitials, showToast };
+
+export const UTILS = { getInitials, showToast, navigate };

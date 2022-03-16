@@ -5,6 +5,8 @@ import { PAYMENT_METHOD_ACTION_CREATORS } from "../../redux/payment-methods/paym
 import { selectPaymentMethods } from "../../redux/payment-methods/payment-method-reducers";
 import { selectAuth } from "../../redux/auth/auth-reducer";
 import NavigationBar from "react-native-navbar-color";
+import { navigate } from "../../utils/utils";
+import { SCREEN_NAME_CONSTANTS } from "../../constants/constants";
 
 const AddPaymentMethodScreen = ({ navigation }) => {
     
@@ -135,7 +137,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
             setError({ error, expiryDate: null });
         }
         
-      
+        
         dispatch(PAYMENT_METHOD_ACTION_CREATORS.addPaymentMethod({
             ownership: "Individual",
             type,
@@ -145,7 +147,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
             expiryDate,
             funding,
             address: { country, state, city, addressLine1, addressLine2 },
-        }, authToken, navigation));
+        }, authToken, navigation, SCREEN_NAME_CONSTANTS.PAYMENT_METHODS_SCREEN));
         
     };
     
@@ -267,7 +269,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                 </Box>
                                 
                                 <Box mb={2}>
-                                    <Text fontSize="xs" color="muted.400"  mb={2}>Account Holder Name</Text>
+                                    <Text fontSize="xs" color="muted.400" mb={2}>Account Holder Name</Text>
                                     <Input
                                         isFullWidth={true}
                                         isRequired={true}
@@ -433,8 +435,9 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     borderBottomRightRadius={16}
                                     borderTopLeftRadius={16}
                                 />
-                                {error.cardHolderName && <Text color="red.400" textAlign="center">{error.cardHolderName}</Text>}
-
+                                {error.cardHolderName &&
+                                    <Text color="red.400" textAlign="center">{error.cardHolderName}</Text>}
+                            
                             </Box>
                             
                             <Box mb={2}>
@@ -461,7 +464,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     borderTopLeftRadius={16}
                                 />
                                 {error.cardNumber && <Text color="red.400" textAlign="center">{error.cardNumber}</Text>}
-
+                            
                             </Box>
                             
                             <Box mb={2}>
@@ -488,7 +491,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     borderTopLeftRadius={16}
                                 />
                                 {error.cvv && <Text color="red.400" textAlign="center">{error.cvv}</Text>}
-
+                            
                             </Box>
                             
                             <Box mb={4}>
@@ -514,7 +517,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                     borderTopLeftRadius={16}
                                 />
                                 {error.expiryDate && <Text color="red.400" textAlign="center">{error.expiryDate}</Text>}
-
+                            
                             </Box>
                             <Box mb={2}>
                                 <Text fontSize="xs" color="muted.400" mb={2}>Country</Text>
@@ -650,7 +653,7 @@ const AddPaymentMethodScreen = ({ navigation }) => {
                                 isLoading={paymentMethodLoading}
                                 isDisabled={paymentMethodLoading}
                                 isLoadingText={"Adding Card..."}
-                                _text={{ fontFamily: "body", color: "white", fontSize: 'sm' }}>
+                                _text={{ fontFamily: "body", color: "white", fontSize: "sm" }}>
                                 Add Card Details
                             </Button>
                         </Box>

@@ -119,6 +119,7 @@ const makeContributionFailure = error => {
 };
 
 const makeContributions = (contribution, token, navigation) => {
+  console.log(contribution)
   return async dispatch => {
     dispatch(makeContributionRequest);
     try {

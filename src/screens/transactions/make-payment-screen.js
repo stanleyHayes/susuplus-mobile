@@ -50,6 +50,7 @@ const MakePaymentScreen = ({ navigation, route }) => {
             destinationAccount: selectedDestinationAccount,
             susu: susuDetail._id,
             group: susuDetail.group,
+            reason: `Contribution of ${susuDetail.paymentPlan.currency} ${susuDetail.paymentPlan.amount} is being made towards the susu group ${susuDetail.group.name} using the ${sourceAccount.type} with the following details`,
         }, authToken, navigation));
     };
     
@@ -106,12 +107,12 @@ const MakePaymentScreen = ({ navigation, route }) => {
                         })}
                     </Select>
                 </Box>
-    
+                
                 <Box shadow={0} p={4} m={2} backgroundColor="white"
-                      borderBottomLeftRadius={0}
-                      borderTopRightRadius={0}
-                      borderBottomRightRadius={16}
-                      borderTopLeftRadius={16}>
+                     borderBottomLeftRadius={0}
+                     borderTopRightRadius={0}
+                     borderBottomRightRadius={16}
+                     borderTopLeftRadius={16}>
                     <Text fontSize="lg">Personal Payment Account</Text>
                     <Divider
                         alignSelf="center"
@@ -121,7 +122,7 @@ const MakePaymentScreen = ({ navigation, route }) => {
                         backgroundColor="muted.200"
                         orientation="horizontal"
                         thickness={1} />
-                
+                    
                     <Text mb={2}>Select Personal Account</Text>
                     <Select
                         mb={2}
@@ -154,158 +155,158 @@ const MakePaymentScreen = ({ navigation, route }) => {
                     </Select>
                 </Box>
                 
-                {/*{sourceAccount && destinationAccount && (*/}
-                {/*    <Box>*/}
-                {/*        <Box m={2} p={4} shadow={0}*/}
-                {/*             borderBottomLeftRadius={0}*/}
-                {/*             borderTopRightRadius={0}*/}
-                {/*             borderBottomRightRadius={16}*/}
-                {/*             borderTopLeftRadius={16} backgroundColor="white">*/}
-                {/*            <Text fontSize="lg">Contribution Summary</Text>*/}
-                {/*            <Divider*/}
-                {/*                alignSelf="center"*/}
-                {/*                width="100%"*/}
-                {/*                mt={1}*/}
-                {/*                mb={1}*/}
-                {/*                backgroundColor="muted.200"*/}
-                {/*                orientation="horizontal"*/}
-                {/*                thickness={1} />*/}
-                {/*            */}
-                {/*            <Text mb={2} fontSize="md">*/}
-                {/*                Contribution*/}
-                {/*                of {susuDetail.contributionPlan.currency} {susuDetail.contributionPlan.amount} is being*/}
-                {/*                made towards*/}
-                {/*                the susu group {susuDetail.group.name} using the {sourceAccount.method} with the*/}
-                {/*                following details*/}
-                {/*            </Text>*/}
-                {/*            */}
-                {/*            {sourceAccount.type === "bank_account" ? (*/}
-                {/*                <Box>*/}
-                {/*                    <Text mb={2} fontSize="lg" fontFamily="body">Source Account</Text>*/}
-                {/*                    <Divider*/}
-                {/*                        alignSelf="center"*/}
-                {/*                        width="100%"*/}
-                {/*                        mt={1}*/}
-                {/*                        mb={1}*/}
-                {/*                        backgroundColor="muted.200"*/}
-                {/*                        orientation="horizontal"*/}
-                {/*                        thickness={1} />*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Payment Method</Text>*/}
-                {/*                    <Text mb={2} fontSize="sm" color="muted.500"*/}
-                {/*                          fontFamily="body">{sourceAccount.type}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Bank Name</Text>*/}
-                {/*                    <Text mb={2} fontSize="sm" color="muted.500"*/}
-                {/*                          fontFamily="body">{sourceAccount.bankAccountDetails.bankName}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Account Type</Text>*/}
-                {/*                    <Text mb={2} fontSize="sm" color="muted.400"*/}
-                {/*                          fontFamily="body">{sourceAccount.bankAccountDetails.accountHolderType}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Account Name</Text>*/}
-                {/*                    <Text mb={2} fontSize="sm" color="muted.500"*/}
-                {/*                          fontFamily="body">{sourceAccount.bankAccountDetails.accountHolderName}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Account Number</Text>*/}
-                {/*                    <Text mb={2} fontSize="sm" color="muted.500"*/}
-                {/*                          fontFamily="body">{sourceAccount.bankAccountDetails.accountNumber}</Text>*/}
-                {/*                </Box>*/}
-                {/*            ) : sourceAccount.type === "card" ? (*/}
-                {/*                <Box>*/}
-                {/*                    <Text mb={2} fontSize="xs" color="muted.400" fontFamily="body">Destination*/}
-                {/*                        Account</Text>*/}
-                {/*                    <Divider*/}
-                {/*                        alignSelf="center"*/}
-                {/*                        width="100%"*/}
-                {/*                        mt={1}*/}
-                {/*                        mb={1}*/}
-                {/*                        backgroundColor="muted.200"*/}
-                {/*                        orientation="horizontal"*/}
-                {/*                        thickness={1} />*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Payment Method</Text>*/}
-                {/*                    <Text mb={2} fontSize="sm" color="muted.500"*/}
-                {/*                          fontFamily="body">{sourceAccount.type}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">CVV</Text>*/}
-                {/*                    <Text mb={2} fontSize="sm" color="muted.500"*/}
-                {/*                          fontFamily="body">{sourceAccount.cardDetails.cvv}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Card Brand</Text>*/}
-                {/*                    <Text mb={2} fontSize="sm" color="muted.500"*/}
-                {/*                          fontFamily="body">{sourceAccount.cardDetails.brand}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Card Name</Text>*/}
-                {/*                    <Text mb={2} fontSize="sm" color="muted.500"*/}
-                {/*                          fontFamily="body">{sourceAccount.cardDetails.name}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Card Number</Text>*/}
-                {/*                    <Text mb={2} fontSize="sm" color="muted.500"*/}
-                {/*                          fontFamily="body">{sourceAccount.cardDetails.number}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Expiry Date</Text>*/}
-                {/*                    <Text*/}
-                {/*                        mb={2}*/}
-                {/*                        fontSize="sm"*/}
-                {/*                        color="muted.500"*/}
-                {/*                        fontFamily="body">*/}
-                {/*                        {`${destinationAccount.cardDetail.expiryMonth}/${destinationAccount.cardDetail.expiryMonth}`}*/}
-                {/*                    </Text>*/}
-                {/*                </Box>*/}
-                {/*            ) : null}*/}
-                {/*            */}
-                {/*            {destinationAccount.type === "bank_account" ? (*/}
-                {/*                <Box>*/}
-                {/*                    <Text mb={2} fontSize="lg" fontFamily="body">Destination Account</Text>*/}
-                {/*                    <Divider*/}
-                {/*                        alignSelf="center"*/}
-                {/*                        width="100%"*/}
-                {/*                        mt={1}*/}
-                {/*                        mb={1}*/}
-                {/*                        backgroundColor="muted.200"*/}
-                {/*                        orientation="horizontal"*/}
-                {/*                        thickness={1} />*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Payment Method</Text>*/}
-                {/*                    <Text mb={2} fontSize="lg" fontFamily="body">{destinationAccount.type}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Bank Name</Text>*/}
-                {/*                    <Text mb={2} fontSize="lg"*/}
-                {/*                          fontFamily="body">{destinationAccount.bankAccount.bankName}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Account Type</Text>*/}
-                {/*                    <Text mb={2} fontSize="lg"*/}
-                {/*                          fontFamily="body">{destinationAccount.bankAccount.accountHolderType}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Account Name</Text>*/}
-                {/*                    <Text mb={2} fontSize="lg"*/}
-                {/*                          fontFamily="body">{destinationAccount.bankAccount.accountHolderName}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Account Number</Text>*/}
-                {/*                    <Text mb={2} fontSize="lg"*/}
-                {/*                          fontFamily="body">{destinationAccount.bankAccount.accountNumber}</Text>*/}
-                {/*                </Box>*/}
-                {/*            ) : destinationAccount.type === "card" ? (*/}
-                {/*                <Box>*/}
-                {/*                    <Text mb={2} fontSize="lg" fontFamily="body">Destination Account</Text>*/}
-                {/*                    <Divider*/}
-                {/*                        alignSelf="center"*/}
-                {/*                        width="100%"*/}
-                {/*                        mt={1}*/}
-                {/*                        mb={1}*/}
-                {/*                        backgroundColor="muted.200"*/}
-                {/*                        orientation="horizontal"*/}
-                {/*                        thickness={1} />*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Payment Method</Text>*/}
-                {/*                    <Text mb={2} fontSize="sm" color="muted.500"*/}
-                {/*                          fontFamily="body">{destinationAccount.type}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">CVV</Text>*/}
-                {/*                    <Text mb={2} fontSize="lg"*/}
-                {/*                          fontFamily="body">{destinationAccount.cardDetails.cvv}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Card Brand</Text>*/}
-                {/*                    <Text mb={2} fontSize="sm" color="muted.500"*/}
-                {/*                          fontFamily="body">{destinationAccount.cardDetails.brand}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Card Name</Text>*/}
-                {/*                    <Text mb={2} fontSize="sm" color="muted.500"*/}
-                {/*                          fontFamily="body">{destinationAccount.cardDetails.name}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Card Number</Text>*/}
-                {/*                    <Text mb={2} fontSize="sm" color="muted.500"*/}
-                {/*                          fontFamily="body">{destinationAccount.cardDetails.number}</Text>*/}
-                {/*                    <Text fontSize="xs" color="muted.400">Expiry Date</Text>*/}
-                {/*                    <Text mb={2} fontSize="sm" color="muted.500"*/}
-                {/*                          fontFamily="body">*/}
-                {/*                        {`${destinationAccount.cardDetail.expiryMonth}/${destinationAccount.cardDetail.expiryMonth}`}*/}
-                {/*                    </Text>*/}
-                {/*                </Box>*/}
-                {/*            ) : null}*/}
-                {/*        </Box>*/}
-                {/*    </Box>*/}
-                {/*)}*/}
+                {sourceAccount && destinationAccount && (
+                    <Box>
+                        <Box m={2} p={4} shadow={0}
+                             borderBottomLeftRadius={0}
+                             borderTopRightRadius={0}
+                             borderBottomRightRadius={16}
+                             borderTopLeftRadius={16} backgroundColor="white">
+                            <Text fontSize="lg">Contribution Summary</Text>
+                            <Divider
+                                alignSelf="center"
+                                width="100%"
+                                mt={1}
+                                mb={1}
+                                backgroundColor="muted.200"
+                                orientation="horizontal"
+                                thickness={1} />
+                            
+                            <Text mb={2} fontSize="md">
+                                Contribution
+                                of {susuDetail.paymentPlan.amount} {susuDetail.paymentPlan.currency} is being
+                                made towards
+                                the susu group {susuDetail.group.name} using the {sourceAccount.type} with the
+                                following details
+                            </Text>
+                            
+                            {sourceAccount.type === "bank_account" ? (
+                                <Box>
+                                    <Text mb={2} fontSize="lg" fontFamily="body">Source Account</Text>
+                                    <Divider
+                                        alignSelf="center"
+                                        width="100%"
+                                        mt={1}
+                                        mb={1}
+                                        backgroundColor="muted.200"
+                                        orientation="horizontal"
+                                        thickness={1} />
+                                    <Text fontSize="xs" color="muted.400">Payment Method</Text>
+                                    <Text mb={2} fontSize="sm" color="muted.500"
+                                          fontFamily="body">{sourceAccount.type}</Text>
+                                    <Text fontSize="xs" color="muted.400">Bank Name</Text>
+                                    <Text mb={2} fontSize="sm" color="muted.500"
+                                          fontFamily="body">{sourceAccount.bankAccountDetails.bankName}</Text>
+                                    <Text fontSize="xs" color="muted.400">Account Type</Text>
+                                    <Text mb={2} fontSize="sm" color="muted.400"
+                                          fontFamily="body">{sourceAccount.bankAccountDetails.accountHolderType}</Text>
+                                    <Text fontSize="xs" color="muted.400">Account Name</Text>
+                                    <Text mb={2} fontSize="sm" color="muted.500"
+                                          fontFamily="body">{sourceAccount.bankAccountDetails.accountHolderName}</Text>
+                                    <Text fontSize="xs" color="muted.400">Account Number</Text>
+                                    <Text mb={2} fontSize="sm" color="muted.500"
+                                          fontFamily="body">{sourceAccount.bankAccountDetails.accountNumber}</Text>
+                                </Box>
+                            ) : sourceAccount.type === "card" ? (
+                                <Box>
+                                    <Text mb={2} fontSize="xs" color="muted.400" fontFamily="body">Destination
+                                        Account</Text>
+                                    <Divider
+                                        alignSelf="center"
+                                        width="100%"
+                                        mt={1}
+                                        mb={1}
+                                        backgroundColor="muted.200"
+                                        orientation="horizontal"
+                                        thickness={1} />
+                                    <Text fontSize="xs" color="muted.400">Payment Method</Text>
+                                    <Text mb={2} fontSize="sm" color="muted.500"
+                                          fontFamily="body">{sourceAccount.type}</Text>
+                                    <Text fontSize="xs" color="muted.400">CVV</Text>
+                                    <Text mb={2} fontSize="sm" color="muted.500"
+                                          fontFamily="body">{sourceAccount.cardDetails.cvv}</Text>
+                                    <Text fontSize="xs" color="muted.400">Card Brand</Text>
+                                    <Text mb={2} fontSize="sm" color="muted.500"
+                                          fontFamily="body">{sourceAccount.cardDetails.brand}</Text>
+                                    <Text fontSize="xs" color="muted.400">Card Name</Text>
+                                    <Text mb={2} fontSize="sm" color="muted.500"
+                                          fontFamily="body">{sourceAccount.cardDetails.name}</Text>
+                                    <Text fontSize="xs" color="muted.400">Card Number</Text>
+                                    <Text mb={2} fontSize="sm" color="muted.500"
+                                          fontFamily="body">{sourceAccount.cardDetails.number}</Text>
+                                    <Text fontSize="xs" color="muted.400">Expiry Date</Text>
+                                    <Text
+                                        mb={2}
+                                        fontSize="sm"
+                                        color="muted.500"
+                                        fontFamily="body">
+                                        {`${destinationAccount.cardDetails.expiryMonth}/${destinationAccount.cardDetails.expiryMonth}`}
+                                    </Text>
+                                </Box>
+                            ) : null}
+                            
+                            {destinationAccount.type === "bank_account" ? (
+                                <Box>
+                                    <Text mb={2} fontSize="lg" fontFamily="body">Destination Account</Text>
+                                    <Divider
+                                        alignSelf="center"
+                                        width="100%"
+                                        mt={1}
+                                        mb={1}
+                                        backgroundColor="muted.200"
+                                        orientation="horizontal"
+                                        thickness={1} />
+                                    <Text fontSize="xs" color="muted.400">Payment Method</Text>
+                                    <Text mb={2} fontSize="lg" fontFamily="body">{destinationAccount.type}</Text>
+                                    <Text fontSize="xs" color="muted.400">Bank Name</Text>
+                                    <Text mb={2} fontSize="lg"
+                                          fontFamily="body">{destinationAccount.bankAccount.bankName}</Text>
+                                    <Text fontSize="xs" color="muted.400">Account Type</Text>
+                                    <Text mb={2} fontSize="lg"
+                                          fontFamily="body">{destinationAccount.bankAccount.accountHolderType}</Text>
+                                    <Text fontSize="xs" color="muted.400">Account Name</Text>
+                                    <Text mb={2} fontSize="lg"
+                                          fontFamily="body">{destinationAccount.bankAccount.accountHolderName}</Text>
+                                    <Text fontSize="xs" color="muted.400">Account Number</Text>
+                                    <Text mb={2} fontSize="lg"
+                                          fontFamily="body">{destinationAccount.bankAccount.accountNumber}</Text>
+                                </Box>
+                            ) : destinationAccount.type === "card" ? (
+                                <Box>
+                                    <Text mb={2} fontSize="lg" fontFamily="body">Destination Account</Text>
+                                    <Divider
+                                        alignSelf="center"
+                                        width="100%"
+                                        mt={1}
+                                        mb={1}
+                                        backgroundColor="muted.200"
+                                        orientation="horizontal"
+                                        thickness={1} />
+                                    <Text fontSize="xs" color="muted.400">Payment Method</Text>
+                                    <Text mb={2} fontSize="sm" color="muted.500"
+                                          fontFamily="body">{destinationAccount.type}</Text>
+                                    <Text fontSize="xs" color="muted.400">CVV</Text>
+                                    <Text mb={2} fontSize="lg"
+                                          fontFamily="body">{destinationAccount.cardDetails.cvv}</Text>
+                                    <Text fontSize="xs" color="muted.400">Card Brand</Text>
+                                    <Text mb={2} fontSize="sm" color="muted.500"
+                                          fontFamily="body">{destinationAccount.cardDetails.brand}</Text>
+                                    <Text fontSize="xs" color="muted.400">Card Name</Text>
+                                    <Text mb={2} fontSize="sm" color="muted.500"
+                                          fontFamily="body">{destinationAccount.cardDetails.name}</Text>
+                                    <Text fontSize="xs" color="muted.400">Card Number</Text>
+                                    <Text mb={2} fontSize="sm" color="muted.500"
+                                          fontFamily="body">{destinationAccount.cardDetails.number}</Text>
+                                    <Text fontSize="xs" color="muted.400">Expiry Date</Text>
+                                    <Text mb={2} fontSize="sm" color="muted.500"
+                                          fontFamily="body">
+                                        {`${destinationAccount.cardDetails.expiryMonth}/${destinationAccount.cardDetails.expiryMonth}`}
+                                    </Text>
+                                </Box>
+                            ) : null}
+                        </Box>
+                    </Box>
+                )}
                 
                 
                 {sourceAccount && destinationAccount && (

@@ -31,7 +31,7 @@ const addPaymentMethod = (paymentMethod, token, navigation) => {
       dispatch(addPaymentMethodRequest());
       const response = await axios({
         method: "POST",
-        url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/payment-methods?ownership=Individual`,
+        url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/sources?ownership=Individual`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -39,7 +39,7 @@ const addPaymentMethod = (paymentMethod, token, navigation) => {
       });
 
       const { data, message } = response.data;
-      dispatch(addPaymentMethodSuccess(data));
+      dispatch(addPaymentMethodSuccess(data))
       navigation.navigate(SCREEN_NAME_CONSTANTS.PAYMENT_METHODS_SCREEN);
       UTILS.showToast(
           'Payment Method Added',
@@ -86,7 +86,7 @@ const getPaymentMethod = (paymentMethodID, token) => {
       dispatch(getPaymentMethodRequest());
       const response = await axios({
         method: "GET",
-        url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/payment-methods/${paymentMethodID}?ownership=Individual`,
+        url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/sources/${paymentMethodID}?ownership=Individual`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -134,7 +134,7 @@ const getPaymentMethods = (token) => {
       dispatch(getPaymentMethodsRequest());
       const response = await axios({
         method: "GET",
-        url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/payment-methods?ownership=Individual`,
+        url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/sources?ownership=Individual`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -180,7 +180,7 @@ const updatePaymentMethod = (paymentMethodID, paymentMethod, token) => {
       dispatch(updatePaymentMethodRequest());
       const response = await axios({
         method: "PUT",
-        url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/payment-methods/${paymentMethodID}?ownership=Individual`,
+        url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/sources/${paymentMethodID}?ownership=Individual`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -228,7 +228,7 @@ const removePaymentMethod = (paymentMethodID, token, query) => {
       dispatch(removePaymentMethodRequest());
       const response = await axios({
         method: "DELETE",
-        url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/payment-methods/${paymentMethodID}?${query}`,
+        url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/sources/${paymentMethodID}?${query}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },

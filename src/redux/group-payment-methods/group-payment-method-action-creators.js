@@ -31,7 +31,7 @@ const getGroupPaymentMethods = (token, groupID) => {
       dispatch(getGroupPaymentMethodsRequest());
       const response = await axios({
         method: "GET",
-        url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/payment-methods?ownership=Group&group=${groupID}`,
+        url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/sources?ownership=Group&group=${groupID}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -78,7 +78,7 @@ const addGroupPaymentMethod = (token, paymentMethod, groupID, navigation) => {
       dispatch(addGroupPaymentMethodRequest());
       const response = await axios({
         method: "POST",
-        url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/payment-methods?ownership=Group&group=${groupID}`,
+        url: `${API_URL_CONSTANTS.BASE_SERVER_URL}/sources?ownership=Group&group=${groupID}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -88,6 +88,7 @@ const addGroupPaymentMethod = (token, paymentMethod, groupID, navigation) => {
       const { data } = response.data;
       dispatch(addGroupPaymentMethodSuccess(data));
       navigation.navigate(SCREEN_NAME_CONSTANTS.GROUP_PAYMENT_METHODS, {groupID})
+      console.log('added group payment methods')
     } catch (e) {
       const { message } = e.response.data;
   
