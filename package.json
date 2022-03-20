@@ -19,6 +19,7 @@
     "@react-navigation/material-top-tabs": "^6.0.6",
     "@react-navigation/native": "^6.0.4",
     "@react-navigation/native-stack": "^6.2.2",
+    "@stripe/stripe-react-native": "^0.4.0",
     "axios": "^0.22.0",
     "credit-card": "^3.0.2",
     "moment": "^2.29.1",

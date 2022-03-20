@@ -25,6 +25,10 @@ const CreateGroupSummary = ({ navigation,  }) => {
 
     const dispatch = useDispatch();
 
+    console.log(createGroupBasicInfo,
+        createGroupRegulations,
+        createGroupInvitations,
+        createGroupPaymentMethod);
     const handleCreateGroup = () => {
         dispatch(GROUP_ACTION_CREATORS.createGroup(
             authToken,

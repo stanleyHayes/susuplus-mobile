@@ -12,6 +12,29 @@ const INITIAL_STATE = {
 
 const authReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  
+    case AUTH_ACTION_TYPES.VERIFY_ACCOUNT_REQUEST:
+      return {
+        ...state,
+        authLoading: true,
+        authError: null
+      }
+  
+    case AUTH_ACTION_TYPES.VERIFY_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        authLoading: false,
+        authError: null,
+        signUpToken: null,
+      }
+  
+    case AUTH_ACTION_TYPES.VERIFY_ACCOUNT_FAILURE:
+      return {
+        ...state,
+        authLoading: false,
+        authError: action.payload
+      }
+      
     case AUTH_ACTION_TYPES.RESTORE_TOKEN_REQUEST:
       return {
         ...state,
@@ -60,6 +83,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
         authToken: null,
         userData: {}
       }
+      
     case AUTH_ACTION_TYPES.SIGN_UP_REQUEST:
       return {
         ...state,

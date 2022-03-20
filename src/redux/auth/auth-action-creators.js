@@ -278,19 +278,19 @@ export const resetPassword = (user, token, navigator) => {
 
 const verifyAccountRequest = () => {
     return {
-        type: AUTH_ACTION_TYPES.CHANGE_PASSWORD_REQUEST,
+        type: AUTH_ACTION_TYPES.VERIFY_ACCOUNT_REQUEST,
     };
 };
 
 const verifyAccountSuccess = () => {
     return {
-        type: AUTH_ACTION_TYPES.CHANGE_PASSWORD_SUCCESS,
+        type: AUTH_ACTION_TYPES.VERIFY_ACCOUNT_SUCCESS,
     };
 };
 
 const verifyAccountFailure = error => {
     return {
-        type: AUTH_ACTION_TYPES.CHANGE_PASSWORD_FAILURE,
+        type: AUTH_ACTION_TYPES.VERIFY_ACCOUNT_FAILURE,
         payload: error,
     };
 };
